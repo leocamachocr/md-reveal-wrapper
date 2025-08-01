@@ -129,7 +129,7 @@ class Calculator {
         screen = a + b;
     }
 }
-````
+```
 
 ---
 
