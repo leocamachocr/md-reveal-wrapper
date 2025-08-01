@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/{{ highlight_theme }}.min.css">
     {% endif %}
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
+    {% if enable_code_focus == "true" %}
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/code-focus/code-focus.js"></script>
+    {% endif %}
 
     <!-- MathJax -->
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
@@ -110,7 +113,7 @@
             margin: {{ margin }},
             minScale: {{ min_scale }},
             maxScale: {{ max_scale }},
-            plugins: [ RevealMath.MathJax3, RevealHighlight ]
+            plugins: [ RevealMath.MathJax3, RevealHighlight{% if enable_code_focus == "true" %}, RevealCodeFocus{% endif %} ]
         });
 
         const breadcrumb = document.getElementById("header-trail");
