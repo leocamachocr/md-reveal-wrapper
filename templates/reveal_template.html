@@ -9,18 +9,12 @@
     <link rel="stylesheet" href="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.css">
     <link rel="stylesheet" href="{{ reveal_cdn }}/{{ reveal_version }}/theme/{{ theme }}.min.css" id="theme">
 
-    <!-- Highlight.js -->
-    {% if highlight_theme == "monokai" %}
-    <link rel="stylesheet" href="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/monokai.css">
-    {% else %}
+    <!-- Highlight.js CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/{{ highlight_theme }}.min.css">
-    {% endif %}
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
-    {% if enable_code_focus == "true" %}
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/code-focus/code-focus.js"></script>
-    {% endif %}
 
-    <!-- MathJax -->
+    <!-- Plugins de Reveal.js -->
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js"></script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
 
     <style>
@@ -100,7 +94,6 @@
         </div>
     </div>
 
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js"></script>
     <script>
         Reveal.initialize({
             controls: {{ enable_controls | lower }},
@@ -113,9 +106,19 @@
             margin: {{ margin }},
             minScale: {{ min_scale }},
             maxScale: {{ max_scale }},
-            plugins: [ RevealMath.MathJax3, RevealHighlight{% if enable_code_focus == "true" %}, RevealCodeFocus{% endif %} ]
+            plugins: [ RevealMath.MathJax3, RevealHighlight ]
         });
 
+        // Forzar inicialización de highlight.js si el plugin no lo hace
+        Reveal.on('ready', () => {
+            if (window.hljs) {
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }
+        });
+
+        // Breadcrumb dinámico
         const breadcrumb = document.getElementById("header-trail");
         Reveal.on('slidechanged', event => {
             if (breadcrumb) {

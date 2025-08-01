@@ -8,13 +8,43 @@ from markdown_it import MarkdownIt
 from bs4 import BeautifulSoup
 from utils.config_loader import load_config
 from jinja2 import Template
+import re
 
 def load_template(template_path):
     with open(template_path, "r", encoding="utf-8") as f:
         return Template(f.read())
 
+def enable_code_line_numbers(md_parser):
+    """
+    Extiende MarkdownIt para soportar bloques con [x-y] para data-line-numbers.
+    Ejemplo en Markdown:
+    ```java [2-4|6]
+    código...
+    ```
+    """
+    default_fence = md_parser.renderer.rules.get("fence")
+
+    def fence_with_line_numbers(tokens, idx, options, env):
+        token = tokens[idx]
+        info = token.info.strip()
+
+        # Detectar lenguaje y rango de líneas
+        match = re.match(r"(\w+)\s*(?:\[(.+)\])?", info)
+        if match:
+            lang = match.group(1)
+            lines = match.group(2)
+            token.attrSet("class", f"language-{lang}")
+            if lines:
+                token.attrSet("data-line-numbers", lines)
+
+        return default_fence(tokens, idx, options, env)
+
+    md_parser.renderer.rules["fence"] = fence_with_line_numbers
+
 def convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config):
     md_parser = MarkdownIt("commonmark").enable("table")
+    enable_code_line_numbers(md_parser)
+
     slides_md = md_content.split(config["slide_separator"])
     slides_html = []
     header_context = {}
