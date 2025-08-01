@@ -11,6 +11,7 @@ It supports advanced features such as:
 * ✅ **Tables** rendered from Markdown
 * ✅ **Math equations** using MathJax
 * ✅ **Syntax highlighting** with support for line highlighting (`[2|4-6]`)
+* ✅ **Step-by-step code focus** via Reveal.js `code-focus` plugin
 * ✅ **Highlight.js themes** loaded from CDN or local fallback
 * ✅ Project modular structure for easy customization
 
@@ -65,6 +66,7 @@ show_header_trail=true
 
 # Highlight.js theme (examples: monokai, atom-one-light, dracula, github)
 highlight_theme=atom-one-light
+enable_code_focus=true
 
 # Fonts
 font_base=28px
@@ -222,6 +224,20 @@ Highlight specific lines in code blocks:
     print("Line 4")
     ````
 ````
+
+### Code Focus Plugin
+
+Enable the official `code-focus` plugin to step through highlighted lines. Set `enable_code_focus=true` in `config.properties` and use bracket notation to define each step:
+
+```java [2|4-6]
+class Calculator {
+    int screen;
+
+    void add(int a, int b) {
+        screen = a + b;
+    }
+}
+```
 
 
 ---
