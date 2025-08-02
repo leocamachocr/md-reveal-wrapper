@@ -10,6 +10,11 @@ from utils.config_loader import load_config
 from jinja2 import Template
 import re
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 def load_template(template_path):
     with open(template_path, "r", encoding="utf-8") as f:
         return Template(f.read())
@@ -89,7 +94,7 @@ def generate_reveal_presentation(md_file, config):
 
     slides_html = convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config)
 
-    template = load_template("templates/reveal_template.html")
+    template = load_template(resource_path("templates/reveal_template.html"))
 
     html_content = template.render(slides=slides_html, **config)
 
@@ -110,7 +115,7 @@ def main():
         print(f"Error: No se encontró el archivo {md_file}")
         sys.exit(1)
 
-    config = load_config("config.properties")
+    config = load_config(resource_path("config.properties"))
     generate_reveal_presentation(md_file, config)
 
 if __name__ == "__main__":
