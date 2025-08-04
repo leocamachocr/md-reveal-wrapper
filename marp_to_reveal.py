@@ -74,8 +74,9 @@ def convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config):
                     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
                     shutil.copy(abs_path, dest_path)
                     img["src"] = f"assets/{rel_path.replace(os.sep, '/')}"
-            img["data-preview-image"] = ""
-        # ✅ Agregar clase fragment a listas
+            img["data-preview-image"] = ""  # Habilita el lightbox
+
+        # Agregar clase fragment a listas si está habilitado
         if config.get("enable_fragments", "true").lower() == "true":
             for li in soup.find_all("li"):
                 li["class"] = (li.get("class", []) + ["fragment"])
@@ -98,17 +99,29 @@ def generate_reveal_presentation(md_file, config):
         md_content = f.read()
 
     md_base_path = os.path.dirname(os.path.abspath(md_file))
-    temp_dir = tempfile.mkdtemp()
-    assets_dir = os.path.join(temp_dir, "assets")
+
+    # Determinar directorio de salida
+    if config.get("output_in_md_dir", "false").lower() == "true":
+        md_filename = Path(md_file).stem
+        output_dir = os.path.join(md_base_path, f"md_reveal_{md_filename}")
+        os.makedirs(output_dir, exist_ok=True)
+    else:
+        output_dir = tempfile.mkdtemp()
+
+    # Crear carpeta de assets
+    assets_dir = os.path.join(output_dir, "assets")
     os.makedirs(assets_dir, exist_ok=True)
 
+    # Generar HTML de slides
     slides_html = convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config)
 
+    # Cargar template y renderizar
     template = load_template(resource_path("templates/reveal_template.html"))
 
     html_content = template.render(slides=slides_html, **config)
 
-    output_file = Path(temp_dir) / "presentation.html"
+    # Escribir el archivo final
+    output_file = Path(output_dir) / "presentation.html"
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(html_content)
 
