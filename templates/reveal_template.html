@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="{{ reveal_cdn }}/{{ reveal_version }}/theme/{{ theme }}.min.css" id="theme">
 
     <!-- Highlight.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/{{ highlight_theme }}.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/{{ highlight_theme }}.min.css">
 
-    <!-- Plugins de Reveal.js -->
+    <!-- Reveal.js Scripts -->
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js"></script>
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
@@ -41,6 +42,27 @@
             object-fit: contain;
             display: block !important;
             margin: 0 auto !important;
+            cursor: zoom-in;
+        }
+
+        /* Overlay de lightbox */
+        .image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .image-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border-radius: 8px;
         }
 
         /* Tablas */
@@ -85,48 +107,60 @@
     </style>
 </head>
 <body>
-    <div class="reveal">
-        {% if show_header_trail == "true" %}
-        <div id="header-trail" class="header-trail"></div>
-        {% endif %}
-        <div class="slides">
-            {{ slides | safe }}
-        </div>
+<div class="reveal">
+    {% if show_header_trail == "true" %}
+    <div id="header-trail" class="header-trail"></div>
+    {% endif %}
+    <div class="slides">
+        {{ slides | safe }}
     </div>
+</div>
 
-    <script>
-        Reveal.initialize({
-            controls: {{ enable_controls | lower }},
-            progress: {{ enable_progress | lower }},
-            history: {{ enable_history | lower }},
-            center: {{ align_center | lower }},
-            transition: '{{ transition }}',
-            width: {{ width }},
-            height: {{ height }},
-            margin: {{ margin }},
-            minScale: {{ min_scale }},
-            maxScale: {{ max_scale }},
-            plugins: [ RevealMath.MathJax3, RevealHighlight ]
+<script>
+    Reveal.initialize({
+        controls: {{ enable_controls | lower }},
+        progress: {{ enable_progress | lower }},
+        history: {{ enable_history | lower }},
+        center: {{ align_center | lower }},
+        transition: '{{ transition }}',
+        width: {{ width }},
+        height: {{ height }},
+        margin: {{ margin }},
+        minScale: {{ min_scale }},
+        maxScale: {{ max_scale }},
+        plugins: [ RevealMath.MathJax3, RevealHighlight ]
+    });
+
+    // Inicializar lightbox para imágenes con data-preview-image
+    Reveal.on('ready', () => {
+        document.querySelectorAll('img[data-preview-image]').forEach(img => {
+            img.addEventListener('click', () => {
+                const overlay = document.createElement('div');
+                overlay.classList.add('image-overlay');
+
+                const fullImage = document.createElement('img');
+                fullImage.src = img.src;
+
+                overlay.appendChild(fullImage);
+                overlay.addEventListener('click', () => overlay.remove());
+
+                document.body.appendChild(overlay);
+            });
         });
 
-        // Forzar inicialización de highlight.js si el plugin no lo hace
-        Reveal.on('ready', () => {
-            if (window.hljs) {
-                document.querySelectorAll('pre code').forEach((block) => {
-                    hljs.highlightElement(block);
-                });
-            }
-        });
+        // Forzar highlight.js
+        if (window.hljs) {
+            document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
+        }
+    });
 
-        // Breadcrumb dinámico
-        const breadcrumb = document.getElementById("header-trail");
-        Reveal.on('slidechanged', event => {
-            if (breadcrumb) {
-                const currentSlide = event.currentSlide;
-                const trail = currentSlide.getAttribute("data-breadcrumb") || "";
-                breadcrumb.textContent = trail;
-            }
-        });
-    </script>
+    // Breadcrumb dinámico
+    const breadcrumb = document.getElementById("header-trail");
+    Reveal.on('slidechanged', event => {
+        if (breadcrumb) {
+            breadcrumb.textContent = event.currentSlide.getAttribute("data-breadcrumb") || "";
+        }
+    });
+</script>
 </body>
 </html>

@@ -11,9 +11,14 @@ from jinja2 import Template
 import re
 
 def resource_path(relative_path):
+    """Obtiene la ruta absoluta del recurso, compatible con PyInstaller."""
     if hasattr(sys, '_MEIPASS'):
-        return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+        # Cuando es ejecutado como .exe
+        base_path = sys._MEIPASS
+    else:
+        # Cuando es ejecutado como script normal
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
 
 def load_template(template_path):
     with open(template_path, "r", encoding="utf-8") as f:
@@ -69,6 +74,11 @@ def convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config):
                     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
                     shutil.copy(abs_path, dest_path)
                     img["src"] = f"assets/{rel_path.replace(os.sep, '/')}"
+            img["data-preview-image"] = ""
+        # ✅ Agregar clase fragment a listas
+        if config.get("enable_fragments", "true").lower() == "true":
+            for li in soup.find_all("li"):
+                li["class"] = (li.get("class", []) + ["fragment"])
 
         # Breadcrumb
         first_heading = soup.find(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
