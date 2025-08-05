@@ -107,6 +107,36 @@
         .reveal .header-trail span { margin-right: 6px; }
         .reveal .header-trail span::after { content: "›"; margin-left: 6px; color: #aaa; }
         .reveal .header-trail span:last-child::after { content: ""; }
+
+        .reveal blockquote {
+            border-left: 6px solid #ccc;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 12px 20px;
+            margin: 20px auto;
+            border-radius: 6px;
+            max-width: 80%;
+            font-size: 1em;
+        }
+
+        .reveal blockquote.info {
+            border-left-color: #2a76dd;
+            background: rgba(42, 118, 221, 0.1);
+            color: #1a4f99;
+        }
+
+        .reveal blockquote.warning {
+            border-left-color: #e67e22;
+            background: rgba(230, 126, 34, 0.1);
+            color: #b35400;
+        }
+
+        .reveal blockquote.tip {
+            border-left-color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+            color: #1e8449;
+        }
+
+
     </style>
 </head>
 <body>

@@ -13,10 +13,8 @@ import re
 def resource_path(relative_path):
     """Obtiene la ruta absoluta del recurso, compatible con PyInstaller."""
     if hasattr(sys, '_MEIPASS'):
-        # Cuando es ejecutado como .exe
         base_path = sys._MEIPASS
     else:
-        # Cuando es ejecutado como script normal
         base_path = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_path, relative_path)
 
@@ -25,20 +23,13 @@ def load_template(template_path):
         return Template(f.read())
 
 def enable_code_line_numbers(md_parser):
-    """
-    Extiende MarkdownIt para soportar bloques con [x-y] para data-line-numbers.
-    Ejemplo en Markdown:
-    ```java [2-4|6]
-    código...
-    ```
-    """
+    """Extiende MarkdownIt para soportar bloques con [x-y] para data-line-numbers."""
     default_fence = md_parser.renderer.rules.get("fence")
 
     def fence_with_line_numbers(tokens, idx, options, env):
         token = tokens[idx]
         info = token.info.strip()
 
-        # Detectar lenguaje y rango de líneas
         match = re.match(r"(\w+)\s*(?:\[(.+)\])?", info)
         if match:
             lang = match.group(1)
@@ -74,7 +65,20 @@ def convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config):
                     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
                     shutil.copy(abs_path, dest_path)
                     img["src"] = f"assets/{rel_path.replace(os.sep, '/')}"
-            img["data-preview-image"] = ""  # Habilita el lightbox
+            img["data-preview-image"] = ""  # Lightbox habilitado
+
+        # Personalizar blockquotes según sintaxis [info], [warning], [tip]
+        for blockquote in soup.find_all("blockquote"):
+            text = blockquote.get_text(strip=True)
+            match = re.match(r"\[(info|warning|tip)\]\s*(.*)", text, re.IGNORECASE)
+            if match:
+                tipo = match.group(1).lower()
+                contenido = match.group(2)
+                blockquote["class"] = blockquote.get("class", []) + [tipo]
+                blockquote.clear()
+                new_p = soup.new_tag("p")
+                new_p.string = contenido
+                blockquote.append(new_p)
 
         # Agregar clase fragment a listas si está habilitado
         if config.get("enable_fragments", "true").lower() == "true":
@@ -100,7 +104,6 @@ def generate_reveal_presentation(md_file, config):
 
     md_base_path = os.path.dirname(os.path.abspath(md_file))
 
-    # Determinar directorio de salida
     if config.get("output_in_md_dir", "false").lower() == "true":
         md_filename = Path(md_file).stem
         output_dir = os.path.join(md_base_path, f"md_reveal_{md_filename}")
@@ -108,19 +111,14 @@ def generate_reveal_presentation(md_file, config):
     else:
         output_dir = tempfile.mkdtemp()
 
-    # Crear carpeta de assets
     assets_dir = os.path.join(output_dir, "assets")
     os.makedirs(assets_dir, exist_ok=True)
 
-    # Generar HTML de slides
     slides_html = convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config)
 
-    # Cargar template y renderizar
     template = load_template(resource_path("templates/reveal_template.html"))
-
     html_content = template.render(slides=slides_html, **config)
 
-    # Escribir el archivo final
     output_file = Path(output_dir) / "presentation.html"
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(html_content)
