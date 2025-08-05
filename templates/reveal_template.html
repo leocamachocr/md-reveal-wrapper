@@ -19,7 +19,9 @@
     <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
 
     <style>
-        /* Estilos base */
+        /* ========================
+           BASE
+        ========================= */
         .reveal section { font-size: {{ font_base }}; text-align: left; }
         .reveal section h1 { font-size: {{ font_h1 }}; }
         .reveal section h2 { font-size: {{ font_h2 }}; }
@@ -85,92 +87,118 @@
             font-weight: bold;
         }
 
-        /* Breadcrumb */
+        /* ========================
+           BREADCRUMB
+        ========================= */
         .reveal .header-trail {
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
-            font-size: 0.4em;
-            font-family: inherit !important;
-            font-weight: inherit !important;
-            line-height: 1.2;
-            color: #333;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 6px 12px;
-            border-radius: 0 0 4px 0;
+            font-size: 0.5em;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            max-width: 65%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 0 0 10px 0;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            gap: 4px;
             z-index: 9999;
-            max-width: 60%;
-            white-space: normal;
-            word-wrap: break-word;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
-        .reveal .header-trail span { margin-right: 6px; }
-        .reveal .header-trail span::after { content: "›"; margin-left: 6px; color: #aaa; }
-        .reveal .header-trail span:last-child::after { content: ""; }
 
-/* Base general para todos los quote boxes */
-.reveal blockquote {
-    position: relative;
-    padding: 16px 20px 16px 50px;
-    margin: 24px auto;
-    max-width: 80%;
-    border-radius: 10px;
-    font-size: 1.05em;
-    line-height: 1.5;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    color: #333;
-    font-style: italic;
+        .reveal .header-trail .crumb {
+            flex: 0 1 auto;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
 }
 
-/* Ícono pseudo-elemento */
-.reveal blockquote::before {
-    content: "❝";
-    position: absolute;
-    left: 15px;
-    top: 12px;
-    font-size: 24px;
-    color: #ccc;
-    font-style: normal;
+        .reveal .header-trail .crumb-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+            max-width: 120px;
+            display: inline-block;
+        }
+
+        .reveal .header-trail .crumb-separator {
+            flex-shrink: 0;
+            color: #aaa;
+        }
+
+        .reveal .header-trail .crumb:last-of-type .crumb-text {
+            color: #222;
+            max-width: none;
 }
 
-/* Variantes */
-.reveal blockquote.info {
-    border-left: 6px solid #2a76dd;
-    background: linear-gradient(135deg, rgba(42, 118, 221, 0.08), rgba(42, 118, 221, 0.02));
-    color: #1a4f99;
-}
+        /* ========================
+           QUOTE BOXES
+        ========================= */
+        .reveal blockquote {
+            position: relative;
+            padding: 16px 20px 16px 50px;
+            margin: 24px auto;
+            max-width: 80%;
+            border-radius: 10px;
+            font-size: 1.05em;
+            line-height: 1.5;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            color: #333;
+            font-style: italic;
+        }
 
-.reveal blockquote.info::before {
-    content: "ℹ️";
-    font-size: 20px;
-    color: #2a76dd;
-}
+        .reveal blockquote::before {
+            content: "❝";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            font-size: 24px;
+            color: #ccc;
+            font-style: normal;
+        }
 
-.reveal blockquote.warning {
-    border-left: 6px solid #e67e22;
-    background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(230, 126, 34, 0.02));
-    color: #b35400;
-}
+        .reveal blockquote.info {
+            border-left: 6px solid #2a76dd;
+            background: linear-gradient(135deg, rgba(42, 118, 221, 0.08), rgba(42, 118, 221, 0.02));
+            color: #1a4f99;
+        }
 
-.reveal blockquote.warning::before {
-    content: "⚠️";
-    font-size: 20px;
-    color: #e67e22;
-}
+        .reveal blockquote.info::before {
+            content: "ℹ️";
+            font-size: 20px;
+            color: #2a76dd;
+        }
 
-.reveal blockquote.tip {
-    border-left: 6px solid #27ae60;
-    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.02));
-    color: #1e8449;
-}
+        .reveal blockquote.warning {
+            border-left: 6px solid #e67e22;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(230, 126, 34, 0.02));
+            color: #b35400;
+        }
 
-.reveal blockquote.tip::before {
-    content: "💡";
-    font-size: 20px;
-    color: #27ae60;
-}
+        .reveal blockquote.warning::before {
+            content: "⚠️";
+            font-size: 20px;
+            color: #e67e22;
+        }
+
+        .reveal blockquote.tip {
+            border-left: 6px solid #27ae60;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.02));
+            color: #1e8449;
+        }
+
+        .reveal blockquote.tip::before {
+            content: "💡";
+            font-size: 20px;
+            color: #27ae60;
+        }
 
 
     </style>
@@ -200,7 +228,7 @@
         plugins: [ RevealMath.MathJax3, RevealHighlight ]
     });
 
-    // Inicializar lightbox para imágenes con data-preview-image
+    // Lightbox para imágenes
     Reveal.on('ready', () => {
         document.querySelectorAll('img[data-preview-image]').forEach(img => {
             img.addEventListener('click', () => {
@@ -209,8 +237,6 @@
 
                 const fullImage = document.createElement('img');
                 fullImage.src = img.src;
-                fullImage.style.width = '100%';
-                fullImage.style.height = 'auto';
 
                 overlay.appendChild(fullImage);
                 overlay.addEventListener('click', () => overlay.remove());
@@ -219,7 +245,6 @@
             });
         });
 
-        // Forzar highlight.js
         if (window.hljs) {
             document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
         }
@@ -229,7 +254,27 @@
     const breadcrumb = document.getElementById("header-trail");
     Reveal.on('slidechanged', event => {
         if (breadcrumb) {
-            breadcrumb.textContent = event.currentSlide.getAttribute("data-breadcrumb") || "";
+            breadcrumb.innerHTML = "";
+            const trail = (event.currentSlide.getAttribute("data-breadcrumb") || "").split(">");
+            trail.forEach((part, index) => {
+                const span = document.createElement("span");
+                span.className = "crumb";
+
+                const text = document.createElement("span");
+                text.className = "crumb-text";
+                text.textContent = part.trim();
+                text.title = part.trim();
+
+                span.appendChild(text);
+                breadcrumb.appendChild(span);
+
+                if (index < trail.length - 1) {
+                    const sep = document.createElement("span");
+                    sep.className = "crumb-separator";
+                    sep.textContent = "›";
+                    breadcrumb.appendChild(sep);
+                }
+            });
         }
     });
 </script>
