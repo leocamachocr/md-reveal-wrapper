@@ -108,33 +108,69 @@
         .reveal .header-trail span::after { content: "›"; margin-left: 6px; color: #aaa; }
         .reveal .header-trail span:last-child::after { content: ""; }
 
-        .reveal blockquote {
-            border-left: 6px solid #ccc;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 12px 20px;
-            margin: 20px auto;
-            border-radius: 6px;
-            max-width: 80%;
-            font-size: 1em;
-        }
+/* Base general para todos los quote boxes */
+.reveal blockquote {
+    position: relative;
+    padding: 16px 20px 16px 50px;
+    margin: 24px auto;
+    max-width: 80%;
+    border-radius: 10px;
+    font-size: 1.05em;
+    line-height: 1.5;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    color: #333;
+    font-style: italic;
+}
 
-        .reveal blockquote.info {
-            border-left-color: #2a76dd;
-            background: rgba(42, 118, 221, 0.1);
-            color: #1a4f99;
-        }
+/* Ícono pseudo-elemento */
+.reveal blockquote::before {
+    content: "❝";
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    font-size: 24px;
+    color: #ccc;
+    font-style: normal;
+}
 
-        .reveal blockquote.warning {
-            border-left-color: #e67e22;
-            background: rgba(230, 126, 34, 0.1);
-            color: #b35400;
-        }
+/* Variantes */
+.reveal blockquote.info {
+    border-left: 6px solid #2a76dd;
+    background: linear-gradient(135deg, rgba(42, 118, 221, 0.08), rgba(42, 118, 221, 0.02));
+    color: #1a4f99;
+}
 
-        .reveal blockquote.tip {
-            border-left-color: #27ae60;
-            background: rgba(39, 174, 96, 0.1);
-            color: #1e8449;
-        }
+.reveal blockquote.info::before {
+    content: "ℹ️";
+    font-size: 20px;
+    color: #2a76dd;
+}
+
+.reveal blockquote.warning {
+    border-left: 6px solid #e67e22;
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(230, 126, 34, 0.02));
+    color: #b35400;
+}
+
+.reveal blockquote.warning::before {
+    content: "⚠️";
+    font-size: 20px;
+    color: #e67e22;
+}
+
+.reveal blockquote.tip {
+    border-left: 6px solid #27ae60;
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.02));
+    color: #1e8449;
+}
+
+.reveal blockquote.tip::before {
+    content: "💡";
+    font-size: 20px;
+    color: #27ae60;
+}
 
 
     </style>
