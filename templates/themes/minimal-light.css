@@ -1,0 +1,188 @@
+/* ========================
+   TIPOGRAFÍA BASE
+========================= */
+.reveal section {
+    font-size: 28px;
+    text-align: left;
+}
+.reveal section h1 { font-size: 2.5em; }
+.reveal section h2 { font-size: 2em; }
+.reveal section h3 { font-size: 1.5em; }
+.reveal section h4 { font-size: 1.2em; }
+.reveal section h5 { font-size: 1em; }
+.reveal section h6 { font-size: 0.9em; }
+.reveal p       { font-size: 1em; }
+.reveal li      { font-size: 1em; }
+
+/* ========================
+   LISTAS
+========================= */
+.reveal section ul { padding-left: 1.5em !important; }
+.reveal section ul ul { padding-left: 2em !important; }
+.reveal section ul ul ul { padding-left: 2.5em !important; }
+
+/* ========================
+   IMÁGENES
+========================= */
+.reveal section img {
+    max-width: 40% !important;
+    max-height: 40% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 0 auto !important;
+    cursor: zoom-in;
+}
+
+/* ========================
+   LIGHTBOX
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.image-overlay img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+/* ========================
+   TABLAS
+========================= */
+.reveal table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 80%;
+    font-size: 0.9em;
+}
+.reveal th, .reveal td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+}
+.reveal th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* ========================
+   QUOTE BOXES
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 16px 20px 16px 50px;
+    margin: 24px auto;
+    max-width: 80%;
+    border-radius: 10px;
+    font-size: 1.05em;
+    line-height: 1.5;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    color: #333;
+    font-style: italic;
+}
+
+.reveal blockquote.info {
+    border-left: 6px solid #2a76dd;
+    background: linear-gradient(135deg, rgba(42, 118, 221, 0.08), rgba(42, 118, 221, 0.02));
+    color: #1a4f99;
+}
+.reveal blockquote.warning {
+    border-left: 6px solid #e67e22;
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(230, 126, 34, 0.02));
+    color: #b35400;
+}
+.reveal blockquote.tip {
+    border-left: 6px solid #27ae60;
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.02));
+    color: #1e8449;
+}
+
+.reveal blockquote.info::before,
+.reveal blockquote.warning::before,
+.reveal blockquote.tip::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reveal blockquote.info::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a76dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>");
+}
+
+.reveal blockquote.warning::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e67e22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>");
+}
+
+.reveal blockquote.tip::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2327ae60' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>");
+}
+
+/* ========================
+   BREADCRUMB
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    font-size: 0.5em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 65%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 0 0 10px 0;
+    padding: 5px 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    gap: 4px;
+    z-index: 9999;
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 120px;
+    display: inline-block;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: #aaa;
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 600;
+    color: #222;
+    max-width: none;
+}

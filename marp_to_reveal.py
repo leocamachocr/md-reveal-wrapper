@@ -116,6 +116,12 @@ def generate_reveal_presentation(md_file, config):
 
     slides_html = convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config)
 
+    # Copiar el tema personalizado si existe
+    if "custom_theme" in config:
+        custom_theme_src = resource_path(f"templates/themes/{config['custom_theme']}")
+        custom_theme_dst = os.path.join(assets_dir, config['custom_theme'])
+        shutil.copy(custom_theme_src, custom_theme_dst)
+
     template = load_template(resource_path("templates/reveal_template.html"))
     html_content = template.render(slides=slides_html, **config)
 
