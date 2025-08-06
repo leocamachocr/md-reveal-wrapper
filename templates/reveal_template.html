@@ -170,35 +170,41 @@
             color: #1a4f99;
         }
 
-        .reveal blockquote.info::before {
-            content: "ℹ️";
-            font-size: 20px;
-            color: #2a76dd;
-        }
+    /* INFO (círculo con "i") */
+    .reveal blockquote.info::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a76dd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>") no-repeat center;
+        background-size: contain;
+    }
 
-        .reveal blockquote.warning {
-            border-left: 6px solid #e67e22;
-            background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(230, 126, 34, 0.02));
-            color: #b35400;
-        }
+    /* WARNING (triángulo con "!") */
+    .reveal blockquote.warning::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e67e22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>") no-repeat center;
+        background-size: contain;
+    }
 
-        .reveal blockquote.warning::before {
-            content: "⚠️";
-            font-size: 20px;
-            color: #e67e22;
-        }
-
-        .reveal blockquote.tip {
-            border-left: 6px solid #27ae60;
-            background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.02));
-            color: #1e8449;
-        }
-
-        .reveal blockquote.tip::before {
-            content: "💡";
-            font-size: 20px;
-            color: #27ae60;
-        }
+    /* TIP (bombilla) */
+    .reveal blockquote.tip::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        width: 18px;
+        height: 18px;
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2327ae60' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>") no-repeat center;
+        background-size: contain;
+    }
 
 
     </style>
