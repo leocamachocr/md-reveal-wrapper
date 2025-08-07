@@ -1,0 +1,671 @@
+/* ========================
+   TEMA NAVIDAD CLÁSICA DE INVIERNO - REVEAL.JS
+   Winter Elegance Theme - Colores sobrios y elegancia invernal
+========================= */
+
+/* Variables CSS - Paleta Invernal Sobria */
+:root {
+    /* Colores principales invernales */
+    --winter-white: #fafafa;
+    --snow-white: #ffffff;
+    --pearl-white: #f8f8ff;
+    --frost-blue: #e8f4f8;
+    --ice-blue: #d6e9f0;
+    --steel-blue: #778ca3;
+    --slate-blue: #57606f;
+    --charcoal: #2f3542;
+    --deep-navy: #1e2330;
+    --silver-gray: #a4b0be;
+    --warm-gray: #747d8c;
+    --soft-lavender: #e8e5f0;
+
+    /* Acentos sutiles */
+    --accent-platinum: #e5e5e5;
+    --accent-sage: #9aaf9f;
+    --accent-powder: #b8c6db;
+    --accent-pearl: #f5f5f5;
+
+    /* Gradientes invernales */
+    --gradient-winter-sky: linear-gradient(135deg, #e8f4f8 0%, #d6e9f0 100%);
+    --gradient-frost: linear-gradient(135deg, #ffffff 0%, #e8f4f8 100%);
+    --gradient-evening: linear-gradient(135deg, #57606f 0%, #2f3542 100%);
+    --gradient-snow: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    --gradient-subtle: linear-gradient(135deg, #f8f8ff 0%, #e8e5f0 100%);
+
+    /* Sombras invernales */
+    --shadow-soft: 0 4px 12px rgba(47, 53, 66, 0.08);
+    --shadow-medium: 0 8px 25px rgba(47, 53, 66, 0.12);
+    --shadow-deep: 0 12px 40px rgba(30, 35, 48, 0.15);
+    --shadow-frost: 0 2px 8px rgba(214, 233, 240, 0.4);
+    --shadow-elegant: 0 6px 20px rgba(119, 140, 163, 0.2);
+
+    /* Radios elegantes */
+    --radius-soft: 8px;
+    --radius-medium: 12px;
+    --radius-elegant: 16px;
+}
+
+/* ========================
+   BACKGROUND INVERNAL ELEGANTE
+========================= */
+.reveal {
+    background: var(--winter-white);
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(214, 233, 240, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(232, 229, 240, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 20%, rgba(184, 198, 219, 0.15) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8f4f8' fill-opacity='0.3'%3E%3Cpath d='M30 30c0-1.5-1.5-3-3-3s-3 1.5-3 3 1.5 3 3 3 3-1.5 3-3M15 15c0-.8-.8-1.5-1.5-1.5S12 14.2 12 15s.8 1.5 1.5 1.5S15 15.8 15 15M45 45c0-.8-.8-1.5-1.5-1.5S42 44.2 42 45s.8 1.5 1.5 1.5S45 45.8 45 45'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100% 100%, 100% 100%, 100% 100%, 60px 60px;
+    color: var(--charcoal);
+    position: relative;
+}
+
+.reveal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(2px 2px at 100px 150px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 200px 300px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 350px 100px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 50px 250px, rgba(255,255,255,0.5), transparent);
+    animation: gentleSnowfall 8s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes gentleSnowfall {
+    0% { transform: translateY(-100px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* ========================
+   TIPOGRAFÍA INVERNAL ELEGANTE
+========================= */
+.reveal section {
+    font-size: 28px;
+    text-align: left;
+    font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+    line-height: 1.7;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+}
+
+.reveal section h1 {
+    font-size: 2.8em;
+    font-weight: 300;
+    color: var(--deep-navy);
+    margin-bottom: 0.8em;
+    letter-spacing: -0.02em;
+    text-align: center;
+    position: relative;
+}
+
+.reveal section h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: var(--gradient-winter-sky);
+    border-radius: 2px;
+}
+
+.reveal section h2 {
+    font-size: 2.2em;
+    font-weight: 400;
+    color: var(--slate-blue);
+    margin-bottom: 0.7em;
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--ice-blue);
+    padding-bottom: 0.3em;
+    display: inline-block;
+}
+
+.reveal section h3 {
+    font-size: 1.6em;
+    font-weight: 400;
+    color: var(--steel-blue);
+    margin-bottom: 0.6em;
+    font-style: italic;
+}
+
+.reveal section h4 {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1em;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.reveal section h5 {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: var(--warm-gray);
+    margin-bottom: 0.4em;
+}
+
+.reveal section h6 {
+    font-size: 0.9em;
+    font-weight: 400;
+    color: var(--silver-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.reveal p {
+    font-size: 1em;
+    color: var(--charcoal);
+    margin-bottom: 1.2em;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.reveal li {
+    font-size: 1em;
+    color: var(--charcoal);
+    margin-bottom: 0.6em;
+}
+
+/* ========================
+   LISTAS INVERNALES ELEGANTES
+========================= */
+.reveal section ul {
+    padding-left: 1.5em !important;
+    list-style: none;
+}
+
+.reveal section ul ul {
+    padding-left: 2em !important;
+}
+
+.reveal section ul ul ul {
+    padding-left: 2.5em !important;
+}
+
+.reveal section ul li {
+    position: relative;
+    padding-left: 1.8em;
+}
+
+.reveal section ul li::before {
+    content: '❅';
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    color: var(--ice-blue);
+    font-size: 1.2em;
+    animation: snowflakeRotate 6s linear infinite;
+}
+
+.reveal section ul ul li::before {
+    content: '❄';
+    font-size: 0.9em;
+    color: var(--steel-blue);
+}
+
+.reveal section ul ul ul li::before {
+    content: '•';
+    font-size: 1.5em;
+    color: var(--silver-gray);
+    animation: none;
+}
+
+@keyframes snowflakeRotate {
+    0% { transform: rotate(0deg); opacity: 0.7; }
+    50% { transform: rotate(180deg); opacity: 1; }
+    100% { transform: rotate(360deg); opacity: 0.7; }
+}
+
+.reveal section ol {
+    counter-reset: list-counter;
+    padding-left: 1.5em !important;
+}
+
+.reveal section ol li {
+    counter-increment: list-counter;
+    position: relative;
+    padding-left: 2.5em;
+    list-style: none;
+}
+
+.reveal section ol li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-evening);
+    color: var(--winter-white);
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 600;
+    box-shadow: var(--shadow-soft);
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* ========================
+   IMÁGENES CON MARCO INVERNAL
+========================= */
+.reveal section img {
+    max-width: 40% !important;
+    max-height: 40% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 0 auto !important;
+    cursor: zoom-in;
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-elegant);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 4px solid var(--snow-white);
+    background: var(--snow-white);
+    padding: 8px;
+}
+
+.reveal section img:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--shadow-deep);
+    border-color: var(--ice-blue);
+}
+
+/* ========================
+   LIGHTBOX INVERNAL SERENO
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(248, 248, 255, 0.95);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: winterLightboxFade 0.4s ease-out;
+}
+
+@keyframes winterLightboxFade {
+    from { opacity: 0; backdrop-filter: blur(0px); }
+    to { opacity: 1; backdrop-filter: blur(20px); }
+}
+
+.image-overlay img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: var(--shadow-deep);
+    border-radius: var(--radius-elegant);
+    border: 6px solid var(--snow-white);
+    animation: sereneFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes sereneFadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ========================
+   TABLAS INVERNALES ELEGANTES
+========================= */
+.reveal table {
+    border-collapse: collapse;
+    margin: 30px auto;
+    width: 90%;
+    font-size: 0.9em;
+    background: var(--snow-white);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    box-shadow: var(--shadow-elegant);
+    border: 1px solid var(--ice-blue);
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--frost-blue);
+}
+
+.reveal th {
+    background: var(--gradient-winter-sky);
+    color: var(--deep-navy);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.reveal tbody tr:last-child th,
+.reveal tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr:nth-child(even) {
+    background: var(--pearl-white);
+}
+
+.reveal tbody tr:hover {
+    background: var(--frost-blue);
+    transition: background-color 0.3s ease;
+}
+
+/* ========================
+   QUOTE BOXES INVERNALES SERENOS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 30px 35px 30px 35px;
+    margin: 32px auto;
+    max-width: 85%;
+    border-radius: var(--radius-elegant);
+    font-size: 1.1em;
+    line-height: 1.8;
+    background: var(--snow-white);
+    border-left: 4px solid var(--ice-blue);
+    box-shadow: var(--shadow-elegant);
+    color: var(--charcoal);
+    font-style: italic;
+    transition: all 0.3s ease;
+    font-family: 'Playfair Display', serif;
+}
+
+.reveal blockquote:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-deep);
+}
+
+.reveal blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 3em;
+    color: var(--ice-blue);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.reveal blockquote.info {
+    border-left-color: var(--steel-blue);
+    background: linear-gradient(135deg, rgba(119, 140, 163, 0.03) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.reveal blockquote.info::before {
+    color: var(--steel-blue);
+}
+
+.reveal blockquote.warning {
+    border-left-color: var(--slate-blue);
+    background: linear-gradient(135deg, rgba(87, 96, 111, 0.03) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.reveal blockquote.warning::before {
+    color: var(--slate-blue);
+}
+
+.reveal blockquote.tip {
+    border-left-color: var(--accent-sage);
+    background: linear-gradient(135deg, rgba(154, 175, 159, 0.03) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.reveal blockquote.tip::before {
+    color: var(--accent-sage);
+}
+
+/* ========================
+   BREADCRUMB INVERNAL MINIMALISTA
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    font-size: 0.52em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 75%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 0 0 var(--radius-elegant) 0;
+    padding: 12px 20px;
+    box-shadow: var(--shadow-soft);
+    gap: 10px;
+    z-index: 9999;
+    color: var(--charcoal);
+    border-bottom: 1px solid var(--ice-blue);
+    border-right: 1px solid var(--ice-blue);
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 140px;
+    display: inline-block;
+    font-weight: 400;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: color 0.2s ease;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--ice-blue);
+    margin: 0 6px;
+    font-weight: 300;
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 600;
+    color: var(--deep-navy);
+    max-width: none;
+}
+
+/* ========================
+   ELEMENTOS DE CÓDIGO INVERNALES
+========================= */
+.reveal pre {
+    background: var(--deep-navy);
+    border: 1px solid var(--steel-blue);
+    border-radius: var(--radius-medium);
+    padding: 20px;
+    margin: 24px 0;
+    box-shadow: var(--shadow-elegant);
+    overflow-x: auto;
+}
+
+.reveal code {
+    background: var(--charcoal);
+    color: var(--frost-blue);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+    font-size: 0.88em;
+    font-weight: 400;
+    border: 1px solid var(--steel-blue);
+    box-shadow: 0 1px 3px rgba(47, 53, 66, 0.2);
+}
+
+/* ========================
+   ENLACES INVERNALES SUTILES
+========================= */
+.reveal a {
+    color: var(--steel-blue);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.reveal a:hover {
+    color: var(--slate-blue);
+    border-bottom-color: var(--ice-blue);
+}
+
+.reveal a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-winter-sky);
+    transition: width 0.3s ease;
+    border-radius: 1px;
+}
+
+.reveal a:hover::after {
+    width: 100%;
+}
+
+/* ========================
+   CONTROLES INVERNALES
+========================= */
+.reveal .controls {
+    color: var(--steel-blue);
+    bottom: 20px;
+    right: 20px;
+}
+
+.reveal .controls button {
+    color: var(--steel-blue) !important;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.reveal .controls button:hover {
+    opacity: 1;
+}
+
+.reveal .progress {
+    color: var(--steel-blue);
+    height: 3px;
+}
+
+.reveal .progress span {
+    background: var(--gradient-winter-sky);
+    transition: transform 0.3s ease;
+}
+
+/* ========================
+   ANIMACIONES SERENAS
+========================= */
+.reveal .slides section {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal .slides section.present {
+    animation: serenSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes serenSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================
+   ELEMENTOS ESPECIALES INVERNALES
+========================= */
+.reveal .winter-highlight {
+    background: var(--gradient-winter-sky);
+    color: var(--deep-navy);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: var(--shadow-soft);
+}
+
+.reveal .frost-badge {
+    display: inline-block;
+    background: var(--ice-blue);
+    color: var(--deep-navy);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 4px;
+    box-shadow: var(--shadow-soft);
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* ========================
+   RESPONSIVE INVERNAL
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 24px;
+    }
+
+    .reveal section h1 { font-size: 2.4em; }
+    .reveal section h2 { font-size: 2em; }
+
+    .reveal .header-trail {
+        max-width: 90%;
+        font-size: 0.48em;
+        padding: 10px 16px;
+    }
+
+    .reveal section img {
+        max-width: 70% !important;
+        max-height: 70% !important;
+    }
+
+    .reveal blockquote {
+        padding: 25px 30px 25px 30px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .reveal section {
+        font-size: 22px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .reveal section h1 { font-size: 2.2em; }
+    .reveal section h2 { font-size: 1.8em; }
+
+    .reveal::before {
+        background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+    }
+}

@@ -1,0 +1,579 @@
+/* ========================
+   TEMA LIGHT MODERNO MINIMALISTA - REVEAL.JS
+   Clean, minimal, contemporary design
+========================= */
+
+/* Variables CSS para consistencia */
+:root {
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
+    --bg-accent: #f5f7fa;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --accent-blue: #3182ce;
+    --accent-purple: #805ad5;
+    --accent-orange: #dd6b20;
+    --accent-green: #38a169;
+    --accent-pink: #d53f8c;
+    --border-light: #e2e8f0;
+    --border-medium: #cbd5e0;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-blue: linear-gradient(135deg, #667eea 0%, #3182ce 100%);
+    --gradient-warm: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.08);
+    --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+/* ========================
+   BACKGROUND BASE LIMPIO
+========================= */
+.reveal {
+    background: var(--bg-primary);
+    background-image:
+        radial-gradient(circle at 85% 10%, rgba(102, 126, 234, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 15% 90%, rgba(213, 63, 140, 0.03) 0%, transparent 40%);
+    color: var(--text-primary);
+}
+
+/* ========================
+   TIPOGRAFÍA MODERNA Y LIMPIA
+========================= */
+.reveal section {
+    font-size: 28px;
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.reveal section h1 {
+    font-size: 2.6em;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1em;
+    letter-spacing: -0.02em;
+}
+
+.reveal section h2 {
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 0.8em;
+    letter-spacing: -0.01em;
+}
+
+.reveal section h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--accent-purple);
+    margin-bottom: 0.7em;
+}
+
+.reveal section h4 {
+    font-size: 1.25em;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.6em;
+}
+
+.reveal section h5 {
+    font-size: 1.1em;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 0.5em;
+}
+
+.reveal section h6 {
+    font-size: 0.95em;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reveal p {
+    font-size: 1em;
+    color: var(--text-secondary);
+    margin-bottom: 1.2em;
+    font-weight: 400;
+}
+
+.reveal li {
+    font-size: 1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.6em;
+}
+
+/* ========================
+   LISTAS CON ESPACIADO ELEGANTE
+========================= */
+.reveal section ul {
+    padding-left: 1.5em !important;
+    list-style: none;
+}
+
+.reveal section ul ul {
+    padding-left: 2em !important;
+}
+
+.reveal section ul ul ul {
+    padding-left: 2.5em !important;
+}
+
+.reveal section ul li {
+    position: relative;
+    padding-left: 1.5em;
+}
+
+.reveal section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 6px;
+    background: var(--gradient-blue);
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+.reveal section ul ul li::before {
+    background: var(--accent-purple);
+    width: 4px;
+    height: 4px;
+}
+
+.reveal section ol li {
+    counter-increment: list-counter;
+    position: relative;
+    padding-left: 2em;
+}
+
+.reveal section ol {
+    counter-reset: list-counter;
+}
+
+.reveal section ol li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-primary);
+    color: white;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+/* ========================
+   IMÁGENES MINIMALISTAS CON SUTILES EFECTOS
+========================= */
+.reveal section img {
+    max-width: 40% !important;
+    max-height: 40% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 0 auto !important;
+    cursor: zoom-in;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid var(--border-light);
+}
+
+.reveal section img:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* ========================
+   LIGHTBOX REFINADO
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInLight 0.3s ease-out;
+}
+
+@keyframes fadeInLight {
+    from { opacity: 0; backdrop-filter: blur(0px); }
+    to { opacity: 1; backdrop-filter: blur(20px); }
+}
+
+.image-overlay img {
+    width: 100%;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: var(--shadow-strong);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    animation: scaleInLight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes scaleInLight {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ========================
+   TABLAS MODERNAS Y LIMPIAS
+========================= */
+.reveal table {
+    border-collapse: collapse;
+    margin: 30px auto;
+    width: 85%;
+    font-size: 0.9em;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-light);
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.reveal th {
+    background: var(--bg-accent);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reveal tbody tr:last-child th,
+.reveal tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr:hover {
+    background: rgba(102, 126, 234, 0.03);
+    transition: background-color 0.2s ease;
+}
+
+/* ========================
+   QUOTE BOXES ELEGANTES
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 24px 28px 24px 68px;
+    margin: 32px auto;
+    max-width: 85%;
+    border-radius: var(--radius-lg);
+    font-size: 1.05em;
+    line-height: 1.6;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    color: var(--text-secondary);
+    font-style: italic;
+    transition: all 0.3s ease;
+}
+
+.reveal blockquote:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.reveal blockquote.info {
+    border-left: 4px solid var(--accent-blue);
+    background: linear-gradient(135deg, rgba(49, 130, 206, 0.04), rgba(49, 130, 206, 0.01));
+}
+
+.reveal blockquote.warning {
+    border-left: 4px solid var(--accent-orange);
+    background: linear-gradient(135deg, rgba(221, 107, 32, 0.04), rgba(221, 107, 32, 0.01));
+}
+
+.reveal blockquote.tip {
+    border-left: 4px solid var(--accent-green);
+    background: linear-gradient(135deg, rgba(56, 161, 105, 0.04), rgba(56, 161, 105, 0.01));
+}
+
+.reveal blockquote.info::before,
+.reveal blockquote.warning::before,
+.reveal blockquote.tip::before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reveal blockquote.info::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233182ce' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>");
+}
+
+.reveal blockquote.warning::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dd6b20' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>");
+}
+
+.reveal blockquote.tip::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338a169' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>");
+}
+
+/* ========================
+   BREADCRUMB MINIMALISTA
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    font-size: 0.5em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 70%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 0 0 var(--radius-lg) 0;
+    padding: 12px 20px;
+    box-shadow: var(--shadow-soft);
+    gap: 8px;
+    z-index: 9999;
+    border: 1px solid var(--border-light);
+    border-top: none;
+    border-left: none;
+    color: var(--text-secondary);
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 140px;
+    display: inline-block;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    margin: 0 4px;
+    font-weight: 300;
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 600;
+    color: var(--accent-blue);
+    max-width: none;
+}
+
+/* ========================
+   ELEMENTOS DE CÓDIGO LIMPIOS
+========================= */
+.reveal pre {
+    background: var(--bg-accent);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 24px 0;
+    box-shadow: var(--shadow-soft);
+    overflow-x: auto;
+}
+
+.reveal code {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-purple);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    font-size: 0.88em;
+    font-weight: 500;
+}
+
+/* ========================
+   ENLACES ELEGANTES
+========================= */
+.reveal a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.reveal a:hover {
+    color: var(--accent-purple);
+    border-bottom-color: var(--accent-purple);
+}
+
+.reveal a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-blue);
+    transition: width 0.2s ease;
+    border-radius: 1px;
+}
+
+.reveal a:hover::after {
+    width: 100%;
+}
+
+/* ========================
+   CONTROLES DE PRESENTACIÓN
+========================= */
+.reveal .controls {
+    color: var(--accent-blue);
+    bottom: 20px;
+    right: 20px;
+}
+
+.reveal .controls button {
+    color: var(--accent-blue) !important;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.reveal .controls button:hover {
+    opacity: 1;
+}
+
+.reveal .progress {
+    color: var(--accent-blue);
+    height: 3px;
+}
+
+.reveal .progress span {
+    background: var(--gradient-primary);
+    transition: transform 0.3s ease;
+}
+
+/* ========================
+   ANIMACIONES SUAVES
+========================= */
+.reveal .slides section {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal .slides section.present {
+    animation: slideInLight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideInLight {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================
+   ESTADOS DE FOCUS ACCESIBLES
+========================= */
+.reveal a:focus,
+.reveal button:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 24px;
+    }
+
+    .reveal section h1 {
+        font-size: 2.2em;
+        letter-spacing: -0.01em;
+    }
+
+    .reveal section h2 {
+        font-size: 1.8em;
+    }
+
+    .reveal .header-trail {
+        max-width: 85%;
+        font-size: 0.45em;
+        padding: 10px 16px;
+    }
+
+    .reveal .header-trail .crumb-text {
+        max-width: 100px;
+    }
+
+    .reveal section img {
+        max-width: 70% !important;
+        max-height: 70% !important;
+    }
+
+    .reveal blockquote {
+        padding: 20px 24px 20px 56px;
+        font-size: 1em;
+    }
+
+    .reveal table {
+        width: 95%;
+        font-size: 0.85em;
+    }
+
+    .reveal th, .reveal td {
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reveal section {
+        font-size: 22px;
+    }
+
+    .reveal section h1 { font-size: 2em; }
+    .reveal section h2 { font-size: 1.6em; }
+}

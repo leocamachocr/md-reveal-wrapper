@@ -1,0 +1,634 @@
+/* ========================
+   TEMA UCR - UNIVERSIDAD DE COSTA RICA
+   Inspirado en los colores oficiales y tradición académica
+========================= */
+
+/* Variables CSS - Paleta UCR */
+:root {
+    /* Colores principales UCR */
+    --ucr-celeste: #0077be;
+    --ucr-celeste-light: #4da6d9;
+    --ucr-celeste-dark: #005a8b;
+    --ucr-dorado: #d4af37;
+    --ucr-dorado-light: #f4d03f;
+    --ucr-dorado-dark: #b7950b;
+    --ucr-blanco: #ffffff;
+    --ucr-azul-profundo: #003366;
+    --ucr-azul-marino: #1a4480;
+    
+    /* Colores complementarios */
+    --ucr-gris-claro: #f8f9fa;
+    --ucr-gris-medio: #6c757d;
+    --ucr-gris-oscuro: #343a40;
+    --ucr-verde-academico: #28a745;
+    --ucr-rojo-acento: #dc3545;
+    
+    /* Gradientes institucionales */
+    --gradient-ucr-primary: linear-gradient(135deg, #0077be 0%, #003366 100%);
+    --gradient-ucr-gold: linear-gradient(135deg, #d4af37 0%, #b7950b 100%);
+    --gradient-ucr-celeste: linear-gradient(135deg, #4da6d9 0%, #0077be 100%);
+    --gradient-ucr-elegant: linear-gradient(135deg, #003366 0%, #0077be 50%, #d4af37 100%);
+    
+    /* Sombras académicas */
+    --shadow-ucr-soft: 0 4px 12px rgba(0, 119, 190, 0.15);
+    --shadow-ucr-medium: 0 8px 25px rgba(0, 119, 190, 0.2);
+    --shadow-ucr-strong: 0 12px 40px rgba(0, 51, 102, 0.25);
+    --shadow-gold: 0 4px 15px rgba(212, 175, 55, 0.3);
+    
+    /* Radios */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+}
+
+/* ========================
+   BACKGROUND INSTITUCIONAL
+========================= */
+.reveal {
+    background: var(--ucr-gris-claro);
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(0, 119, 190, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 15% 85%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(0, 51, 102, 0.02) 0%, transparent 100%);
+    color: var(--ucr-azul-profundo);
+}
+
+/* ========================
+   TIPOGRAFÍA ACADÉMICA
+========================= */
+.reveal section {
+    font-size: 28px;
+    text-align: left;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.65;
+    font-weight: 400;
+}
+
+.reveal section h1 { 
+    font-size: 2.8em; 
+    font-weight: 700;
+    background: var(--gradient-ucr-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.8em;
+    letter-spacing: -0.02em;
+    text-shadow: none;
+}
+
+.reveal section h2 { 
+    font-size: 2.2em; 
+    font-weight: 600;
+    color: var(--ucr-celeste);
+    margin-bottom: 0.7em;
+    letter-spacing: -0.01em;
+    border-bottom: 3px solid var(--ucr-dorado);
+    padding-bottom: 0.2em;
+    display: inline-block;
+}
+
+.reveal section h3 { 
+    font-size: 1.6em; 
+    font-weight: 500;
+    color: var(--ucr-azul-marino);
+    margin-bottom: 0.6em;
+}
+
+.reveal section h4 { 
+    font-size: 1.3em; 
+    font-weight: 500;
+    color: var(--ucr-celeste-dark);
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 1.1em;
+}
+
+.reveal section h5 { 
+    font-size: 1.1em; 
+    font-weight: 400;
+    color: var(--ucr-gris-oscuro);
+    margin-bottom: 0.4em;
+}
+
+.reveal section h6 { 
+    font-size: 0.95em; 
+    font-weight: 400;
+    color: var(--ucr-gris-medio);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reveal p { 
+    font-size: 1em; 
+    color: var(--ucr-gris-oscuro);
+    margin-bottom: 1.2em;
+    text-align: justify;
+}
+
+.reveal li { 
+    font-size: 1em; 
+    color: var(--ucr-gris-oscuro);
+    margin-bottom: 0.6em;
+    text-align: justify;
+}
+
+/* ========================
+   LISTAS ACADÉMICAS
+========================= */
+.reveal section ul { 
+    padding-left: 1.5em !important; 
+    list-style: none;
+}
+
+.reveal section ul ul { 
+    padding-left: 2em !important; 
+}
+
+.reveal section ul ul ul { 
+    padding-left: 2.5em !important; 
+}
+
+.reveal section ul li {
+    position: relative;
+    padding-left: 1.8em;
+}
+
+.reveal section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 8px;
+    background: var(--gradient-ucr-celeste);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 8px rgba(0, 119, 190, 0.4);
+}
+
+.reveal section ul ul li::before {
+    background: var(--ucr-dorado);
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+}
+
+.reveal section ol {
+    counter-reset: list-counter;
+    padding-left: 1.5em !important;
+}
+
+.reveal section ol li {
+    counter-increment: list-counter;
+    position: relative;
+    padding-left: 2.5em;
+    list-style: none;
+}
+
+.reveal section ol li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-ucr-primary);
+    color: white;
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    box-shadow: var(--shadow-ucr-soft);
+}
+
+/* ========================
+   IMÁGENES CON MARCO ACADÉMICO
+========================= */
+.reveal section img {
+    max-width: 40% !important;
+    max-height: 40% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 0 auto !important;
+    cursor: zoom-in;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-ucr-medium);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 3px solid var(--ucr-blanco);
+    background: var(--ucr-blanco);
+    padding: 4px;
+}
+
+.reveal section img:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-ucr-strong);
+    border-color: var(--ucr-dorado);
+}
+
+/* ========================
+   LIGHTBOX INSTITUCIONAL
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 51, 102, 0.95);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInUCR 0.4s ease-out;
+}
+
+@keyframes fadeInUCR {
+    from { opacity: 0; backdrop-filter: blur(0px); }
+    to { opacity: 1; backdrop-filter: blur(15px); }
+}
+
+.image-overlay img {
+    width: 100%;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: var(--shadow-ucr-strong);
+    border-radius: var(--radius-lg);
+    border: 4px solid var(--ucr-dorado);
+    animation: zoomInUCR 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes zoomInUCR {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ========================
+   TABLAS INSTITUCIONALES
+========================= */
+.reveal table {
+    border-collapse: collapse;
+    margin: 30px auto;
+    width: 90%;
+    font-size: 0.9em;
+    background: var(--ucr-blanco);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-ucr-medium);
+    border: 2px solid var(--ucr-celeste);
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 119, 190, 0.1);
+}
+
+.reveal th {
+    background: var(--gradient-ucr-primary);
+    color: var(--ucr-blanco);
+    font-weight: 700;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reveal tbody tr:last-child th,
+.reveal tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr:nth-child(even) {
+    background: rgba(0, 119, 190, 0.03);
+}
+
+.reveal tbody tr:hover {
+    background: rgba(212, 175, 55, 0.08);
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* ========================
+   QUOTE BOXES ACADÉMICOS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 25px 30px 25px 70px;
+    margin: 32px auto;
+    max-width: 85%;
+    border-radius: var(--radius-lg);
+    font-size: 1.1em;
+    line-height: 1.7;
+    background: var(--ucr-blanco);
+    border: 2px solid var(--ucr-celeste);
+    box-shadow: var(--shadow-ucr-soft);
+    color: var(--ucr-azul-profundo);
+    font-style: italic;
+    transition: all 0.3s ease;
+    font-family: 'Georgia', serif;
+}
+
+.reveal blockquote:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-ucr-medium);
+}
+
+.reveal blockquote.info {
+    border-left: 6px solid var(--ucr-celeste);
+    background: linear-gradient(135deg, rgba(0, 119, 190, 0.05), rgba(0, 119, 190, 0.01));
+    border-color: var(--ucr-celeste);
+}
+
+.reveal blockquote.warning {
+    border-left: 6px solid var(--ucr-rojo-acento);
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.01));
+    border-color: var(--ucr-rojo-acento);
+}
+
+.reveal blockquote.tip {
+    border-left: 6px solid var(--ucr-verde-academico);
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(40, 167, 69, 0.01));
+    border-color: var(--ucr-verde-academico);
+}
+
+.reveal blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    font-size: 3em;
+    color: var(--ucr-dorado);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.reveal blockquote.info::after,
+.reveal blockquote.warning::after,
+.reveal blockquote.tip::after {
+    content: "";
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reveal blockquote.info::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230077be' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>");
+}
+
+.reveal blockquote.warning::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc3545' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>");
+}
+
+.reveal blockquote.tip::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2328a745' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>");
+}
+
+/* ========================
+   BREADCRUMB UNIVERSITARIO
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    font-size: 0.52em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 75%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--ucr-azul-profundo) 0%, var(--ucr-celeste) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 var(--radius-lg) 0;
+    padding: 10px 18px;
+    box-shadow: var(--shadow-ucr-medium);
+    gap: 10px;
+    z-index: 9999;
+    color: var(--ucr-blanco);
+    border-bottom: 3px solid var(--ucr-dorado);
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 140px;
+    display: inline-block;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--ucr-dorado);
+    margin: 0 4px;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 700;
+    color: var(--ucr-dorado);
+    max-width: none;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+}
+
+/* ========================
+   ELEMENTOS DE CÓDIGO ACADÉMICOS
+========================= */
+.reveal pre {
+    background: var(--ucr-azul-profundo);
+    border: 2px solid var(--ucr-celeste);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 24px 0;
+    box-shadow: var(--shadow-ucr-soft);
+    overflow-x: auto;
+}
+
+.reveal code {
+    background: var(--ucr-azul-profundo);
+    color: var(--ucr-dorado-light);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+    font-size: 0.88em;
+    font-weight: 500;
+    border: 1px solid var(--ucr-celeste);
+    box-shadow: 0 2px 4px rgba(0, 51, 102, 0.3);
+}
+
+/* ========================
+   ENLACES INSTITUCIONALES
+========================= */
+.reveal a {
+    color: var(--ucr-celeste);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 600;
+}
+
+.reveal a:hover {
+    color: var(--ucr-azul-profundo);
+    border-bottom-color: var(--ucr-dorado);
+    text-shadow: 0 1px 3px rgba(0, 119, 190, 0.3);
+}
+
+.reveal a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-ucr-gold);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.reveal a:hover::after {
+    width: 100%;
+}
+
+/* ========================
+   CONTROLES DE PRESENTACIÓN
+========================= */
+.reveal .controls {
+    color: var(--ucr-celeste);
+    bottom: 20px;
+    right: 20px;
+}
+
+.reveal .controls button {
+    color: var(--ucr-celeste) !important;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.reveal .controls button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.reveal .progress {
+    color: var(--ucr-celeste);
+    height: 4px;
+}
+
+.reveal .progress span {
+    background: var(--gradient-ucr-gold);
+    box-shadow: var(--shadow-gold);
+    transition: transform 0.3s ease;
+}
+
+/* ========================
+   ANIMACIONES ACADÉMICAS
+========================= */
+.reveal .slides section {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal .slides section.present {
+    animation: slideInUCR 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideInUCR {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================
+   ELEMENTOS ESPECIALES UCR
+========================= */
+.reveal .ucr-highlight {
+    background: var(--gradient-ucr-celeste);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    box-shadow: var(--shadow-ucr-soft);
+}
+
+.reveal .ucr-badge {
+    display: inline-block;
+    background: var(--ucr-dorado);
+    color: var(--ucr-azul-profundo);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 4px;
+    box-shadow: var(--shadow-gold);
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 24px;
+    }
+    
+    .reveal section h1 { font-size: 2.4em; }
+    .reveal section h2 { font-size: 2em; }
+    
+    .reveal .header-trail {
+        max-width: 90%;
+        font-size: 0.48em;
+        padding: 8px 14px;
+    }
+    
+    .reveal section img {
+        max-width: 70% !important;
+        max-height: 70% !important;
+    }
+    
+    .reveal blockquote {
+        padding: 20px 25px 20px 60px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .reveal section {
+        font-size: 22px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .reveal section h1 { font-size: 2.2em; }
+    .reveal section h2 { font-size: 1.8em; }
+    
+    .reveal .header-trail {
+        padding: 6px 12px;
+    }
+}
