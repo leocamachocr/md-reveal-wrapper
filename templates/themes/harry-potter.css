@@ -489,7 +489,7 @@
 }
 
 .image-overlay img {
-    width: auto;
+    width: 100%;
     height: auto;
     max-width: 90%;
     max-height: 90%;

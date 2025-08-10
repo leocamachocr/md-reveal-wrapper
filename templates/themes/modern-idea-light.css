@@ -343,7 +343,7 @@
 }
 
 .image-overlay img {
-    width: auto;
+    width: 100%;
     height: auto;
     max-width: 95%;
     max-height: 95%;
@@ -509,7 +509,7 @@
     top: 16px !important;
     left: 16px !important;
     right: 16px !important;
-    font-size: 0.6em;
+    font-size: 0.4em;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
