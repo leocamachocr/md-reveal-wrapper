@@ -1,0 +1,838 @@
+/* ========================
+   MODERN MINIMAL THEME - REVEAL.JS
+   Tema moderno minimalista con animaciones discretas
+========================= */
+
+:root {
+    /* Paleta moderna minimalista */
+    --bg-primary: #fafbfc;
+    --bg-secondary: #f1f3f4;
+    --bg-tertiary: #e8eaed;
+    --bg-accent: #ffffff;
+
+    /* Colores de texto neutros */
+    --text-primary: #202124;
+    --text-secondary: #5f6368;
+    --text-accent: #1a73e8;
+    --text-dim: #9aa0a6;
+
+    /* Acentos sutiles */
+    --accent-primary: #1a73e8;
+    --accent-secondary: #34a853;
+    --accent-tertiary: #ea4335;
+    --accent-warning: #fbbc04;
+    --accent-info: #4285f4;
+    --accent-success: #34a853;
+
+    /* Efectos discretos */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Gradientes minimalistas */
+    --gradient-primary: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+    --gradient-accent: linear-gradient(135deg, var(--accent-primary) 0%, #4285f4 100%);
+
+    /* Timing functions para animaciones discretas */
+    --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================
+   FONDO Y ESTRUCTURA BASE
+========================= */
+.reveal {
+    background: var(--gradient-primary);
+    background-attachment: fixed;
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+.reveal .slides {
+    text-align: left;
+}
+
+.reveal .slides section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    position: relative;
+    transform: translateY(0);
+    transition: all 0.4s var(--ease-out);
+}
+
+/* Animación sutil de entrada para slides */
+.reveal .slides section {
+    animation: slideAppear 0.8s var(--ease-out) both;
+}
+
+@keyframes slideAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Borde superior discreto con animación */
+.reveal .slides section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.6s var(--ease-out);
+}
+
+.reveal .slides section.present::before {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+/* Asegurar que los slides ocultos no interfieran */
+.reveal .slides section[hidden] {
+    display: none !important;
+}
+
+.reveal .slides section.past,
+.reveal .slides section.future {
+    display: none !important;
+}
+
+/* ========================
+   TIPOGRAFÍA MODERNA
+========================= */
+.reveal section {
+    font-size: 24px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+}
+
+.reveal section h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.8em;
+    position: relative;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.2s both;
+}
+
+@keyframes titleFade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Código dentro de títulos */
+.reveal section h1 code,
+.reveal section h2 code,
+.reveal section h3 code {
+    background: var(--bg-tertiary) !important;
+    color: var(--accent-primary) !important;
+    padding: 4px 8px !important;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px solid var(--glass-border) !important;
+    transition: all 0.2s var(--ease-out);
+}
+
+.reveal section h1 code:hover,
+.reveal section h2 code:hover,
+.reveal section h3 code:hover {
+    background: var(--accent-primary) !important;
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+.reveal section h2 {
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.6em;
+    position: relative;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.3s both;
+}
+
+.reveal section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    border-radius: 1px;
+    transition: width 0.8s var(--ease-out);
+}
+
+.reveal .slides section.present h2::after {
+    width: 60px;
+    transition-delay: 0.5s;
+}
+
+.reveal section h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5em;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.4s both;
+}
+
+.reveal section h4 {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--accent-secondary);
+    margin-bottom: 0.4em;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.5s both;
+}
+
+.reveal section h5 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.3em;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.6s both;
+}
+
+.reveal section h6 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-bottom: 0.3em;
+    opacity: 0;
+    animation: titleFade 0.8s var(--ease-out) 0.7s both;
+}
+
+.reveal p {
+    font-size: 1em;
+    margin-bottom: 1.2em;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: contentFade 0.6s var(--ease-out) 0.4s both;
+}
+
+@keyframes contentFade {
+    0% {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal strong {
+    color: var(--text-accent);
+    font-weight: 600;
+    position: relative;
+    transition: all 0.2s var(--ease-out);
+}
+
+.reveal strong:hover {
+    transform: translateY(-1px);
+}
+
+.reveal em {
+    color: var(--accent-secondary);
+    font-style: italic;
+    position: relative;
+    transition: color 0.2s var(--ease-out);
+}
+
+/* ========================
+   LISTAS CON ANIMACIONES DISCRETAS
+========================= */
+.reveal section ul {
+    padding-left: 1.8em !important;
+    margin-bottom: 1.5em;
+}
+
+.reveal section ul li {
+    font-size: 1em;
+    margin-bottom: 0.8em;
+    position: relative;
+    color: var(--text-primary);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: listItemSlide 0.5s var(--ease-out) both;
+}
+
+@keyframes listItemSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Delay progresivo para items de lista */
+.reveal section ul li:nth-child(1) { animation-delay: 0.5s; }
+.reveal section ul li:nth-child(2) { animation-delay: 0.6s; }
+.reveal section ul li:nth-child(3) { animation-delay: 0.7s; }
+.reveal section ul li:nth-child(4) { animation-delay: 0.8s; }
+.reveal section ul li:nth-child(5) { animation-delay: 0.9s; }
+.reveal section ul li:nth-child(n+6) { animation-delay: 1s; }
+
+.reveal section ul li::marker {
+    color: var(--accent-primary);
+    font-size: 1.1em;
+}
+
+.reveal section ul ul {
+    padding-left: 2.2em !important;
+    margin-top: 0.5em;
+}
+
+.reveal section ul ul li::marker {
+    color: var(--accent-secondary);
+}
+
+.reveal section ul ul ul {
+    padding-left: 2.8em !important;
+}
+
+.reveal section ul ul ul li::marker {
+    color: var(--accent-tertiary);
+}
+
+/* Lista ordenada con animación */
+.reveal section ol {
+    padding-left: 1.8em !important;
+    counter-reset: custom-counter;
+}
+
+.reveal section ol li {
+    counter-increment: custom-counter;
+    position: relative;
+    margin-bottom: 0.8em;
+    list-style: none;
+    opacity: 0;
+    animation: listItemSlide 0.5s var(--ease-out) both;
+}
+
+.reveal section ol li::before {
+    content: counter(custom-counter);
+    position: absolute;
+    left: -1.5em;
+    top: 0;
+    background: var(--accent-primary);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 600;
+    transform: scale(0);
+    animation: numberPop 0.3s var(--ease-out) 0.8s both;
+}
+
+@keyframes numberPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================
+   CÓDIGO CON EFECTOS SUTILES
+========================= */
+.reveal pre {
+    background: var(--bg-accent);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: codeBlockFade 0.6s var(--ease-out) 0.6s both;
+}
+
+@keyframes codeBlockFade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal pre:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s var(--ease-out);
+}
+
+.reveal code {
+    background: var(--bg-tertiary);
+    color: var(--accent-primary);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 1.1em;
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s var(--ease-out);
+}
+
+.reveal code:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.reveal pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 1.5em;
+    line-height: 1.5;
+}
+
+.reveal pre code:hover {
+    background: transparent;
+    color: var(--text-primary);
+    transform: none;
+}
+
+/* ========================
+   IMÁGENES CON ANIMACIONES DISCRETAS
+========================= */
+.reveal section img {
+    max-width: 45% !important;
+    max-height: 45% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 20px auto !important;
+    cursor: zoom-in;
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--glass-border);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: imageFade 0.8s var(--ease-out) 0.8s both;
+    transition: all 0.3s var(--ease-out);
+}
+
+@keyframes imageFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reveal section img:hover {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* ========================
+   LIGHTBOX MINIMALISTA
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    animation: overlayFade 0.3s var(--ease-out) both;
+}
+
+@keyframes overlayFade {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
+}
+
+.image-overlay img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: var(--shadow-medium);
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    transform: scale(0.9);
+    animation: imageZoom 0.4s var(--ease-out) both;
+}
+
+@keyframes imageZoom {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================
+   TABLAS MINIMALISTAS
+========================= */
+.reveal table {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 25px auto;
+    width: 90%;
+    font-size: 0.9em;
+    background: var(--bg-accent);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--glass-border);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: tableFade 0.6s var(--ease-out) 0.7s both;
+}
+
+@keyframes tableFade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.reveal th {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+}
+
+.reveal tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr {
+    transition: all 0.2s var(--ease-out);
+}
+
+.reveal tbody tr:hover {
+    background: var(--bg-secondary);
+    transform: translateX(2px);
+}
+
+/* ========================
+   QUOTE BOXES DISCRETOS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 24px 30px 24px 20px;
+    margin: 30px auto;
+    max-width: 85%;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    background: var(--bg-accent);
+    border-left: 4px solid var(--accent-primary);
+    box-shadow: var(--shadow-soft);
+    color: var(--text-primary);
+    font-style: italic;
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: quoteFade 0.6s var(--ease-out) 0.6s both;
+    transition: all 0.3s var(--ease-out);
+}
+
+@keyframes quoteFade {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.reveal blockquote:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.reveal blockquote.info {
+    border-left-color: var(--accent-info);
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.03) 0%, transparent 100%);
+}
+
+.reveal blockquote.warning {
+    border-left-color: var(--accent-warning);
+    background: linear-gradient(135deg, rgba(251, 188, 4, 0.03) 0%, transparent 100%);
+}
+
+.reveal blockquote.tip {
+    border-left-color: var(--accent-success);
+    background: linear-gradient(135deg, rgba(52, 168, 83, 0.03) 0%, transparent 100%);
+}
+
+/* ========================
+   BREADCRUMB MINIMALISTA
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    font-size: 0.6em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 60%;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    box-shadow: var(--shadow-subtle);
+    gap: 8px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: breadcrumbFade 0.6s var(--ease-out) 1s both;
+    transition: all 0.3s var(--ease-out);
+}
+
+@keyframes breadcrumbFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal .header-trail:hover {
+    background: var(--bg-accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 120px;
+    display: inline-block;
+    color: var(--text-secondary);
+    transition: color 0.2s var(--ease-out);
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--accent-primary);
+    font-weight: 500;
+    margin: 0 6px;
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 600;
+    color: var(--text-accent);
+    max-width: none;
+}
+
+/* ========================
+   CONTROLES MINIMALISTAS
+========================= */
+.reveal .controls {
+    color: var(--accent-primary);
+    right: 20px;
+    bottom: 20px;
+    opacity: 0.6;
+    transition: opacity 0.3s var(--ease-out);
+}
+
+.reveal .controls:hover {
+    opacity: 1;
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-down {
+    border-color: var(--accent-primary);
+    transition: all 0.2s var(--ease-out);
+}
+
+.reveal .controls .navigate-left:hover,
+.reveal .controls .navigate-right:hover,
+.reveal .controls .navigate-up:hover,
+.reveal .controls .navigate-down:hover {
+    border-color: var(--text-accent);
+    transform: scale(1.05);
+}
+
+.reveal .progress {
+    color: var(--accent-primary);
+    height: 3px;
+}
+
+.reveal .progress span {
+    background: var(--accent-primary);
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease-out);
+}
+
+/* ========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 20px;
+        padding: 30px 20px;
+    }
+
+    .reveal section h1 {
+        font-size: 2.5em;
+    }
+
+    .reveal section h2 {
+        font-size: 2em;
+    }
+
+    .reveal .header-trail {
+        font-size: 0.5em;
+        padding: 10px 16px;
+        max-width: 80%;
+    }
+
+    .reveal section img {
+        max-width: 80% !important;
+        max-height: 60% !important;
+    }
+}
+
+/* ========================
+   UTILIDADES
+========================= */
+.reveal .text-center { text-align: center !important; }
+.reveal .text-right { text-align: right !important; }
+
+.reveal .highlight {
+    background: linear-gradient(120deg, transparent 0%, var(--accent-primary) 0%, var(--accent-primary) 100%, transparent 100%);
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: 0% 100%;
+    transition: background-size 0.4s var(--ease-out);
+}
+
+.reveal .slides section.present .highlight {
+    background-size: 100% 2px;
+}
+
+.reveal .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 16px;
+    font-size: 0.75em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: badgePop 0.4s var(--ease-out) 1.2s both;
+}
+
+@keyframes badgePop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

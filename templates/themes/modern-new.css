@@ -1,0 +1,560 @@
+/* ========================
+   MODERN DARK THEME
+   Colores vibrantes y efectos modernos
+========================= */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #16213e;
+    --text-primary: #e8eaed;
+    --text-secondary: #a8b3cf;
+    --text-accent: #64ffda;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(100, 255, 218, 0.3);
+}
+
+/* ========================
+   BACKGROUND GENERAL
+========================= */
+.reveal {
+    background: var(--bg-primary);
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    color: var(--text-primary);
+}
+
+/* ========================
+   TIPOGRAFÍA BASE
+========================= */
+.reveal section {
+    font-size: 28px;
+    text-align: left;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.reveal section h1 {
+    font-size: 2.5em;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: none;
+    margin-bottom: 0.5em;
+    position: relative;
+}
+
+.reveal section h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-gradient);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+.reveal section h2 {
+    font-size: 2em;
+    background: var(--secondary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin-bottom: 0.4em;
+}
+
+.reveal section h3 {
+    font-size: 1.5em;
+    color: var(--text-accent);
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.reveal section h4 {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.reveal section h5 {
+    font-size: 1em;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.reveal section h6 {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.reveal p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    color: var(--text-primary);
+}
+
+.reveal li {
+    font-size: 1em;
+    color: var(--text-primary);
+    margin-bottom: 0.5em;
+    position: relative;
+}
+
+/* ========================
+   LISTAS CON ESTILO MODERNO
+========================= */
+.reveal section ul {
+    padding-left: 1.5em !important;
+}
+
+.reveal section ul ul {
+    padding-left: 2em !important;
+}
+
+.reveal section ul ul ul {
+    padding-left: 2.5em !important;
+}
+
+.reveal section ul li::marker {
+    color: var(--text-accent);
+    font-weight: bold;
+}
+
+.reveal section ol li::marker {
+    color: var(--text-accent);
+    font-weight: bold;
+}
+
+/* Efecto hover en elementos de lista */
+.reveal section li:hover {
+    color: var(--text-accent);
+    transition: color 0.3s ease;
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+}
+
+/* ========================
+   IMÁGENES CON EFECTOS MODERNOS
+========================= */
+.reveal section img {
+    max-width: 40% !important;
+    max-height: 40% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 0 auto !important;
+    cursor: zoom-in;
+    border-radius: 12px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 0 0 1px var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.reveal section img:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.7),
+        0 0 20px var(--glow-color);
+}
+
+/* ========================
+   LIGHTBOX MEJORADO
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-overlay img {
+    width: 90%;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow:
+        0 0 50px rgba(100, 255, 218, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================
+   TABLAS MODERNAS
+========================= */
+.reveal table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 80%;
+    font-size: 0.9em;
+    background: rgba(26, 26, 46, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.reveal th {
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.5px;
+}
+
+.reveal tr:hover {
+    background: rgba(100, 255, 218, 0.05);
+    transition: background 0.3s ease;
+}
+
+.reveal tr:last-child td {
+    border-bottom: none;
+}
+
+/* ========================
+   QUOTE BOXES FUTURISTAS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 20px 25px 20px 60px;
+    margin: 24px auto;
+    max-width: 85%;
+    border-radius: 16px;
+    font-size: 1.05em;
+    line-height: 1.6;
+    font-style: italic;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.reveal blockquote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-secondary);
+    opacity: 0.8;
+    z-index: -1;
+}
+
+.reveal blockquote.info {
+    border-left: 4px solid #4facfe;
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.05));
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(79, 172, 254, 0.1);
+}
+
+.reveal blockquote.warning {
+    border-left: 4px solid #fa709a;
+    background: linear-gradient(135deg, rgba(250, 112, 154, 0.1), rgba(254, 225, 64, 0.05));
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(250, 112, 154, 0.1);
+}
+
+.reveal blockquote.tip {
+    border-left: 4px solid #43e97b;
+    background: linear-gradient(135deg, rgba(67, 233, 123, 0.1), rgba(56, 249, 215, 0.05));
+    color: var(--text-primary);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(67, 233, 123, 0.1);
+}
+
+.reveal blockquote.info::after,
+.reveal blockquote.warning::after,
+.reveal blockquote.tip::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+.reveal blockquote.info::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234facfe' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>");
+}
+
+.reveal blockquote.warning::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fa709a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>");
+}
+
+.reveal blockquote.tip::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2343e97b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>");
+}
+
+/* ========================
+   BREADCRUMB FUTURISTA
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    font-size: 0.5em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 65%;
+    overflow: hidden;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 0 0 16px 0;
+    padding: 8px 15px;
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(100, 255, 218, 0.1);
+    gap: 8px;
+    z-index: 9999;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-left: none;
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.reveal .header-trail .crumb:hover {
+    color: var(--text-accent);
+    transform: translateY(-1px);
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 120px;
+    display: inline-block;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--text-accent);
+    font-weight: bold;
+    text-shadow: 0 0 5px currentColor;
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 600;
+    color: var(--text-accent);
+    max-width: none;
+    text-shadow: 0 0 10px currentColor;
+}
+
+/* ========================
+   CÓDIGO Y PRE
+========================= */
+.reveal pre {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+    backdrop-filter: blur(10px);
+}
+
+.reveal code {
+    background: rgba(100, 255, 218, 0.1);
+    color: var(--text-accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+/* ========================
+   CONTROLES Y PROGRESS BAR
+========================= */
+.reveal .controls {
+    color: var(--text-accent);
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-down {
+    border-color: var(--text-accent);
+}
+
+.reveal .controls .navigate-left.enabled:hover,
+.reveal .controls .navigate-right.enabled:hover,
+.reveal .controls .navigate-up.enabled:hover,
+.reveal .controls .navigate-down.enabled:hover {
+    border-color: var(--text-accent);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.reveal .progress {
+    height: 4px;
+    background: var(--primary-gradient);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+/* ========================
+   EFECTOS DE TRANSICIÓN
+========================= */
+.reveal .slides section {
+    transition: all 0.3s ease;
+}
+
+.reveal .slides section.present {
+    animation: slideIn 0.6s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================
+   ELEMENTOS INTERACTIVOS
+========================= */
+.reveal a {
+    color: var(--text-accent);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.reveal a:hover {
+    color: var(--text-accent);
+    text-shadow: 0 0 10px currentColor;
+}
+
+.reveal a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+}
+
+.reveal a:hover::after {
+    width: 100%;
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 24px;
+    }
+
+    .reveal .header-trail {
+        max-width: 80%;
+        font-size: 0.45em;
+    }
+
+    .reveal section img {
+        max-width: 60% !important;
+        max-height: 50% !important;
+    }
+}
+
+/* ========================
+   SCROLL Y UTILIDADES
+========================= */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-gradient);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-gradient);
+}
+
+/* ========================
+   SELECCIÓN DE TEXTO
+========================= */
+::selection {
+    background: rgba(100, 255, 218, 0.2);
+    color: var(--text-accent);
+}

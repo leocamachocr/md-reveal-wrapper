@@ -161,13 +161,15 @@
 
 .reveal section ol {
     counter-reset: list-counter;
+    list-style: none;
 }
 
 .reveal section ol li::before {
     content: counter(list-counter);
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%; /* Centra verticalmente */
+    transform: translateY(-50%); /* Ajusta el centro exacto */
     background: var(--gradient-primary);
     color: white;
     width: 1.5em;

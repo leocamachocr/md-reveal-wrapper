@@ -1,0 +1,802 @@
+/* ========================
+   HARRY POTTER THEME - REVEAL.JS
+   Tema mágico inspirado en el mundo de Harry Potter
+========================= */
+
+:root {
+    /* Colores del mundo mágico */
+    --bg-primary: #0d0d1a;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #16213e;
+    --bg-accent: #0f1419;
+
+    /* Colores de las casas de Hogwarts */
+    --gryffindor-gold: #d4af37;
+    --gryffindor-red: #ae0001;
+    --slytherin-green: #1a472a;
+    --slytherin-silver: #aaaaaa;
+    --ravenclaw-blue: #0e1a40;
+    --ravenclaw-bronze: #946b2d;
+    --hufflepuff-yellow: #ecb939;
+    --hufflepuff-black: #372e29;
+
+    /* Colores mágicos */
+    --magic-gold: #f4e4bc;
+    --magic-blue: #4a90e2;
+    --magic-purple: #8e44ad;
+    --magic-green: #27ae60;
+    --magic-red: #e74c3c;
+    --parchment: #f7f3e9;
+    --ink-dark: #2c1810;
+    --wand-brown: #8b4513;
+
+    /* Texto */
+    --text-primary: #f7f3e9;
+    --text-secondary: #d4c5a9;
+    --text-accent: var(--magic-gold);
+    --text-dim: #a0956b;
+
+    /* Efectos mágicos */
+    --shimmer-gold: linear-gradient(45deg, transparent 30%, rgba(212, 175, 55, 0.5) 50%, transparent 70%);
+    --magic-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+    --parchment-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --magic-border: 1px solid rgba(212, 175, 55, 0.3);
+
+    /* Gradientes temáticos */
+    --gradient-hogwarts: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
+    --gradient-magic: linear-gradient(135deg, var(--magic-gold) 0%, var(--magic-blue) 100%);
+    --gradient-parchment: linear-gradient(135deg, #f7f3e9 0%, #ede4d1 100%);
+}
+
+/* ========================
+   FONDO MÁGICO
+========================= */
+.reveal {
+    background: var(--gradient-hogwarts);
+    background-attachment: fixed;
+    font-family: 'Cinzel', 'Trajan Pro', serif;
+    color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estrellas en el fondo */
+.reveal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(212, 175, 55, 0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(212, 175, 55, 0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: starsTwinkle 3s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes starsTwinkle {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.reveal .slides {
+    text-align: left;
+}
+
+.reveal .slides section {
+    background: rgba(247, 243, 233, 0.95);
+    background-image:
+        radial-gradient(circle at 100% 50%, transparent 20%, rgba(139, 69, 19, 0.05) 21%, rgba(139, 69, 19, 0.05) 34%, transparent 35%, transparent),
+        linear-gradient(0deg, transparent 24%, rgba(139, 69, 19, 0.03) 25%, rgba(139, 69, 19, 0.03) 26%, transparent 27%, transparent 74%, rgba(139, 69, 19, 0.03) 75%, rgba(139, 69, 19, 0.03) 76%, transparent 77%, transparent);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--magic-gold);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: var(--parchment-shadow), inset 0 0 50px rgba(212, 175, 55, 0.1);
+    color: var(--ink-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de pergamino quemado en los bordes */
+.reveal .slides section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+        rgba(139, 69, 19, 0.3) 0%,
+        rgba(212, 175, 55, 0.5) 25%,
+        rgba(139, 69, 19, 0.3) 50%,
+        rgba(212, 175, 55, 0.5) 75%,
+        rgba(139, 69, 19, 0.3) 100%);
+    border-radius: 15px;
+    z-index: -1;
+    animation: magicBorder 4s ease-in-out infinite;
+}
+
+@keyframes magicBorder {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.01); }
+}
+
+/* Sello de cera mágico */
+.reveal .slides section::after {
+    content: '⚡';
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, var(--gryffindor-red) 0%, var(--gryffindor-red) 70%, var(--magic-gold) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--magic-gold);
+    text-shadow: 0 0 10px var(--magic-gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    animation: sealGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes sealGlow {
+    0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+    100% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.8), 0 0 35px rgba(212, 175, 55, 0.4); }
+}
+
+/* Asegurar que los slides ocultos no interfieran */
+.reveal .slides section[hidden] {
+    display: none !important;
+}
+
+.reveal .slides section.past,
+.reveal .slides section.future {
+    display: none !important;
+}
+
+/* ========================
+   TIPOGRAFÍA MÁGICA
+========================= */
+.reveal section {
+    font-size: 24px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    font-family: 'Cinzel', 'Book Antiqua', serif;
+}
+
+.reveal section h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--ink-dark);
+    margin-bottom: 0.8em;
+    text-align: center;
+    font-family: 'Cinzel Decorative', 'Trajan Pro', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.reveal section h1::before {
+    content: '✦ ';
+    color: var(--magic-gold);
+    text-shadow: 0 0 10px var(--magic-gold);
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.reveal section h1::after {
+    content: ' ✦';
+    color: var(--magic-gold);
+    text-shadow: 0 0 10px var(--magic-gold);
+    animation: sparkle 2s ease-in-out infinite reverse;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Código dentro de títulos */
+.reveal section h1 code,
+.reveal section h2 code,
+.reveal section h3 code {
+    background: rgba(139, 69, 19, 0.2) !important;
+    color: var(--wand-brown) !important;
+    padding: 4px 8px !important;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 1px solid var(--magic-gold) !important;
+    box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.reveal section h2 {
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--gryffindor-red);
+    margin-bottom: 0.6em;
+    font-family: 'Cinzel', serif;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reveal section h2::before {
+    content: '§';
+    position: absolute;
+    left: -30px;
+    color: var(--magic-gold);
+    font-size: 1.2em;
+    text-shadow: 0 0 8px var(--magic-gold);
+    animation: runeGlow 3s ease-in-out infinite;
+}
+
+@keyframes runeGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; text-shadow: 0 0 15px var(--magic-gold); }
+}
+
+.reveal section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--magic-gold) 0%, transparent 100%);
+    box-shadow: 0 0 5px var(--magic-gold);
+}
+
+.reveal section h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--slytherin-green);
+    margin-bottom: 0.5em;
+    font-family: 'Cinzel', serif;
+}
+
+.reveal section h4 {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--ravenclaw-blue);
+    margin-bottom: 0.4em;
+}
+
+.reveal section h5 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--hufflepuff-yellow);
+    margin-bottom: 0.3em;
+}
+
+.reveal section h6 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--wand-brown);
+    margin-bottom: 0.3em;
+}
+
+.reveal p {
+    font-size: 1em;
+    margin-bottom: 1.2em;
+    color: var(--ink-dark);
+    font-family: 'Crimson Text', 'Book Antiqua', serif;
+    line-height: 1.7;
+}
+
+.reveal strong {
+    color: var(--gryffindor-red);
+    font-weight: 700;
+    text-shadow: 0 0 3px rgba(174, 0, 1, 0.3);
+}
+
+.reveal em {
+    color: var(--magic-purple);
+    font-style: italic;
+    font-family: 'Cinzel', serif;
+}
+
+/* ========================
+   LISTAS MÁGICAS
+========================= */
+.reveal section ul {
+    padding-left: 1.8em !important;
+    margin-bottom: 1.5em;
+}
+
+.reveal section ul li {
+    font-size: 1em;
+    margin-bottom: 0.8em;
+    position: relative;
+    color: var(--ink-dark);
+    line-height: 1.6;
+    font-family: 'Crimson Text', serif;
+}
+
+.reveal section ul li::marker {
+    content: '⚬ ';
+    color: var(--magic-gold);
+    font-size: 1.2em;
+}
+
+.reveal section ul ul li::marker {
+    content: '✧ ';
+    color: var(--magic-blue);
+}
+
+.reveal section ul ul ul li::marker {
+    content: '❋ ';
+    color: var(--magic-purple);
+}
+
+/* Lista ordenada con números romanos */
+.reveal section ol {
+    padding-left: 1.8em !important;
+    counter-reset: custom-counter;
+}
+
+.reveal section ol li {
+    counter-increment: custom-counter;
+    position: relative;
+    margin-bottom: 0.8em;
+    list-style: none;
+    font-family: 'Crimson Text', serif;
+}
+
+.reveal section ol li::before {
+    content: counter(custom-counter, upper-roman);
+    position: absolute;
+    left: -1.8em;
+    top: 0;
+    background: var(--magic-gold);
+    color: var(--ink-dark);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* ========================
+   CÓDIGO MÁGICO
+========================= */
+.reveal pre {
+    background: var(--bg-accent);
+    border: 2px solid var(--magic-gold);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: var(--parchment-shadow), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.reveal pre::before {
+    content: 'Spell Code';
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    background: var(--magic-gold);
+    color: var(--ink-dark);
+    padding: 2px 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+    font-family: 'Cinzel', serif;
+    border-radius: 0 0 8px 8px;
+}
+
+.reveal code {
+    background: rgba(139, 69, 19, 0.2);
+    color: var(--magic-blue);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+    border: 1px solid var(--magic-gold);
+    box-shadow: inset 0 0 5px rgba(212, 175, 55, 0.2);
+}
+
+.reveal pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+/* ========================
+   IMÁGENES MÁGICAS
+========================= */
+.reveal section img {
+    max-width: 45% !important;
+    max-height: 45% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 20px auto !important;
+    cursor: zoom-in;
+    border-radius: 15px;
+    border: 3px solid var(--magic-gold);
+    box-shadow: var(--parchment-shadow), 0 0 20px rgba(212, 175, 55, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.reveal section img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--parchment-shadow), 0 0 30px rgba(212, 175, 55, 0.6);
+    border-color: var(--magic-blue);
+}
+
+.reveal section img::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: var(--shimmer-gold);
+    border-radius: 15px;
+    animation: shimmerPass 3s ease-in-out infinite;
+    opacity: 0;
+}
+
+@keyframes shimmerPass {
+    0%, 90%, 100% { opacity: 0; transform: translateX(-100%); }
+    10%, 80% { opacity: 1; transform: translateX(100%); }
+}
+
+/* ========================
+   LIGHTBOX MÁGICO
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 26, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: portalOpen 0.5s ease-out;
+}
+
+@keyframes portalOpen {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.image-overlay img {
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 15px;
+    border: 3px solid var(--magic-gold);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+    animation: photoAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes photoAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotateY(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+}
+
+/* ========================
+   TABLAS DE PERGAMINO
+========================= */
+.reveal table {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 25px auto;
+    width: 90%;
+    font-size: 0.9em;
+    background: var(--parchment);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--parchment-shadow);
+    border: 2px solid var(--magic-gold);
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+    font-family: 'Crimson Text', serif;
+}
+
+.reveal th {
+    background: linear-gradient(135deg, var(--magic-gold) 0%, var(--gryffindor-gold) 100%);
+    color: var(--ink-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+    font-family: 'Cinzel', serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.reveal tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr {
+    transition: all 0.3s ease;
+}
+
+.reveal tbody tr:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(3px);
+}
+
+/* ========================
+   CITAS MÍSTICAS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 30px 40px 30px 80px;
+    margin: 30px auto;
+    max-width: 85%;
+    border-radius: 15px;
+    font-size: 1.1em;
+    line-height: 1.7;
+    background: rgba(247, 243, 233, 0.9);
+    border-left: 5px solid var(--magic-gold);
+    box-shadow: var(--parchment-shadow);
+    color: var(--ink-dark);
+    font-style: italic;
+    font-family: 'Cinzel', serif;
+    overflow: hidden;
+}
+
+.reveal blockquote::before {
+    content: '"';
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    font-size: 4em;
+    color: var(--magic-gold);
+    font-family: 'Cinzel Decorative', serif;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    opacity: 0.7;
+}
+
+.reveal blockquote::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+}
+
+.reveal blockquote.info {
+    border-left-color: var(--magic-blue);
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(247, 243, 233, 0.9) 50%);
+}
+
+.reveal blockquote.warning {
+    border-left-color: var(--magic-red);
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(247, 243, 233, 0.9) 50%);
+}
+
+.reveal blockquote.tip {
+    border-left-color: var(--magic-green);
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(247, 243, 233, 0.9) 50%);
+}
+
+/* ========================
+   MAPA DEL MERODEADOR (BREADCRUMB)
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    font-size: 0.6em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 60%;
+    overflow: hidden;
+    background: rgba(247, 243, 233, 0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--magic-gold);
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: var(--parchment-shadow);
+    gap: 8px;
+    z-index: 9999;
+    font-family: 'Cinzel', serif;
+    color: var(--ink-dark);
+}
+
+.reveal .header-trail::before {
+    content: '🗺️';
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 120px;
+    display: inline-block;
+    color: var(--wand-brown);
+    font-weight: 500;
+}
+
+.reveal .header-trail .crumb-separator {
+    flex-shrink: 0;
+    color: var(--magic-gold);
+    font-weight: 700;
+    margin: 0 6px;
+    text-shadow: 0 0 5px var(--magic-gold);
+}
+
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+    font-weight: 700;
+    color: var(--gryffindor-red);
+    max-width: none;
+    text-shadow: 0 0 3px rgba(174, 0, 1, 0.3);
+}
+
+/* ========================
+   CONTROLES MÁGICOS
+========================= */
+.reveal .controls {
+    color: var(--magic-gold);
+    right: 20px;
+    bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-down {
+    border-color: var(--magic-gold);
+    transition: all 0.3s ease;
+}
+
+.reveal .controls .navigate-left:hover,
+.reveal .controls .navigate-right:hover,
+.reveal .controls .navigate-up:hover,
+.reveal .controls .navigate-down:hover {
+    border-color: var(--gryffindor-gold);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+}
+
+.reveal .progress {
+    color: var(--magic-gold);
+    height: 4px;
+}
+
+.reveal .progress span {
+    background: linear-gradient(90deg, var(--magic-gold) 0%, var(--gryffindor-gold) 100%);
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* ========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .reveal section {
+        font-size: 20px;
+        padding: 30px 20px;
+    }
+
+    .reveal section h1 {
+        font-size: 2.5em;
+    }
+
+    .reveal section h2 {
+        font-size: 2em;
+    }
+
+    .reveal .header-trail {
+        font-size: 0.5em;
+        padding: 10px 16px;
+        max-width: 80%;
+    }
+
+    .reveal section img {
+        max-width: 80% !important;
+        max-height: 60% !important;
+    }
+}
+
+/* ========================
+   UTILIDADES MÁGICAS
+========================= */
+.reveal .text-center { text-align: center !important; }
+.reveal .text-right { text-align: right !important; }
+
+.reveal .highlight {
+    background: linear-gradient(120deg, transparent 0%, var(--magic-gold) 0%);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    transition: background-size 0.5s ease;
+    color: var(--ink-dark);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.reveal .slides section.present .highlight {
+    background-size: 100% 100%;
+}
+
+.reveal .badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--magic-gold);
+    color: var(--ink-dark);
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Cinzel', serif;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    border: 1px solid var(--gryffindor-gold);
+}
+
+/* Efectos especiales para elementos interactivos */
+.reveal section:hover::after {
+    animation-duration: 1.5s;
+}
+
+.reveal strong:hover {
+    text-shadow: 0 0 8px rgba(174, 0, 1, 0.6);
+    transition: text-shadow 0.3s ease;
+}
+
+.reveal em:hover {
+    color: var(--magic-blue);
+    text-shadow: 0 0 5px rgba(142, 68, 173, 0.5);
+    transition: all 0.3s ease;
+}

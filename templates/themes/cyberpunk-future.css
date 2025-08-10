@@ -1,0 +1,769 @@
+/* ========================
+   CYBERPUNK FUTURE THEME - REVEAL.JS
+   El tema más futurista y espectacular del mundo
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Colores Cyberpunk */
+    --neon-cyan: #00ffff;
+    --neon-magenta: #ff0080;
+    --neon-yellow: #ffff00;
+    --neon-green: #00ff41;
+    --neon-purple: #8000ff;
+    --neon-orange: #ff8000;
+
+    /* Fondo y estructura */
+    --bg-deep: #0a0a0f;
+    --bg-dark: #0f0f1a;
+    --bg-medium: #1a1a2e;
+    --bg-card: rgba(16, 16, 30, 0.95);
+    --bg-glass: rgba(0, 255, 255, 0.05);
+
+    /* Texto */
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0ff;
+    --text-accent: var(--neon-cyan);
+    --text-dim: #6666aa;
+
+    /* Efectos */
+    --glow-cyan: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 80px var(--neon-cyan);
+    --glow-magenta: 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta), 0 0 80px var(--neon-magenta);
+    --glow-green: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+    --glow-purple: 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple);
+
+    /* Gradientes épicos */
+    --gradient-cyber: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+    --gradient-electric: linear-gradient(90deg, var(--neon-cyan) 0%, var(--neon-magenta) 50%, var(--neon-yellow) 100%);
+    --gradient-hologram: linear-gradient(135deg, transparent, var(--neon-cyan), transparent, var(--neon-magenta), transparent);
+    --gradient-matrix: linear-gradient(180deg, var(--neon-green) 0%, transparent 100%);
+}
+
+/* ========================
+   ANIMACIONES KEYFRAMES ÉPICAS
+========================= */
+@keyframes neonPulse {
+    0%, 100% {
+        text-shadow: var(--glow-cyan);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: var(--glow-magenta);
+        transform: scale(1.02);
+    }
+}
+
+@keyframes hologramFlicker {
+    0%, 100% { opacity: 1; }
+    97% { opacity: 1; }
+    98% { opacity: 0.8; }
+    99% { opacity: 1; }
+}
+
+@keyframes dataFlow {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(100vw) skewX(-15deg); }
+}
+
+@keyframes cyberpunkGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+        border-color: var(--neon-cyan);
+    }
+    25% {
+        box-shadow: 0 0 5px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta);
+        border-color: var(--neon-magenta);
+    }
+    50% {
+        box-shadow: 0 0 5px var(--neon-green), 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+        border-color: var(--neon-green);
+    }
+    75% {
+        box-shadow: 0 0 5px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple);
+        border-color: var(--neon-purple);
+    }
+}
+
+@keyframes matrixRain {
+    0% { transform: translateY(-100vh); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes slideInCyber {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotateX(45deg) scale(0.8);
+        filter: blur(20px);
+    }
+    50% {
+        opacity: 0.8;
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes quantumShift {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(2px) translateY(-1px); }
+    50% { transform: translateX(-1px) translateY(2px); }
+    75% { transform: translateX(-2px) translateY(-1px); }
+}
+
+/* ========================
+   FONDO ÉPICO FUTURISTA
+========================= */
+.reveal {
+    background: var(--bg-deep);
+    font-family: 'Rajdhani', sans-serif;
+    color: var(--text-primary);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Efecto Matrix Rain de fondo */
+.reveal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at top, var(--bg-dark) 0%, var(--bg-deep) 100%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 98px,
+            rgba(0, 255, 255, 0.03) 100px,
+            rgba(0, 255, 255, 0.03) 102px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 98px,
+            rgba(255, 0, 128, 0.02) 100px,
+            rgba(255, 0, 128, 0.02) 102px
+        );
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Partículas flotantes de fondo */
+.reveal::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(128, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 60% 40%, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
+    animation: quantumShift 8s infinite ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ========================
+   SLIDES CON EFECTO HOLOGRÁFICO
+========================= */
+.reveal .slides {
+    text-align: left;
+    perspective: 1000px;
+}
+
+.reveal .slides section {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 20px;
+    padding: 50px;
+    position: relative;
+    overflow: visible;
+    transform-style: preserve-3d;
+    animation: slideInCyber 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), hologramFlicker 3s infinite;
+}
+
+/* Borde holográfico animado */
+.reveal .slides section::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: var(--gradient-cyber);
+    border-radius: 22px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: cyberpunkGlow 4s infinite;
+    z-index: -1;
+}
+
+/* Efecto de datos fluyendo por el borde */
+.reveal .slides section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-electric);
+    border-radius: 20px 20px 0 0;
+    animation: dataFlow 3s infinite linear;
+    opacity: 0.7;
+}
+
+/* Asegurar que slides ocultos no interfieran */
+.reveal .slides section[hidden] {
+    display: none !important;
+}
+
+.reveal .slides section.past,
+.reveal .slides section.future {
+    display: none !important;
+}
+
+/* ========================
+   TIPOGRAFÍA FUTURISTA ÉPICA
+========================= */
+.reveal section {
+    font-size: 26px;
+    line-height: 1.7;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+}
+
+.reveal section h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    font-weight: 900;
+    background: var(--gradient-cyber);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    animation: neonPulse 3s infinite ease-in-out;
+    text-shadow: var(--glow-cyan);
+    position: relative;
+}
+
+.reveal section h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-electric);
+    border-radius: 2px;
+    animation: dataFlow 2s infinite linear;
+}
+
+.reveal section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    margin-bottom: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-shadow: var(--glow-cyan);
+    position: relative;
+}
+
+.reveal section h2::before {
+    content: '◢';
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-magenta);
+    font-size: 1.2em;
+    animation: neonPulse 2s infinite ease-in-out reverse;
+}
+
+.reveal section h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--neon-green);
+    margin-bottom: 0.5em;
+    text-shadow: var(--glow-green);
+    letter-spacing: 0.05em;
+}
+
+.reveal section h4 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--neon-purple);
+    margin-bottom: 0.4em;
+    text-shadow: var(--glow-purple);
+}
+
+.reveal section h5 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--neon-yellow);
+    margin-bottom: 0.3em;
+    text-shadow: 0 0 10px var(--neon-yellow);
+}
+
+.reveal section h6 {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--neon-orange);
+    margin-bottom: 0.3em;
+    text-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* Código dentro de títulos - versión cyberpunk */
+.reveal section h1 code,
+.reveal section h2 code,
+.reveal section h3 code {
+    background: rgba(0, 255, 255, 0.2) !important;
+    color: var(--text-primary) !important;
+    padding: 4px 12px !important;
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8em;
+    border: 1px solid var(--neon-cyan) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    background-clip: padding-box !important;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+.reveal p {
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.reveal strong {
+    color: var(--neon-cyan);
+    font-weight: 700;
+    text-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.reveal em {
+    color: var(--neon-magenta);
+    font-style: italic;
+    text-shadow: 0 0 5px var(--neon-magenta);
+}
+
+/* ========================
+   LISTAS FUTURISTAS
+========================= */
+.reveal section ul {
+    padding-left: 2em !important;
+    margin-bottom: 2em;
+}
+
+.reveal section ul li {
+    font-size: 1em;
+    margin-bottom: 0.8em;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.reveal section ul li::before {
+    content: '▸';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    color: var(--neon-cyan);
+    font-size: 1.2em;
+    text-shadow: var(--glow-cyan);
+    animation: neonPulse 2s infinite ease-in-out;
+}
+
+.reveal section ul ul li::before {
+    content: '◦';
+    color: var(--neon-magenta);
+    text-shadow: var(--glow-magenta);
+}
+
+.reveal section ul ul ul li::before {
+    content: '•';
+    color: var(--neon-green);
+    text-shadow: var(--glow-green);
+}
+
+/* Lista ordenada cyberpunk */
+.reveal section ol {
+    padding-left: 2em !important;
+    counter-reset: cyber-counter;
+}
+
+.reveal section ol li {
+    counter-increment: cyber-counter;
+    position: relative;
+    margin-bottom: 0.8em;
+    list-style: none;
+    padding-left: 40px;
+}
+
+.reveal section ol li::before {
+    content: counter(cyber-counter);
+    position: absolute;
+    left: -20px;
+    top: 0;
+    background: var(--gradient-cyber);
+    color: var(--text-primary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: var(--glow-cyan);
+    border: 1px solid var(--neon-cyan);
+}
+
+/* ========================
+   CÓDIGO MATRIX STYLE
+========================= */
+.reveal pre {
+    background: var(--bg-deep);
+    border: 2px solid var(--neon-green);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 25px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 0 20px rgba(0, 255, 65, 0.3),
+        inset 0 0 20px rgba(0, 255, 65, 0.1);
+    animation: hologramFlicker 4s infinite;
+}
+
+.reveal pre::before {
+    content: '> EXECUTING CODE...';
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    color: var(--neon-green);
+    font-size: 0.7em;
+    font-family: 'Orbitron', monospace;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.reveal pre::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-matrix);
+    animation: dataFlow 2s infinite linear;
+}
+
+.reveal code {
+    background: rgba(0, 255, 65, 0.15);
+    color: var(--neon-green);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1em;
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+.reveal pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: var(--neon-green);
+    text-shadow: 0 0 2px var(--neon-green);
+}
+
+/* ========================
+   IMÁGENES HOLOGRÁFICAS
+========================= */
+.reveal section img {
+    max-width: 50% !important;
+    max-height: 50% !important;
+    object-fit: contain;
+    display: block !important;
+    margin: 25px auto !important;
+    cursor: zoom-in;
+    border-radius: 15px;
+    border: 2px solid var(--neon-cyan);
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.4),
+        0 0 60px rgba(0, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    filter: drop-shadow(0 0 10px var(--neon-cyan));
+}
+
+.reveal section img:hover {
+    transform: scale(1.05) rotateY(5deg);
+    box-shadow:
+        0 0 50px rgba(0, 255, 255, 0.6),
+        0 0 100px rgba(0, 255, 255, 0.3);
+    border-color: var(--neon-magenta);
+    filter: drop-shadow(0 0 20px var(--neon-magenta));
+}
+
+/* ========================
+   LIGHTBOX QUANTUM
+========================= */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.image-overlay img {
+    width: auto;
+    height: auto;
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    border-radius: 20px;
+    border: 3px solid var(--neon-cyan);
+    box-shadow:
+        0 0 100px rgba(0, 255, 255, 0.8),
+        0 0 200px rgba(0, 255, 255, 0.4);
+    animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 0 30px var(--neon-cyan));
+}
+
+/* ========================
+   TABLAS CYBERPUNK
+========================= */
+.reveal table {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px auto;
+    width: 95%;
+    font-size: 1em;
+    background: var(--bg-card);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--neon-cyan);
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 255, 255, 0.05);
+    animation: hologramFlicker 5s infinite;
+}
+
+.reveal th, .reveal td {
+    border: none;
+    padding: 18px 25px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    position: relative;
+}
+
+.reveal th {
+    background: var(--gradient-cyber);
+    color: var(--text-primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.9em;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+.reveal tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal tbody tr {
+    transition: all 0.3s ease;
+}
+
+.reveal tbody tr:hover {
+    background: rgba(0, 255, 255, 0.1);
+    transform: translateX(5px);
+    box-shadow: inset 4px 0 0 var(--neon-cyan);
+}
+
+/* ========================
+   QUOTE BOXES HOLOGRÁFICOS
+========================= */
+.reveal blockquote {
+    position: relative;
+    padding: 24px 30px 24px 60px;
+    margin: 30px auto;
+    max-width: 85%;
+    border-radius: 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    background: var(--bg-card);
+    backdrop-filter: blur(25px);
+    border: 2px solid transparent;
+    box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.2),
+        inset 0 0 40px rgba(0, 255, 255, 0.05);
+    color: var(--text-secondary);
+    font-style: italic;
+    overflow: visible;
+    transition: all 0.4s ease;
+    animation: hologramFlicker 6s infinite;
+}
+
+.reveal blockquote:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow:
+        0 0 60px rgba(0, 255, 255, 0.4),
+        inset 0 0 40px rgba(0, 255, 255, 0.1);
+}
+
+/* Bordes holográficos para quote boxes */
+.reveal blockquote::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-cyber);
+    border-radius: 22px;
+    padding: 2px;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: cyberpunkGlow 5s infinite;
+}
+
+.reveal blockquote.info {
+    border-color: var(--neon-cyan);
+}
+
+.reveal blockquote.info::before {
+    background: linear-gradient(45deg, var(--neon-cyan), transparent, var(--neon-cyan));
+}
+
+.reveal blockquote.warning {
+    border-color: var(--neon-yellow);
+}
+
+.reveal blockquote.warning::before {
+    background: linear-gradient(45deg, var(--neon-yellow), var(--neon-orange), var(--neon-yellow));
+}
+
+.reveal blockquote.tip {
+    border-color: var(--neon-green);
+}
+
+.reveal blockquote.tip::before {
+    background: linear-gradient(45deg, var(--neon-green), transparent, var(--neon-green));
+}
+
+/* Iconos holográficos */
+.reveal blockquote.info::after,
+.reveal blockquote.warning::after,
+.reveal blockquote.tip::after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    top: 30px;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0 0 10px currentColor);
+    animation: neonPulse 3s infinite ease-in-out;
+}
+
+.reveal blockquote.info::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><circle cx='12' cy='16' r='1'/></svg>");
+    color: var(--neon-cyan);
+}
+
+.reveal blockquote.warning::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffff00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12' y2='17'/></svg>");
+    color: var(--neon-yellow);
+}
+
+.reveal blockquote.tip::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff41' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12c.5.5 1 1.5 1 2v1h6v-1c0-.5.5-1.5 1-2a7 7 0 0 0-4-12z'/></svg>");
+    color: var(--neon-green);
+}
+
+/* ========================
+   BREADCRUMB QUANTUM
+========================= */
+.reveal .header-trail {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    font-size: 0.7em;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 75%;
+    overflow: hidden;
+    background: var(--bg-card);
+    backdrop-filter: blur(30px);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 15px;
+    padding: 15px 25px;
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 255, 255, 0.05);
+    gap: 12px;
+    z-index: 9999;
+    transition: all 0.4s ease;
+    animation: hologramFlicker 4s infinite;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.reveal .header-trail:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+        0 0 50px rgba(0, 255, 255, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    border-color: var(--neon-magenta);
+}
+
+.reveal .header-trail .crumb {
+    flex: 0 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reveal .header-trail .crumb-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 180

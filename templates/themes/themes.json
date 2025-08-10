@@ -1,0 +1,50 @@
+[
+  {
+    "name": "christmas-magic",
+    "css": "christmas-magic.css"
+  },
+  {
+    "name": "cyberpunk-future",
+    "css": "cyberpunk-future.css"
+  },
+  {
+    "name": "ghibi-magic",
+    "css": "ghibi-magic.css"
+  },
+  {
+    "name": "harry-potter",
+    "css": "harry-potter.css"
+  },
+  {
+    "name": "minimal-dark",
+    "css": "minimal-dark.css"
+  },
+  {
+    "name": "minimal-light",
+    "css": "minimal-light.css"
+  },
+  {
+    "name": "modern-idea",
+    "css": "modern-idea.css"
+  },
+  {
+    "name": "modern-idea-light",
+    "css": "modern-idea-light.css"
+  },
+  {
+    "name": "modern-light",
+    "css": "modern-light.css"
+  },
+  {
+    "name": "modern-motion",
+    "css": "modern-motion.css"
+  },
+  {
+    "name": "modern-new",
+    "css": "modern-new.css"
+  },
+  {
+    "name": "modern-ucr",
+    "css": "modern-ucr.css"
+  }
+]

@@ -95,6 +95,13 @@ def convert_markdown_to_reveal(md_content, assets_dir, md_base_path, config):
                     del header_context[k]
 
         breadcrumb_text = " › ".join([header_context[i] for i in sorted(header_context.keys())]) if header_context else ""
+
+        # Envolver todo el contenido de la slide en <div class="slide-content">
+        wrapper = soup.new_tag("div", attrs={"class": "slide-content"})
+        for element in soup.contents:
+            wrapper.append(element.extract())
+        soup.append(wrapper)
+
         slides_html.append(f"<section data-breadcrumb=\"{breadcrumb_text}\">{soup}</section>")
     return "\n".join(slides_html)
 

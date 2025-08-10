@@ -96,6 +96,35 @@
             });
         }
     });
+
+    // Auto-ajuste de fuente por altura del contenido
+    function adjustFontToFit(slide) {
+    const content = slide.querySelector('.slide-content');
+    if (!content) return;
+
+    const maxHeight = parseInt(slide.getAttribute('data-max-height')) || 600;
+    const minFontSize = 14; // en píxeles
+    const maxSteps = 5;    // evita bucles largos
+
+    let step = 0;
+    let fontSize = parseFloat(getComputedStyle(content).fontSize);
+
+    while (content.scrollHeight > maxHeight && fontSize > minFontSize && step < maxSteps) {
+        console.log(`Adjunsting fond size: ${fontSize}px`);
+        fontSize -= 1;
+        content.style.fontSize = `${fontSize}px`;
+        step++;
+    }
+}
+
+
+    Reveal.on('slidechanged', event => {
+        adjustFontToFit(event.currentSlide);
+    });
+
+    Reveal.on('ready', event => {
+        adjustFontToFit(event.currentSlide);
+    });
 </script>
 </body>
 </html>
