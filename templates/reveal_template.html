@@ -14,9 +14,78 @@
           href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/{{ highlight_theme }}.min.css">
 
     <!-- Reveal.js Scripts -->
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js"></script>
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js">
+  // ====== Stabilize vertical position across fragment reveals ======
+  function captureStableTop(slide){
+    if(!slide) return;
+    // Prefer inline top set by Reveal; if missing, read computed value
+    const inlineTop = slide.style.top && slide.style.top.trim();
+    const computedTop = window.getComputedStyle(slide).top;
+    slide.dataset.stableTop = inlineTop || computedTop;
+  }
+  function restoreStableTop(slide){
+    if(!slide) return;
+    const t = slide.dataset.stableTop;
+    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
+  }
+
+  // Capture on ready and on slide change
+  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
+
+  // On fragment shown/hidden, keep the same top to avoid vertical jump
+  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+
+</script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js">
+  // ====== Stabilize vertical position across fragment reveals ======
+  function captureStableTop(slide){
+    if(!slide) return;
+    // Prefer inline top set by Reveal; if missing, read computed value
+    const inlineTop = slide.style.top && slide.style.top.trim();
+    const computedTop = window.getComputedStyle(slide).top;
+    slide.dataset.stableTop = inlineTop || computedTop;
+  }
+  function restoreStableTop(slide){
+    if(!slide) return;
+    const t = slide.dataset.stableTop;
+    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
+  }
+
+  // Capture on ready and on slide change
+  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
+
+  // On fragment shown/hidden, keep the same top to avoid vertical jump
+  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+
+</script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js">
+  // ====== Stabilize vertical position across fragment reveals ======
+  function captureStableTop(slide){
+    if(!slide) return;
+    // Prefer inline top set by Reveal; if missing, read computed value
+    const inlineTop = slide.style.top && slide.style.top.trim();
+    const computedTop = window.getComputedStyle(slide).top;
+    slide.dataset.stableTop = inlineTop || computedTop;
+  }
+  function restoreStableTop(slide){
+    if(!slide) return;
+    const t = slide.dataset.stableTop;
+    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
+  }
+
+  // Capture on ready and on slide change
+  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
+
+  // On fragment shown/hidden, keep the same top to avoid vertical jump
+  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+
+</script>
 
     {% if custom_theme %}
     <link rel="stylesheet" href="assets/{{ custom_theme }}">
@@ -33,19 +102,221 @@
 </div>
 
 <script>
-    Reveal.initialize({
-        controls: {{ enable_controls | lower }},
-        progress: {{ enable_progress | lower }},
-        history: {{ enable_history | lower }},
-        center: {{ align_center | lower }},
-        transition: '{{ transition }}',
-        width: {{ width }},
-        height: {{ height }},
-        margin: {{ margin }},
-        minScale: {{ min_scale }},
-        maxScale: {{ max_scale }},
-        plugins: [ RevealMath.MathJax3, RevealHighlight ]
+    // ========================
+    // REVEAL.JS AUTO-RESPONSIVE CONFIGURATION
+    // Se ajusta automáticamente al tamaño de pantalla
+    // ========================
+
+    function getOptimalRevealConfig() {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        // Usar las dimensiones más apropiadas
+        const effectiveWidth = Math.max(windowWidth, screenWidth * 0.8);
+        const effectiveHeight = Math.max(windowHeight, screenHeight * 0.8);
+
+        console.log(`Pantalla detectada: ${screenWidth}x${screenHeight}`);
+        console.log(`Ventana actual: ${windowWidth}x${windowHeight}`);
+
+        let config = {
+            controls: {{ enable_controls | lower }},
+            progress: {{ enable_progress | lower }},
+            history: {{ enable_history | lower }},
+            center: {{ align_center | lower }},
+            transition: '{{ transition }}',
+            plugins: [ RevealMath.MathJax3, RevealHighlight ]
+        };
+
+        // Detectar tipo de pantalla y configurar automáticamente
+        if (effectiveWidth >= 2560) {
+            // 4K y pantallas ultra-wide
+            console.log("Configuración: 4K/Ultra-wide");
+            config = {
+                ...config,
+                width: 2400,
+                height: 1350,
+                margin: 0.02,
+                minScale: 0.5,
+                maxScale: 1.4
+            };
+
+        } else if (effectiveWidth >= 1920) {
+            // Full HD y 2K
+            console.log("Configuración: Full HD/2K");
+            config = {
+                ...config,
+                width: 1800,
+                height: 1080,
+                margin: 0.03,
+                minScale: 0.6,
+                maxScale: 1.3
+            };
+
+        } else if (effectiveWidth >= 1600) {
+            // Pantallas wide medianas
+            console.log("Configuración: Wide mediana");
+            config = {
+                ...config,
+                width: 1500,
+                height: 900,
+                margin: 0.04,
+                minScale: 0.65,
+                maxScale: 1.25
+            };
+
+        } else if (effectiveWidth >= 1366) {
+            // Laptops estándar
+            console.log("Configuración: Laptop estándar");
+            config = {
+                ...config,
+                width: 1280,
+                height: 720,
+                margin: 0.05,
+                minScale: 0.7,
+                maxScale: 1.2
+            };
+
+        } else if (effectiveWidth >= 1024) {
+            // Tablets landscape y pantallas pequeñas
+            console.log("Configuración: Tablet/Pantalla pequeña");
+            config = {
+                ...config,
+                width: 960,
+                height: 600,
+                margin: 0.06,
+                minScale: 0.75,
+                maxScale: 1.15
+            };
+
+        } else {
+            // Móviles y tablets portrait
+            console.log("Configuración: Mobile/Tablet portrait");
+            config = {
+                ...config,
+                width: 800,
+                height: 600,
+                margin: 0.08,
+                minScale: 0.8,
+                maxScale: 1.1
+            };
+        }
+
+        // Ajuste especial para aspectos muy anchos (ultrawide monitors)
+        const aspectRatio = effectiveWidth / effectiveHeight;
+        if (aspectRatio > 2.2) {
+            console.log("Ajuste para monitor ultrawide detectado");
+            config.width = Math.min(config.width * 1.3, effectiveWidth * 0.9);
+            config.margin = Math.max(config.margin - 0.01, 0.02);
+            config.minScale = Math.max(config.minScale - 0.1, 0.4);
+        }
+
+        // Ajuste para pantallas muy altas
+        if (aspectRatio < 1.2) {
+            console.log("Ajuste para pantalla vertical detectado");
+            config.height = Math.min(config.height * 1.2, effectiveHeight * 0.85);
+            config.margin = Math.max(config.margin - 0.02, 0.03);
+        }
+
+        console.log("Configuración final:", config);
+        return config;
+    }
+
+    // Inicializar Reveal.js con configuración automática
+    const revealConfig = getOptimalRevealConfig();
+    Reveal.initialize(revealConfig);
+
+    // ========================
+    // AUTO-RESIZE EN TIEMPO REAL
+    // ========================
+
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            console.log("Redimensión detectada, reconfigurando...");
+
+            // Obtener nueva configuración
+            const newConfig = getOptimalRevealConfig();
+
+            // Solo reconfigurar si hay cambios significativos
+            const currentConfig = Reveal.getConfig();
+            const widthDiff = Math.abs(newConfig.width - currentConfig.width);
+            const heightDiff = Math.abs(newConfig.height - currentConfig.height);
+
+            if (widthDiff > 100 || heightDiff > 50) {
+                console.log("Cambio significativo detectado, reconfigurando Reveal.js");
+
+                // Reconfigurar Reveal.js
+                Reveal.configure({
+                    width: newConfig.width,
+                    height: newConfig.height,
+                    margin: newConfig.margin,
+                    minScale: newConfig.minScale,
+                    maxScale: newConfig.maxScale
+                });
+
+                // Forzar un re-layout
+                setTimeout(() => {
+                    Reveal.layout();
+                    Reveal.sync();
+                }, 100);
+            }
+        }, 500); // Esperar 500ms después del resize para evitar múltiples reconfiguraciones
     });
+
+    // ========================
+    // DETECCIÓN DE ORIENTACIÓN (para tablets/móviles)
+    // ========================
+    if (screen.orientation) {
+        screen.orientation.addEventListener('change', function() {
+            console.log("Cambio de orientación detectado");
+            setTimeout(function() {
+                const newConfig = getOptimalRevealConfig();
+                Reveal.configure({
+                    width: newConfig.width,
+                    height: newConfig.height,
+                    margin: newConfig.margin,
+                    minScale: newConfig.minScale,
+                    maxScale: newConfig.maxScale
+                });
+                Reveal.layout();
+            }, 300);
+        });
+    }
+
+    // ========================
+    // UTILIDADES PARA DEBUG
+    // ========================
+    function showCurrentConfig() {
+        const config = Reveal.getConfig();
+        console.log("Configuración actual de Reveal.js:", {
+            width: config.width,
+            height: config.height,
+            margin: config.margin,
+            minScale: config.minScale,
+            maxScale: config.maxScale,
+            pantalla: `${window.screen.width}x${window.screen.height}`,
+            ventana: `${window.innerWidth}x${window.innerHeight}`
+        });
+    }
+
+    function forceRevealConfig(width, height, margin = 0.04, minScale = 0.6, maxScale = 1.3) {
+        console.log(`Forzando configuración: ${width}x${height}`);
+        Reveal.configure({
+            width: width,
+            height: height,
+            margin: margin,
+            minScale: minScale,
+            maxScale: maxScale
+        });
+        Reveal.layout();
+    }
+
+    // ========================
+    // FUNCIONALIDAD ORIGINAL DEL TEMPLATE
+    // ========================
 
     // Lightbox para imágenes
     Reveal.on('ready', () => {
@@ -99,24 +370,23 @@
 
     // Auto-ajuste de fuente por altura del contenido
     function adjustFontToFit(slide) {
-    const content = slide.querySelector('.slide-content');
-    if (!content) return;
+        const content = slide.querySelector('.slide-content');
+        if (!content) return;
 
-    const maxHeight = parseInt(slide.getAttribute('data-max-height')) || 600;
-    const minFontSize = 14; // en píxeles
-    const maxSteps = 5;    // evita bucles largos
+        const maxHeight = parseInt(slide.getAttribute('data-max-height')) || 600;
+        const minFontSize = 14; // en píxeles
+        const maxSteps = 5;    // evita bucles largos
 
-    let step = 0;
-    let fontSize = parseFloat(getComputedStyle(content).fontSize);
+        let step = 0;
+        let fontSize = parseFloat(getComputedStyle(content).fontSize);
 
-    while (content.scrollHeight > maxHeight && fontSize > minFontSize && step < maxSteps) {
-        console.log(`Adjunsting fond size: ${fontSize}px`);
-        fontSize -= 1;
-        content.style.fontSize = `${fontSize}px`;
-        step++;
+        while (content.scrollHeight > maxHeight && fontSize > minFontSize && step < maxSteps) {
+            console.log(`Adjusting font size: ${fontSize}px`);
+            fontSize -= 1;
+            content.style.fontSize = `${fontSize}px`;
+            step++;
+        }
     }
-}
-
 
     Reveal.on('slidechanged', event => {
         adjustFontToFit(event.currentSlide);
@@ -125,6 +395,29 @@
     Reveal.on('ready', event => {
         adjustFontToFit(event.currentSlide);
     });
+
+  // ====== Stabilize vertical position across fragment reveals ======
+  function captureStableTop(slide){
+    if(!slide) return;
+    // Prefer inline top set by Reveal; if missing, read computed value
+    const inlineTop = slide.style.top && slide.style.top.trim();
+    const computedTop = window.getComputedStyle(slide).top;
+    slide.dataset.stableTop = inlineTop || computedTop;
+  }
+  function restoreStableTop(slide){
+    if(!slide) return;
+    const t = slide.dataset.stableTop;
+    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
+  }
+
+  // Capture on ready and on slide change
+  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
+
+  // On fragment shown/hidden, keep the same top to avoid vertical jump
+  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
+
 </script>
 </body>
 </html>
