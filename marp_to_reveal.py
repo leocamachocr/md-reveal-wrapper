@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from utils.config_loader import load_config
 from jinja2 import Template
 import re
+import glob
 
 def resource_path(relative_path):
     """Obtiene la ruta absoluta del recurso, compatible con PyInstaller."""
@@ -141,16 +142,24 @@ def generate_reveal_presentation(md_file, config):
 
 def main():
     if len(sys.argv) != 2:
-        print("Uso: python marp_to_reveal.py archivo.md")
+        print("Usage: python marp_to_reveal.py <file.md | folder>")
         sys.exit(1)
 
-    md_file = sys.argv[1]
-    if not os.path.isfile(md_file):
-        print(f"Error: No se encontró el archivo {md_file}")
-        sys.exit(1)
-
+    input_path = sys.argv[1]
     config = load_config(resource_path("config.properties"))
-    generate_reveal_presentation(md_file, config)
+
+    if os.path.isdir(input_path):
+        md_files = glob.glob(os.path.join(input_path, "*.md"))
+        if not md_files:
+            print("No Markdown files found in the folder.")
+            sys.exit(1)
+        for md_file in md_files:
+            generate_reveal_presentation(md_file, config)
+    elif os.path.isfile(input_path):
+        generate_reveal_presentation(input_path, config)
+    else:
+        print(f"Error: Path not found: {input_path}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
