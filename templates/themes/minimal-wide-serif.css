@@ -1,0 +1,432 @@
+/* ============================================================
+   MINIMAL WIDE SERIF
+   A grayscale, typographic theme for md-reveal-wrapper.
+
+   Design principles:
+   - Pure white/off-white background, black/gray text only
+   - Serif font stack (no downloads, system fonts)
+   - No shadows, no gradients, no decorative icons, no animations
+   - Content fills maximum slide width — no artificial column caps
+   - Progress bar and breadcrumb remain visible and functional
+   - Compatible with the md-reveal-wrapper pipeline as-is
+============================================================ */
+
+/* ------------------------------------------------------------
+   Design tokens  (scoped to not pollute global :root)
+------------------------------------------------------------ */
+:root {
+  --mws-bg:           #ffffff;     /* slide background */
+  --mws-bg-subtle:    #f8f7f5;     /* code blocks, blockquotes, table zebra */
+  --mws-bg-rule:      #e0deda;     /* borders, dividers, table lines */
+
+  --mws-text:         #111111;     /* primary body copy */
+  --mws-text-dim:     #4a4a4a;     /* secondary, h4–h5, list markers */
+  --mws-text-faint:   #888888;     /* breadcrumb ancestors, separators */
+
+  --mws-rule-h:       #111111;     /* h1 border-bottom */
+  --mws-rule-h2:      #c8c5c0;     /* h2 border-bottom (lighter) */
+
+  /* Callout left-border colors — muted, print-newspaper palette */
+  --mws-info:         #3d6fa8;     /* steel blue */
+  --mws-warn:         #a86a2a;     /* amber */
+  --mws-tip:          #2e7d4f;     /* forest green */
+
+  --mws-font-serif: ui-serif, "Georgia", "Times New Roman", Times, serif;
+  --mws-font-mono:  ui-monospace, "Cascadia Code", "Consolas", "Courier New", monospace;
+}
+
+/* ------------------------------------------------------------
+   Root reveal container — plain white, no pattern
+------------------------------------------------------------ */
+.reveal {
+  background: var(--mws-bg);
+  color:      var(--mws-text);
+  font-family: var(--mws-font-serif);
+}
+
+/* Force-hide non-current slides — consistent with other themes */
+.reveal .slides section[hidden] { display: none !important; }
+.reveal .slides section.past,
+.reveal .slides section.future  { display: none !important; }
+
+/* ------------------------------------------------------------
+   Slide surface — no card, no shadow, full bleed
+------------------------------------------------------------ */
+.reveal .slides section {
+  position:   relative;
+  background: var(--mws-bg);
+  border:     none;
+  border-radius: 0;
+  padding:    40px 56px;
+  box-shadow: none;
+  box-sizing: border-box;
+  overflow:   auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Cancel the colored accent bar injected by some Reveal base themes */
+.reveal .slides section::before { content: none; }
+
+/* ------------------------------------------------------------
+   Base typography — editorial, comfortable line-height
+------------------------------------------------------------ */
+.reveal section {
+  font-size:      26px;
+  line-height:    1.72;
+  letter-spacing: 0.008em;
+  text-align:     left;
+}
+
+@media (min-width: 1200px) { .reveal section { font-size: 27px; } }
+@media (min-width: 1800px) { .reveal section { font-size: 30px; } }
+
+/* ------------------------------------------------------------
+   Heading hierarchy — weight + size, no color accents
+------------------------------------------------------------ */
+.reveal section h1 {
+  font-size:      2.5em;
+  font-weight:    700;
+  color:          var(--mws-text);
+  letter-spacing: -0.025em;
+  line-height:    1.15;
+  margin-bottom:  0.55em;
+  padding-bottom: 0.22em;
+  border-bottom:  2px solid var(--mws-rule-h);
+}
+
+.reveal section h2 {
+  font-size:      1.9em;
+  font-weight:    600;
+  color:          var(--mws-text);
+  letter-spacing: -0.015em;
+  line-height:    1.25;
+  margin-bottom:  0.45em;
+  padding-bottom: 0.18em;
+  border-bottom:  1px solid var(--mws-rule-h2);
+}
+
+.reveal section h3 {
+  font-size:    1.45em;
+  font-weight:  600;
+  color:        var(--mws-text);
+  margin-bottom: 0.4em;
+}
+
+.reveal section h4 {
+  font-size:    1.18em;
+  font-weight:  600;
+  color:        var(--mws-text-dim);
+  margin-bottom: 0.35em;
+}
+
+.reveal section h5 {
+  font-size:    1em;
+  font-weight:  600;
+  color:        var(--mws-text-dim);
+  font-style:   italic;
+  margin-bottom: 0.3em;
+}
+
+.reveal section h6 {
+  font-size:    0.88em;
+  font-weight:  400;
+  color:        var(--mws-text-faint);
+  font-style:   italic;
+  margin-bottom: 0.25em;
+}
+
+/* ------------------------------------------------------------
+   Paragraphs & links
+------------------------------------------------------------ */
+.reveal p {
+  font-size:     1em;
+  margin-bottom: 0.9em;
+  color:         var(--mws-text);
+}
+
+.reveal a {
+  color:                    var(--mws-text);
+  text-decoration:          underline;
+  text-decoration-color:    var(--mws-bg-rule);
+  text-underline-offset:    3px;
+}
+.reveal a:hover {
+  text-decoration-color: var(--mws-text);
+}
+
+/* ------------------------------------------------------------
+   Lists — generous spacing, muted markers
+------------------------------------------------------------ */
+.reveal section ul { padding-left: 1.6em !important; margin-bottom: 1.1em; }
+.reveal section ul ul   { padding-left: 2em   !important; }
+.reveal section ul ul ul { padding-left: 2.4em !important; }
+.reveal section ol { padding-left: 1.6em !important; margin-bottom: 1.1em; }
+
+.reveal li {
+  font-size:     1em;
+  line-height:   1.65;
+  margin-bottom: 0.5em;
+  color:         var(--mws-text);
+}
+
+.reveal section ul li::marker { color: var(--mws-text-dim); }
+.reveal section ol li::marker { color: var(--mws-text-dim); font-weight: 600; }
+
+/* ------------------------------------------------------------
+   Code — discrete gray, monospace stack
+------------------------------------------------------------ */
+.reveal pre {
+  background:    var(--mws-bg-subtle);
+  border:        1px solid var(--mws-bg-rule);
+  border-radius: 3px;
+  padding:       18px 22px;
+  margin:        14px 0;
+  box-shadow:    none;
+  overflow:      auto;
+  position:      relative;
+}
+
+/* Cancel accent bar from Reveal base themes */
+.reveal pre::before { content: none; }
+
+.reveal code {
+  font-family:   var(--mws-font-mono);
+  font-size:     0.88em;
+  color:         var(--mws-text);
+  background:    var(--mws-bg-subtle);
+  border:        1px solid var(--mws-bg-rule);
+  border-radius: 3px;
+  padding:       2px 6px;
+}
+
+.reveal pre code {
+  background:  transparent;
+  border:      none;
+  padding:     0;
+  font-size:   0.86em;
+  line-height: 1.55;
+  color:       inherit;
+}
+
+/* ------------------------------------------------------------
+   Blockquotes and callout boxes  (info / warning / tip)
+
+   The blockquote_processor adds .info / .warning / .tip classes.
+   Other themes use SVG icons via ::before — this theme suppresses
+   all of them and uses a colored left-border only.
+------------------------------------------------------------ */
+.reveal blockquote {
+  position:    relative;
+  padding:     15px 20px;
+  margin:      18px auto;
+  max-width:   92%;
+  border-left: 4px solid var(--mws-bg-rule);
+  background:  var(--mws-bg-subtle);
+  box-shadow:  none;
+  border-radius: 0;
+  font-style:  italic;
+  font-size:   1em;
+  line-height: 1.65;
+  color:       var(--mws-text-dim);
+}
+
+/* Suppress every icon variant injected by other themes */
+.reveal blockquote::before,
+.reveal blockquote.info::before,
+.reveal blockquote.warning::before,
+.reveal blockquote.tip::before {
+  content:          none   !important;
+  display:          none   !important;
+  background-image: none   !important;
+}
+
+.reveal blockquote.info {
+  border-left-color: var(--mws-info);
+  background:        transparent;
+  color:             var(--mws-text);
+}
+.reveal blockquote.warning {
+  border-left-color: var(--mws-warn);
+  background:        transparent;
+  color:             var(--mws-text);
+}
+.reveal blockquote.tip {
+  border-left-color: var(--mws-tip);
+  background:        transparent;
+  color:             var(--mws-text);
+}
+
+/* ------------------------------------------------------------
+   Tables — full-width, simple borders, small-caps header
+------------------------------------------------------------ */
+.reveal table {
+  border-collapse: collapse;
+  margin:          18px auto;
+  width:           96%;
+  font-size:       0.92em;
+  background:      var(--mws-bg);
+  box-shadow:      none;
+  border:          1px solid var(--mws-bg-rule);
+  border-radius:   0;
+}
+
+.reveal th,
+.reveal td {
+  padding:    10px 16px;
+  text-align: left;
+  border:     1px solid var(--mws-bg-rule);
+}
+
+.reveal th {
+  background:     var(--mws-bg-subtle);
+  color:          var(--mws-text);
+  font-weight:    700;
+  font-variant:   small-caps;
+  letter-spacing: 0.04em;
+  font-size:      0.86em;
+  border-bottom:  2px solid var(--mws-rule-h);
+}
+
+.reveal tbody tr:nth-child(even) { background: var(--mws-bg-subtle); }
+
+/* ------------------------------------------------------------
+   Images — wide, centered, thin border only
+------------------------------------------------------------ */
+.reveal section img {
+  max-width:   85% !important;
+  max-height:  72% !important;
+  object-fit:  contain;
+  display:     block  !important;
+  margin:      18px auto !important;
+  cursor:      zoom-in;
+  border-radius: 0;
+  box-shadow:  none;
+  border:      1px solid var(--mws-bg-rule);
+  transition:  none;
+}
+
+/* Lightbox — white overlay, no blur */
+.image-overlay {
+  position:        fixed;
+  inset:           0;
+  background:      rgba(255, 255, 255, 0.97);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  z-index:         9999;
+}
+.image-overlay img {
+  width:       100%;
+  height:      auto;
+  max-width:   92%;
+  max-height:  92%;
+  object-fit:  contain;
+  box-shadow:  none;
+  border:      1px solid var(--mws-bg-rule);
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------
+   Reveal.js UI chrome
+------------------------------------------------------------ */
+
+/* Progress bar — thin, dark, no glow */
+.reveal .progress {
+  height:     3px;
+  background: var(--mws-bg-rule);
+}
+.reveal .progress span {
+  background:    var(--mws-text);
+  border-radius: 0;
+  box-shadow:    none;
+}
+
+/* Navigation controls — muted gray */
+.reveal .controls {
+  color: var(--mws-text-dim);
+}
+.reveal .controls button {
+  color: var(--mws-text-dim) !important;
+}
+
+/* ------------------------------------------------------------
+   Breadcrumb (header-trail)
+
+   DOM: #header-trail.header-trail > (.crumb > .crumb-text + .crumb-separator)*
+   JS populates it on slidechanged. We style it as a flat ruled strip.
+------------------------------------------------------------ */
+.reveal .header-trail {
+  position:    fixed   !important;
+  top:         0       !important;
+  left:        0       !important;
+  right:       auto    !important;
+  font-size:   0.44em;
+  font-family: var(--mws-font-serif);
+  font-style:  normal;
+  display:     flex;
+  flex-wrap:   nowrap;
+  align-items: center;
+  overflow:    hidden;
+  max-width:   68%;
+  background:  var(--mws-bg-subtle);
+  border-right:  1px solid var(--mws-bg-rule);
+  border-bottom: 1px solid var(--mws-bg-rule);
+  padding:     5px 14px 5px 12px;
+  gap:         4px;
+  z-index:     9999;
+  /* No blur · no shadow · no border-radius · no hover transform */
+}
+
+.reveal .header-trail .crumb {
+  flex:       0 1 auto;
+  min-width:  0;
+  display:    flex;
+  align-items: center;
+  overflow:   hidden;
+}
+
+.reveal .header-trail .crumb-text {
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  white-space:   nowrap;
+  min-width:     0;
+  max-width:     130px;
+  display:       inline-block;
+  color:         var(--mws-text-faint);
+}
+
+.reveal .header-trail .crumb-separator {
+  flex-shrink: 0;
+  color:       var(--mws-text-faint);
+  font-style:  normal;
+  margin:      0 2px;
+}
+
+/* Last crumb = current slide — slightly bolder */
+.reveal .header-trail .crumb:last-of-type .crumb-text {
+  font-weight: 600;
+  color:       var(--mws-text-dim);
+  max-width:   none;
+}
+
+/* ------------------------------------------------------------
+   Responsive — narrow / portrait screens
+------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .reveal .slides section { padding: 22px 18px; }
+  .reveal section          { font-size: 20px; }
+
+  .reveal section h1 { font-size: 2em; }
+  .reveal section h2 { font-size: 1.6em; }
+
+  .reveal section img {
+    max-width:  100% !important;
+    max-height: 60%  !important;
+  }
+
+  .reveal .header-trail {
+    font-size: 0.54em;
+    max-width: 85%;
+    padding:   4px 10px;
+  }
+}
