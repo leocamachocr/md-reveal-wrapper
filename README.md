@@ -95,9 +95,33 @@ pip install -r requirements.txt
 Contents of `requirements.txt`:
 
 ```
-markdown-it-py
-beautifulsoup4
-jinja2
+beautifulsoup4==4.13.4
+certifi==2024.2.2
+cffi==1.16.0
+charset-normalizer==3.3.2
+cryptography==42.0.5
+Deprecated==1.2.14
+idna==3.7
+Jinja2==3.1.6
+Markdown==3.8.2
+markdown-it-py==3.0.0
+MarkupSafe==3.0.2
+mdurl==0.1.2
+pillow==11.3.0
+pillow_heif==1.0.0
+prettytable==3.10.0
+pycparser==2.22
+PyGithub==2.3.0
+PyJWT==2.8.0
+PyNaCl==1.5.0
+rarfile==4.2
+requests==2.31.0
+soupsieve==2.7
+typing_extensions==4.11.0
+urllib3==2.2.1
+wcwidth==0.2.13
+wrapt==1.16.0
+
 ```
 
 ---
