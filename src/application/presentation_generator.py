@@ -1,3 +1,4 @@
+import re
 import webbrowser
 from pathlib import Path
 
@@ -54,7 +55,10 @@ class PresentationGenerator:
         return output_file
 
     def _build_slides(self, md_content: str, config: PresentationConfig, processors) -> str:
-        raw_slides = md_content.split(config.slide_separator)
+        # Use a whole-line regex match so that `---` inside table separator
+        # rows (e.g. `| --- | --- |`) is never mistaken for a slide boundary.
+        sep_pattern = r"(?m)^\s*" + re.escape(config.slide_separator) + r"\s*$"
+        raw_slides = re.split(sep_pattern, md_content)
         context: dict = {}
         sections: list[str] = []
 

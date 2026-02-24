@@ -287,6 +287,79 @@ class TestImageProcessor:
 
 
 # ---------------------------------------------------------------------------
+# PresentationGenerator — slide-splitting regression tests
+# ---------------------------------------------------------------------------
+
+from src.application.presentation_generator import PresentationGenerator
+from src.application.slide_processor_pipeline import DefaultSlideProcessorPipeline
+from src.infrastructure.file_manager import FileManager
+from src.infrastructure.template_renderer import TemplateRenderer
+
+
+def _make_generator() -> PresentationGenerator:
+    fm = FileManager()
+    return PresentationGenerator(
+        parser=MarkdownParser(),
+        pipeline=DefaultSlideProcessorPipeline(),
+        renderer=TemplateRenderer(fm),
+        file_manager=fm,
+        open_browser=False,
+    )
+
+
+class TestSlideTableSplitting:
+    """Regression: table separator rows must not be treated as slide breaks."""
+
+    def _split(self, md: str, separator: str = "---") -> list[str]:
+        """Call the private _build_slides and return the list of <section> tags."""
+        from src.domain.config import PresentationConfig
+        gen = _make_generator()
+        config = PresentationConfig(slide_separator=separator, output_in_md_dir="false")
+        html = gen._build_slides(md, config, [])
+        # Each slide becomes a <section>; count them
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html, "html.parser")
+        return soup.find_all("section")
+
+    def test_table_not_split_by_separator(self):
+        """A single slide containing a table must produce exactly one section."""
+        md = "## Data\n\n| A | B |\n|---|---|\n| 1 | 2 |"
+        sections = self._split(md)
+        assert len(sections) == 1
+
+    def test_table_renders_as_table_element(self):
+        """The table must appear as a <table> inside the section, not broken markup."""
+        md = "## Data\n\n| A | B |\n|---|---|\n| 1 | 2 |"
+        sections = self._split(md)
+        assert sections[0].find("table") is not None
+
+    def test_table_with_many_dashes_not_split(self):
+        """Wider column separators like |-----|-----| must also be safe."""
+        md = "| Col1 | Col2 |\n|------|------|\n| x    | y    |"
+        sections = self._split(md)
+        assert len(sections) == 1
+
+    def test_explicit_slide_break_still_works(self):
+        """A real --- separator between two slides must still split correctly."""
+        md = "# Slide one\n\n---\n\n# Slide two"
+        sections = self._split(md)
+        assert len(sections) == 2
+
+    def test_table_and_slide_break_together(self):
+        """Slide with table followed by a separator and a second slide."""
+        md = (
+            "## Slide 1\n\n"
+            "| A | B |\n|---|---|\n| 1 | 2 |\n\n"
+            "---\n\n"
+            "## Slide 2\n\nJust text."
+        )
+        sections = self._split(md)
+        assert len(sections) == 2
+        assert sections[0].find("table") is not None
+        assert sections[1].find("table") is None
+
+
+# ---------------------------------------------------------------------------
 # ConfigLoader
 # ---------------------------------------------------------------------------
 
