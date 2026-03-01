@@ -6,6 +6,7 @@ from src.processors.base import SlideProcessor
 from src.processors.blockquote_processor import BlockquoteProcessor
 from src.processors.breadcrumb_processor import BreadcrumbProcessor
 from src.processors.fragment_processor import FragmentProcessor
+from src.processors.grid_processor import GridProcessor
 from src.processors.image_processor import ImageProcessor
 
 
@@ -32,10 +33,11 @@ class SlideProcessorPipelineBase(ABC):
 class DefaultSlideProcessorPipeline(SlideProcessorPipelineBase):
     """
     Builds the standard processor pipeline:
-      1. ImageProcessor     — copy local images, rewrite src
-      2. BlockquoteProcessor — style [info]/[warning]/[tip] callouts
-      3. FragmentProcessor  — add .fragment to list items
-      4. BreadcrumbProcessor — track heading context across slides
+      1. GridProcessor      — convert <!-- $grid(N) --> blocks to CSS grid
+      2. ImageProcessor     — copy local images, rewrite src
+      3. BlockquoteProcessor — style [info]/[warning]/[tip] callouts
+      4. FragmentProcessor  — add .fragment to list items
+      5. BreadcrumbProcessor — track heading context across slides
     """
 
     def build(
@@ -45,6 +47,7 @@ class DefaultSlideProcessorPipeline(SlideProcessorPipelineBase):
         config: PresentationConfig,
     ) -> list[SlideProcessor]:
         return [
+            GridProcessor(),
             ImageProcessor(assets_dir, md_base_path),
             BlockquoteProcessor(),
             FragmentProcessor(enabled=config.fragments_enabled),

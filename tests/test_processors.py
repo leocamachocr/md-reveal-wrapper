@@ -14,6 +14,7 @@ from pathlib import Path
 from src.processors.blockquote_processor import BlockquoteProcessor
 from src.processors.breadcrumb_processor import BreadcrumbProcessor
 from src.processors.fragment_processor import FragmentProcessor
+from src.processors.grid_processor import GridProcessor
 from src.processors.image_processor import ImageProcessor
 from src.application.markdown_parser import MarkdownParser
 from src.infrastructure.config_loader import ConfigLoader
@@ -26,6 +27,125 @@ from src.domain.config import PresentationConfig
 
 def make_soup(html: str) -> BeautifulSoup:
     return BeautifulSoup(html, "html.parser")
+
+
+# ---------------------------------------------------------------------------
+# GridProcessor
+# ---------------------------------------------------------------------------
+
+def _make_grid_soup(html: str) -> BeautifulSoup:
+    """Wrap raw HTML in a fragment the same way a slide soup is structured."""
+    return BeautifulSoup(html, "html.parser")
+
+
+class TestGridProcessor:
+    def test_basic_grid_structure(self):
+        """2-col grid with 2 items produces .slide-grid with 2 .grid-item children."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<p>Item one</p>"
+            "<hr/>"
+            "<p>Item two</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        grid = soup.find("div", class_="slide-grid")
+        assert grid is not None
+        items = grid.find_all("div", class_="grid-item")
+        assert len(items) == 2
+
+    def test_grid_cols_css_var(self):
+        """style attribute carries --grid-cols: N matching the requested column count."""
+        html = (
+            "<!-- $grid(3) -->"
+            "<p>A</p><hr/><p>B</p><hr/><p>C</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        grid = soup.find("div", class_="slide-grid")
+        assert grid is not None
+        assert grid.get("style") == "--grid-cols: 3"
+
+    def test_items_fill_by_content(self):
+        """Each grid item contains the correct paragraph content."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<p>First content</p>"
+            "<hr/>"
+            "<p>Second content</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        assert "First content" in items[0].get_text()
+        assert "Second content" in items[1].get_text()
+
+    def test_no_grid_comment_noop(self):
+        """Slide without $grid comment is left untouched."""
+        html = "<h1>Title</h1><p>Normal slide</p>"
+        soup = _make_grid_soup(html)
+        original_str = str(soup)
+        GridProcessor().process(soup, {})
+        assert str(soup) == original_str
+
+    def test_unclosed_grid_noop(self):
+        """$grid(N) without closing $grid/ leaves slide untouched."""
+        html = "<!-- $grid(2) --><p>Orphaned</p>"
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        # No .slide-grid should be created
+        assert soup.find("div", class_="slide-grid") is None
+
+    def test_content_outside_grid_preserved(self):
+        """Paragraphs before and after the grid block are not consumed."""
+        html = (
+            "<p>Before grid</p>"
+            "<!-- $grid(2) -->"
+            "<p>Left column</p>"
+            "<hr/>"
+            "<p>Right column</p>"
+            "<!-- $grid/ -->"
+            "<p>After grid</p>"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        texts = [p.get_text() for p in soup.find_all("p", recursive=False)]
+        assert "Before grid" in texts
+        assert "After grid" in texts
+
+    def test_hr_separators_removed_from_dom(self):
+        """<hr> nodes used as item separators must not appear in the final DOM."""
+        html = (
+            "<!-- $grid(3) -->"
+            "<p>A</p><hr/><p>B</p><hr/><p>C</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        assert soup.find("hr") is None
+
+    def test_any_html_inside_item(self):
+        """Heading, list, and code inside an item are all preserved correctly."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<h2>Column heading</h2>"
+            "<ul><li>Point A</li><li>Point B</li></ul>"
+            "<pre><code>print('hello')</code></pre>"
+            "<hr/>"
+            "<p>Simple paragraph</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        assert len(items) == 2
+        first = items[0]
+        assert first.find("h2") is not None
+        assert first.find("ul") is not None
+        assert first.find("code") is not None
 
 
 # ---------------------------------------------------------------------------
