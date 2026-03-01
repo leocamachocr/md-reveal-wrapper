@@ -38,6 +38,7 @@
     /* Timing functions para animaciones discretas */
     --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --crumb-font-size: 0.6em;
 }
 
 /* ========================
@@ -650,7 +651,7 @@
     top: 20px !important;
     left: 20px !important;
     right: 20px !important;
-    font-size: 0.6em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

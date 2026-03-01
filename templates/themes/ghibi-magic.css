@@ -59,6 +59,7 @@
     --gradient-sky: linear-gradient(135deg, var(--sky-blue) 0%, var(--twilight-blue) 100%);
     --gradient-sunset: linear-gradient(135deg, var(--sunset-orange) 0%, var(--golden-yellow) 100%);
     --gradient-magic: linear-gradient(135deg, var(--spirit-purple) 0%, var(--flower-pink) 100%);
+    --crumb-font-size: 0.6em;
 }
 
 /* ========================
@@ -758,7 +759,7 @@
     top: 20px !important;
     left: 20px !important;
     right: 20px !important;
-    font-size: 0.6em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

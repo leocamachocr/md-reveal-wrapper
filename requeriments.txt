@@ -1,3 +1,0 @@
-markdown-it-py
-beautifulsoup4
-jinja2

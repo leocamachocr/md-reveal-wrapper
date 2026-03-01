@@ -39,6 +39,7 @@
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 14px;
+    --crumb-font-size: 0.52em;
 }
 
 /* ========================
@@ -402,7 +403,7 @@
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    font-size: 0.52em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
