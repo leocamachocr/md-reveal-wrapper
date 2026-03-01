@@ -43,6 +43,7 @@ class PresentationGenerator:
         processors = self._pipeline.build(md_file.parent, assets_dir, config)
         slides_html = self._build_slides(md_content, config, processors)
 
+        self._file_manager.copy_base(assets_dir)
         if config.custom_theme:
             self._file_manager.copy_theme(config.custom_theme, assets_dir)
 

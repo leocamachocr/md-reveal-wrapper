@@ -30,6 +30,7 @@
     --bg-cream: #faf8f3;
     --bg-white: rgba(255, 255, 255, 0.95);
     --bg-overlay: rgba(255, 255, 255, 0.85);
+    --crumb-font-size: 0.55em;
 }
 
 /* ========================
@@ -461,7 +462,7 @@
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    font-size: 0.55em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

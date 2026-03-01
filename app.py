@@ -20,15 +20,7 @@ from src.infrastructure.template_renderer import TemplateRenderer
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-REVEAL_THEMES = [
-    "black", "white", "league", "beige", "sky",
-    "night", "serif", "simple", "solarized", "blood", "moon",
-]
 TRANSITIONS = ["none", "fade", "slide", "convex", "concave", "zoom"]
-HIGHLIGHT_THEMES = [
-    "atom-one-light", "atom-one-dark", "monokai", "github",
-    "dracula", "vs", "xcode", "zenburn",
-]
 _BOOL_FIELDS = frozenset({
     "enable_progress", "enable_controls", "enable_history",
     "align_center", "enable_fragments", "show_header_trail",
@@ -178,8 +170,7 @@ class App(tk.Tk):
         lf, row = self._lf(parent, "Reveal.js", row)
         self._erow(lf, 0, "Version",    "reveal_version", d.reveal_version)
         self._erow(lf, 1, "CDN",        "reveal_cdn",     d.reveal_cdn)
-        self._crow(lf, 2, "Theme",      "theme",          d.theme,           REVEAL_THEMES)
-        self._crow(lf, 3, "Transition", "transition",     d.transition,      TRANSITIONS)
+        self._crow(lf, 2, "Transition", "transition",     d.transition,      TRANSITIONS)
 
         # Section 2 — Slide Layout
         lf, row = self._lf(parent, "Slide Layout", row)
@@ -207,16 +198,12 @@ class App(tk.Tk):
                 row=i // 2, column=i % 2, sticky="w", padx=8, pady=1
             )
 
-        # Section 4 — Syntax Highlighting
-        lf, row = self._lf(parent, "Syntax Highlighting", row)
-        self._crow(lf, 0, "Theme", "highlight_theme", d.highlight_theme, HIGHLIGHT_THEMES)
-
-        # Section 5 — Custom Theme
+        # Section 4 — Custom Theme
         default_ct = d.custom_theme if d.custom_theme in self._css_themes else "(none)"
         lf, row = self._lf(parent, "Custom Theme", row)
         self._crow(lf, 0, "CSS file", "custom_theme", default_ct, self._css_themes)
 
-        # Section 6 — Font Sizes (2-column grid)
+        # Section 5 — Font Sizes (2-column grid)
         lf, row = self._lf(parent, "Font Sizes", row)
         font_fields = [
             ("font_base", "Base", d.font_base),

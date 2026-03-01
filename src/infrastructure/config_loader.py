@@ -27,7 +27,6 @@ class ConfigLoader:
         return PresentationConfig(
             slide_separator=raw.get("slide_separator", "---"),
             reveal_version=raw.get("reveal_version", "4.6.0"),
-            theme=raw.get("theme", "white"),
             transition=raw.get("transition", "fade"),
             reveal_cdn=raw.get("reveal_cdn", "https://cdnjs.cloudflare.com/ajax/libs/reveal.js"),
             enable_progress=raw.get("enable_progress", "true"),
@@ -41,7 +40,6 @@ class ConfigLoader:
             max_scale=raw.get("max_scale", "1.2"),
             enable_fragments=raw.get("enable_fragments", "true"),
             show_header_trail=raw.get("show_header_trail", "true"),
-            highlight_theme=raw.get("highlight_theme", "atom-one-light"),
             font_base=raw.get("font_base", "28px"),
             font_h1=raw.get("font_h1", "2.5em"),
             font_h2=raw.get("font_h2", "2em"),

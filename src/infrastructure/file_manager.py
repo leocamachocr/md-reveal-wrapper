@@ -26,6 +26,12 @@ class FileManager:
         assets_dir.mkdir(parents=True, exist_ok=True)
         return output_dir, assets_dir
 
+    def copy_base(self, assets_dir: Path) -> None:
+        """Copy the structural base CSS into the assets directory."""
+        src = resolve_resource("templates/base.css")
+        dst = assets_dir / "base.css"
+        shutil.copy(src, str(dst))
+
     def copy_theme(self, theme_filename: str, assets_dir: Path) -> None:
         """Copy a bundled CSS theme into the assets directory."""
         src = resolve_resource(f"templates/themes/{theme_filename}")

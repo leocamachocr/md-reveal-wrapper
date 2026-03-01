@@ -1,0 +1,251 @@
+/* ======================================================
+   base.css — non-selectable structural foundation
+   Loaded by every presentation after reveal.min.css and
+   atom-one-light.min.css, before the optional custom theme.
+   Themes override any rule here via their own :root {} or
+   selector blocks — the cascade does the rest.
+   ====================================================== */
+
+/* ------ Design tokens (themes override in their own :root) ------ */
+:root {
+  --base-bg:            #ffffff;
+  --base-text:          #1a1a1a;
+  --base-font:          system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --base-accent:        #0055cc;
+  --base-muted:         #6b6b6b;
+  --base-code-bg:       #f5f5f5;
+  --base-code-text:     #333333;
+  --base-border:        rgba(0, 0, 0, .12);
+
+  --base-info-color:    #1565c0;
+  --base-info-bg:       #e3f2fd;
+  --base-info-border:   #90caf9;
+  --base-warning-color: #e65100;
+  --base-warning-bg:    #fff3e0;
+  --base-warning-border:#ffcc80;
+  --base-tip-color:     #2e7d32;
+  --base-tip-bg:        #e8f5e9;
+  --base-tip-border:    #a5d6a7;
+
+  --base-crumb-bg:      rgba(255, 255, 255, .9);
+  --base-crumb-text:    #555555;
+  --base-crumb-sep:     #0055cc;
+  --crumb-font-size:    0.65em;
+}
+
+/* ------ Root container ------ */
+.reveal {
+  background: var(--base-bg);
+  color: var(--base-text);
+  font-family: var(--base-font);
+}
+
+/* ------ Slide section ------ */
+.reveal .slides section {
+  padding: 24px 32px;
+  box-sizing: border-box;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ------ Typography ------ */
+.reveal section {
+  font-size: 22px;
+  line-height: 1.55;
+}
+.reveal section h1 { font-size: 2.4em;  margin-bottom: .6em;  font-weight: 700; }
+.reveal section h2 { font-size: 1.9em;  margin-bottom: .55em; font-weight: 600; }
+.reveal section h3 { font-size: 1.5em;  margin-bottom: .5em;  font-weight: 600; }
+.reveal section h4 { font-size: 1.2em;  margin-bottom: .4em;  font-weight: 600; }
+.reveal section h5 { font-size: 1.0em;  margin-bottom: .35em; font-weight: 600; }
+.reveal section h6 { font-size: 0.9em;  margin-bottom: .3em;  font-weight: 600; }
+.reveal p           { font-size: 1em;   margin-bottom: 0.9em; }
+.reveal a           { color: var(--base-accent); text-decoration: underline; }
+.reveal a:hover     { opacity: .75; }
+
+/* ------ Lists ------ */
+.reveal section ul,
+.reveal section ol {
+  padding-left: 1.6em;
+  margin-bottom: 1em;
+}
+.reveal section li {
+  font-size: 1em;
+  margin-bottom: .5em;
+  line-height: 1.5;
+}
+
+/* ------ Code ------ */
+.reveal pre {
+  background: var(--base-code-bg);
+  border: 1px solid var(--base-border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  overflow: auto;
+}
+.reveal code {
+  background: var(--base-code-bg);
+  color: var(--base-code-text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: .9em;
+}
+.reveal pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+/* ------ Images ------ */
+.reveal section img {
+  max-width: 60%;
+  max-height: 60%;
+  object-fit: contain;
+  display: block;
+  margin: 16px auto;
+  cursor: zoom-in;
+}
+
+/* ------ Lightbox ------ */
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+.image-overlay img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+}
+
+/* ------ Tables ------ */
+.reveal table {
+  border-collapse: collapse;
+  margin: 18px auto;
+  width: auto;
+  font-size: .9em;
+}
+.reveal th,
+.reveal td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--base-border);
+}
+.reveal th {
+  background: var(--base-code-bg);
+  font-weight: 600;
+  border-bottom: 2px solid var(--base-border);
+}
+
+/* ------ Callout boxes (blockquote_processor output) ------ */
+.reveal blockquote {
+  display: block;
+  position: relative;
+  padding: 14px 16px 14px 52px;
+  margin: 16px 0;
+  border-left: 4px solid var(--base-border);
+  border-radius: 6px;
+  background: var(--base-code-bg);
+  font-style: normal;
+}
+.reveal blockquote::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Info */
+.reveal blockquote.info {
+  background: var(--base-info-bg);
+  border-left-color: var(--base-info-border);
+  color: var(--base-info-color);
+}
+.reveal blockquote.info::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231565c0'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E");
+}
+
+/* Warning */
+.reveal blockquote.warning {
+  background: var(--base-warning-bg);
+  border-left-color: var(--base-warning-border);
+  color: var(--base-warning-color);
+}
+.reveal blockquote.warning::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e65100'%3E%3Cpath d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/%3E%3C/svg%3E");
+}
+
+/* Tip */
+.reveal blockquote.tip {
+  background: var(--base-tip-bg);
+  border-left-color: var(--base-tip-border);
+  color: var(--base-tip-color);
+}
+.reveal blockquote.tip::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232e7d32'%3E%3Cpath d='M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3C17.8 13.5 19 11.4 19 9c0-3.9-3.1-7-7-7z'/%3E%3C/svg%3E");
+}
+
+/* ------ Breadcrumb ------ */
+.reveal .header-trail {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-width: 70%;
+  font-size: var(--crumb-font-size);
+  padding: 8px 14px;
+  background: var(--base-crumb-bg);
+  border-radius: 6px;
+  border: 1px solid var(--base-border);
+  z-index: 9999;
+  box-sizing: border-box;
+}
+.reveal .header-trail .crumb {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.reveal .header-trail .crumb-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+  color: var(--base-crumb-text);
+}
+.reveal .header-trail .crumb-separator {
+  flex-shrink: 0;
+  color: var(--base-crumb-sep);
+  font-weight: 600;
+}
+
+/* ------ Reveal.js UI chrome ------ */
+.reveal .progress span {
+  background: var(--base-accent);
+}
+.reveal .controls {
+  color: var(--base-accent);
+}
+
+/* ------ Responsive ------ */
+@media (max-width: 768px) {
+  .reveal section               { font-size: 16px; }
+  .reveal section img           { max-width: 95%; max-height: 55%; }
+  .reveal .header-trail         { font-size: 0.85em; max-width: 90%; padding: 6px 10px; }
+  .reveal .slides section       { padding: 16px 18px; }
+}

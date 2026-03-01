@@ -42,6 +42,7 @@
     --gradient-accent: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
     --gradient-success: linear-gradient(135deg, var(--success-color) 0%, var(--accent-cyan) 100%);
     --gradient-warning: linear-gradient(135deg, var(--warning-color) 0%, var(--accent-orange) 100%);
+    --crumb-font-size: 0.6em;
 }
 
 /* ========================
@@ -509,7 +510,7 @@
     top: 16px !important;
     left: 16px !important;
     right: 16px !important;
-    font-size: 0.6em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

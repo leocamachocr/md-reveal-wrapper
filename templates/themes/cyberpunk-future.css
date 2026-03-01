@@ -38,6 +38,7 @@
     --gradient-electric: linear-gradient(90deg, var(--neon-cyan) 0%, var(--neon-magenta) 50%, var(--neon-yellow) 100%);
     --gradient-hologram: linear-gradient(135deg, transparent, var(--neon-cyan), transparent, var(--neon-magenta), transparent);
     --gradient-matrix: linear-gradient(180deg, var(--neon-green) 0%, transparent 100%);
+    --crumb-font-size: 0.7em;
 }
 
 /* ========================
@@ -722,7 +723,7 @@
     top: 20px !important;
     left: 20px !important;
     right: 20px !important;
-    font-size: 0.7em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

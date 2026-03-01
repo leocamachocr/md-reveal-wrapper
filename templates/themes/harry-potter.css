@@ -46,6 +46,7 @@
     --gradient-hogwarts: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
     --gradient-magic: linear-gradient(135deg, var(--magic-gold) 0%, var(--magic-blue) 100%);
     --gradient-parchment: linear-gradient(135deg, #f7f3e9 0%, #ede4d1 100%);
+    --crumb-font-size: 0.6em;
 }
 
 /* ========================
@@ -624,7 +625,7 @@
     top: 20px !important;
     left: 20px !important;
     right: 20px !important;
-    font-size: 0.6em;
+    font-size: var(--crumb-font-size);
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

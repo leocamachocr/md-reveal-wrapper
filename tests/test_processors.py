@@ -364,12 +364,6 @@ class TestSlideTableSplitting:
 # ---------------------------------------------------------------------------
 
 class TestConfigLoader:
-    def test_loads_theme(self, tmp_path):
-        cfg = tmp_path / "config.properties"
-        cfg.write_text("theme=black\n", encoding="utf-8")
-        config = ConfigLoader().load(str(cfg))
-        assert config.theme == "black"
-
     def test_loads_transition(self, tmp_path):
         cfg = tmp_path / "config.properties"
         cfg.write_text("transition=slide\n", encoding="utf-8")
@@ -378,16 +372,16 @@ class TestConfigLoader:
 
     def test_comments_are_ignored(self, tmp_path):
         cfg = tmp_path / "config.properties"
-        cfg.write_text("# comment\ntheme=white\n", encoding="utf-8")
+        cfg.write_text("# comment\ntransition=fade\n", encoding="utf-8")
         config = ConfigLoader().load(str(cfg))
-        assert config.theme == "white"
+        assert config.transition == "fade"
 
     def test_missing_keys_use_defaults(self, tmp_path):
         cfg = tmp_path / "config.properties"
-        cfg.write_text("theme=white\n", encoding="utf-8")
+        cfg.write_text("transition=slide\n", encoding="utf-8")
         config = ConfigLoader().load(str(cfg))
         assert config.reveal_version == "4.6.0"
-        assert config.transition == "fade"
+        assert config.transition == "slide"
 
     def test_custom_theme_loaded(self, tmp_path):
         cfg = tmp_path / "config.properties"
@@ -400,7 +394,6 @@ class TestConfigLoader:
         cfg.write_text("", encoding="utf-8")
         config = ConfigLoader().load(str(cfg))
         assert isinstance(config, PresentationConfig)
-        assert config.theme == "white"
         assert config.custom_theme is None
 
     def test_fragments_enabled_property_true(self, tmp_path):
@@ -421,7 +414,7 @@ class TestConfigLoader:
         config = ConfigLoader().load(str(cfg))
         d = config.to_dict()
         required_keys = {
-            "reveal_cdn", "reveal_version", "theme", "highlight_theme",
+            "reveal_cdn", "reveal_version",
             "enable_controls", "enable_progress", "enable_history",
             "align_center", "transition", "show_header_trail",
         }
