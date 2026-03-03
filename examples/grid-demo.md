@@ -131,6 +131,80 @@ Los items de lista siguen recibiendo la clase `.fragment` si los fragmentos est�
 
 ---
 
+## Celda expandida — `$grid-cell(cols, rows)`
+
+Coloca `<!-- $grid-cell(cols, rows) -->` como primera línea de una celda para que ocupe más de una columna o fila.
+
+<!-- $grid(3) -->
+
+### Normal
+Ocupa 1 col × 1 fila (comportamiento por defecto).
+
+-----
+<!-- $grid-cell(2,1) -->
+
+### Expandida en 2 columnas
+Esta celda ocupa **2 columnas** con `<!-- $grid-cell(2,1) -->`.
+
+Útil para destacar contenido principal frente a columnas auxiliares.
+
+<!-- $grid/ -->
+
+---
+
+## Expansión en filas — `$grid-cell(1,2)`
+
+<!-- $grid(2) -->
+
+<!-- $grid-cell(1,2) -->
+
+### Panel lateral alto
+Esta celda se extiende hacia abajo ocupando **2 filas** con `<!-- $grid-cell(1,2) -->`.
+
+Puede contener una lista larga, una imagen o un bloque de código.
+
+-----
+
+### Fila superior
+Contenido de la primera fila a la derecha.
+
+-----
+
+### Fila inferior
+Contenido de la segunda fila a la derecha.
+
+<!-- $grid/ -->
+
+---
+
+## Sintaxis completa de spanning
+
+<!-- $grid(2) -->
+
+### Referencia rápida
+
+| Sintaxis | Efecto |
+|---|---|
+| *(sin comentario)* | 1 col × 1 fila |
+| `$grid-cell(2,1)` | 2 cols × 1 fila |
+| `$grid-cell(1,2)` | 1 col × 2 filas |
+| `$grid-cell(2,2)` | 2 cols × 2 filas |
+
+> [info] El comentario debe ser la **primera línea** del contenido de la celda, justo después del separador `-----`.
+
+-----
+
+### Reglas clave
+
+- `<!-- $grid-cell(C,R) -->` va **dentro** del bloque `<!-- $grid(N) -->…<!-- $grid/ -->`
+- Aparece después del separador `-----` de esa celda
+- Sin `<!-- $grid-cell -->`, la celda ocupa 1×1 (comportamiento anterior)
+- Celdas sin comentario conviven con celdas expandidas en el mismo grid
+
+<!-- $grid/ -->
+
+---
+
 # Fin de la demo
 
 Vuelve a cualquier diapositiva para revisar los ejemplos.

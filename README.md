@@ -254,6 +254,58 @@ Add processors by subclassing `SlideProcessor`.
 <!-- $grid/ -->
 ```
 
+#### Per-cell spanning
+
+Place `<!-- $grid-cell(cols, rows) -->` as the **first line** of a cell (right after `-----`) to make it span multiple columns and/or rows. Cells without the comment keep the default 1×1 size.
+
+| Syntax | Effect |
+|---|---|
+| *(no comment)* | 1 column × 1 row (default) |
+| `$grid-cell(2,1)` | spans 2 columns, 1 row |
+| `$grid-cell(1,2)` | spans 1 column, 2 rows |
+| `$grid-cell(2,2)` | spans 2 columns and 2 rows |
+
+**Wide feature cell + narrow sidebar:**
+
+```markdown
+<!-- $grid(3) -->
+
+### Sidebar
+Short note in one column.
+
+-----
+<!-- $grid-cell(2,1) -->
+
+### Main content
+This cell spans 2 of the 3 columns.
+Any Markdown is valid here.
+
+<!-- $grid/ -->
+```
+
+**Tall side panel (row span):**
+
+```markdown
+<!-- $grid(2) -->
+
+<!-- $grid-cell(1,2) -->
+
+### Tall panel
+This cell spans 2 rows downward.
+
+-----
+
+### Top right
+First row, right column.
+
+-----
+
+### Bottom right
+Second row, right column.
+
+<!-- $grid/ -->
+```
+
 ---
 
 ### Callout boxes

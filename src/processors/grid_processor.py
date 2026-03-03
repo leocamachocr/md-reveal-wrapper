@@ -10,12 +10,18 @@ class GridProcessor(SlideProcessor):
     Converts a <!-- $grid(N) --> ... <!-- $grid/ --> block into a CSS grid.
     Items are delimited by <hr> tags (produced by ----- in Markdown).
 
+    Per-cell spanning (optional):
+        After an <hr> separator, place <!-- $grid-cell(cols, rows) --> as the
+        first line of the new cell to make it span multiple columns and/or rows.
+        Omitting the comment defaults to colspan=1, rowspan=1 (current behaviour).
+
     SRP: sole responsibility is grid layout transformation.
     OCP: extended by changing only CSS or the regex pattern.
     """
 
     _OPEN = re.compile(r"^\s*\$grid\((\d+)\)\s*$")
     _CLOSE = re.compile(r"^\s*\$grid/\s*$")
+    _CELL = re.compile(r"^\s*\$grid-cell\((\d+),\s*(\d+)\)\s*$")
 
     def process(self, soup: BeautifulSoup, context: dict) -> None:
         # Snapshot children list to avoid live-iterator issues
@@ -53,15 +59,22 @@ class GridProcessor(SlideProcessor):
         for node in items_raw:
             node.extract()
 
-        # Split the now-detached nodes by <hr> into groups
+        # Split the now-detached nodes by <hr> into groups with span info
         groups = self._split_by_hr(items_raw)
 
         # Build grid container
         grid = soup.new_tag("div", attrs={"class": "slide-grid"})
         grid["style"] = f"--grid-cols: {cols}"
-        for group in groups:
+        for group_nodes, colspan, rowspan in groups:
             item = soup.new_tag("div", attrs={"class": "grid-item"})
-            for n in group:
+            spans = []
+            if colspan > 1:
+                spans.append(f"grid-column: span {colspan}")
+            if rowspan > 1:
+                spans.append(f"grid-row: span {rowspan}")
+            if spans:
+                item["style"] = "; ".join(spans)
+            for n in group_nodes:
                 item.append(n)  # already detached — no .extract() needed
             grid.append(item)
 
@@ -69,19 +82,45 @@ class GridProcessor(SlideProcessor):
         open_node.replace_with(grid)
         close_node.extract()
 
-    @staticmethod
-    def _split_by_hr(nodes):
-        groups = []
+    @classmethod
+    def _split_by_hr(cls, nodes):
+        """
+        Split nodes by <hr> into groups.
+
+        Returns a list of (nodes, colspan, rowspan) tuples.
+        If the first node of a group is a <!-- $grid-cell(C,R) --> comment it is
+        consumed and its values become the span; otherwise defaults are (1, 1).
+        """
+        raw_groups = []
         current = []
         for node in nodes:
             if isinstance(node, Tag) and node.name == "hr":
                 if current:
-                    groups.append(current)
+                    raw_groups.append(current)
                 current = []
             elif isinstance(node, NavigableString) and not str(node).strip():
                 continue  # skip whitespace-only text nodes between blocks
             else:
                 current.append(node)
         if current:
-            groups.append(current)
-        return groups
+            raw_groups.append(current)
+
+        result = []
+        for group in raw_groups:
+            colspan, rowspan = 1, 1
+            remaining = group
+            if remaining and isinstance(remaining[0], Comment):
+                m = cls._CELL.match(str(remaining[0]).strip())
+                if m:
+                    colspan = int(m.group(1))
+                    rowspan = int(m.group(2))
+                    remaining = remaining[1:]
+                    # Drop any whitespace-only text nodes immediately after the comment
+                    while (
+                        remaining
+                        and isinstance(remaining[0], NavigableString)
+                        and not str(remaining[0]).strip()
+                    ):
+                        remaining = remaining[1:]
+            result.append((remaining, colspan, rowspan))
+        return result

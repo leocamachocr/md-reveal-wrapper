@@ -401,6 +401,10 @@
         const content = slide.querySelector('.slide-content');
         if (!content) return;
 
+        // Reset any previously applied inline font size so every visit starts
+        // from the CSS base value — prevents compounding shrinkage across visits.
+        content.style.fontSize = "";
+
         const maxHeight = parseInt(slide.getAttribute('data-max-height')) || 600;
         const minFontSize = 14; // en píxeles
         const maxSteps = 5;    // evita bucles largos
@@ -409,7 +413,6 @@
         let fontSize = parseFloat(getComputedStyle(content).fontSize);
 
         while (content.scrollHeight > maxHeight && fontSize > minFontSize && step < maxSteps) {
-            console.log(`Adjusting font size: ${fontSize}px`);
             fontSize -= 1;
             content.style.fontSize = `${fontSize}px`;
             step++;

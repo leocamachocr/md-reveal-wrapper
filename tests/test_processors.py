@@ -147,6 +147,97 @@ class TestGridProcessor:
         assert first.find("ul") is not None
         assert first.find("code") is not None
 
+    # -- $grid-cell spanning --------------------------------------------------
+
+    def test_cell_colspan_applied(self):
+        """<!-- $grid-cell(2,1) --> sets grid-column: span 2 on the item."""
+        html = (
+            "<!-- $grid(3) -->"
+            "<p>A</p>"
+            "<hr/><!-- $grid-cell(2,1) --><p>B wide</p>"
+            "<hr/><p>C</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        assert "grid-column: span 2" in (items[1].get("style") or "")
+
+    def test_cell_rowspan_applied(self):
+        """<!-- $grid-cell(1,2) --> sets grid-row: span 2 on the item."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<p>A</p>"
+            "<hr/><!-- $grid-cell(1,2) --><p>B tall</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        assert "grid-row: span 2" in (items[1].get("style") or "")
+
+    def test_cell_colspan_and_rowspan_applied(self):
+        """<!-- $grid-cell(2,2) --> sets both grid-column and grid-row spans."""
+        html = (
+            "<!-- $grid(3) -->"
+            "<p>A</p>"
+            "<hr/><!-- $grid-cell(2,2) --><p>B large</p>"
+            "<hr/><p>C</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        style = items[1].get("style") or ""
+        assert "grid-column: span 2" in style
+        assert "grid-row: span 2" in style
+
+    def test_cell_span_comment_not_in_content(self):
+        """The $grid-cell comment must not appear in the rendered item content."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<p>Left</p>"
+            "<hr/><!-- $grid-cell(2,1) --><p>Right wide</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        # No Comment nodes should survive inside the spanning item
+        from bs4 import Comment as BsComment
+        comments = items[1].find_all(string=lambda t: isinstance(t, BsComment))
+        assert len(comments) == 0
+
+    def test_default_cell_has_no_span_style(self):
+        """A cell without $grid-cell must not have a style attribute."""
+        html = (
+            "<!-- $grid(2) -->"
+            "<p>Left</p>"
+            "<hr/><p>Right</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        for item in items:
+            assert item.get("style") is None
+
+    def test_mixed_spanning_and_default_cells(self):
+        """Only cells with $grid-cell get span styles; others remain unstyled."""
+        html = (
+            "<!-- $grid(3) -->"
+            "<p>Normal A</p>"
+            "<hr/><!-- $grid-cell(2,1) --><p>Wide B</p>"
+            "<hr/><p>Normal C</p>"
+            "<!-- $grid/ -->"
+        )
+        soup = _make_grid_soup(html)
+        GridProcessor().process(soup, {})
+        items = soup.find_all("div", class_="grid-item")
+        assert items[0].get("style") is None
+        assert "grid-column: span 2" in (items[1].get("style") or "")
+        assert items[2].get("style") is None
+
 
 # ---------------------------------------------------------------------------
 # BlockquoteProcessor
