@@ -2,6 +2,7 @@
 app.py — Tkinter GUI for md-reveal-wrapper.
 Wraps the SOLID-refactored pipeline in src/ without modifying it.
 """
+import json
 import threading
 import tkinter as tk
 from pathlib import Path
@@ -27,6 +28,25 @@ _BOOL_FIELDS = frozenset({
 })
 
 
+# ---------------------------------------------------------------------------
+# Settings persistence
+# ---------------------------------------------------------------------------
+class SettingsManager:
+    PATH = Path.home() / ".md-wrapper-settings"
+
+    def load(self) -> dict:
+        try:
+            return json.loads(self.PATH.read_text(encoding="utf-8"))
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+
+    def save(self, data: dict) -> None:
+        self.PATH.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+
 def _build_generator() -> PresentationGenerator:
     """Compose the object graph — mirrors main.py's build_generator()."""
     file_manager = FileManager()
@@ -48,11 +68,24 @@ class App(tk.Tk):
         self.title("md-reveal-wrapper")
         self.minsize(860, 580)
 
-        # Load defaults from config.properties
-        try:
-            self._defaults = ConfigLoader().load(resolve_resource("config.properties"))
-        except Exception:
-            self._defaults = PresentationConfig()
+        # Settings persistence
+        self._settings_mgr = SettingsManager()
+        _settings = self._settings_mgr.load()
+
+        # Favorites
+        self._favorites: list = _settings.get("favorites", [])
+
+        # Defaults: saved settings take priority over config.properties
+        if "config" in _settings:
+            raw = _settings["config"]
+            if not raw.get("custom_theme"):
+                raw["custom_theme"] = None
+            self._defaults = ConfigLoader()._to_config(raw)
+        else:
+            try:
+                self._defaults = ConfigLoader().load(resolve_resource("config.properties"))
+            except Exception:
+                self._defaults = PresentationConfig()
 
         # Discover CSS themes from templates/themes/
         themes_dir = Path(resolve_resource("templates/themes"))
@@ -63,6 +96,8 @@ class App(tk.Tk):
         self._working_dir = tk.StringVar()
 
         self._build_ui()
+        # Auto-save on close
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
         self.after(150, self._ask_working_dir)
 
     # ------------------------------------------------------------------
@@ -75,6 +110,7 @@ class App(tk.Tk):
         self._build_dir_bar()
         self._build_main_panels()
         self._build_bottom_bar()
+        self._refresh_favorites()
 
     def _build_dir_bar(self) -> None:
         bar = ttk.Frame(self, padding=(6, 4))
@@ -92,18 +128,49 @@ class App(tk.Tk):
         paned = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
         paned.grid(row=1, column=0, sticky="nsew", padx=6, pady=4)
 
-        # --- Left: file list ---
+        # --- Left: favorites + file list ---
         left = ttk.Frame(paned, padding=4)
-        left.rowconfigure(1, weight=1)
         left.columnconfigure(0, weight=1)
-        ttk.Label(left, text="Markdown Files").grid(row=0, column=0, sticky="w")
+        left.rowconfigure(1, weight=1)
 
-        self._listbox = tk.Listbox(left, selectmode=tk.SINGLE, activestyle="dotbox", width=26)
-        self._listbox.grid(row=1, column=0, sticky="nsew")
+        # Favorites LabelFrame
+        fav_lf = ttk.LabelFrame(left, text="★ Favoritos", padding=4)
+        fav_lf.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 4))
+        fav_lf.columnconfigure(0, weight=1)
+
+        fav_btn_bar = ttk.Frame(fav_lf)
+        fav_btn_bar.grid(row=0, column=0, columnspan=2, sticky="ew")
+        ttk.Button(fav_btn_bar, text="[+] Agregar", command=self._add_favorite).pack(
+            side=tk.LEFT, padx=(0, 4)
+        )
+        ttk.Button(fav_btn_bar, text="[−] Quitar", command=self._remove_favorite).pack(
+            side=tk.LEFT
+        )
+
+        self._fav_listbox = tk.Listbox(
+            fav_lf, selectmode=tk.SINGLE, activestyle="dotbox", height=5, width=26
+        )
+        self._fav_listbox.grid(row=1, column=0, sticky="ew", pady=(4, 0))
+        self._fav_listbox.bind("<<ListboxSelect>>", self._select_favorite)
+
+        fav_sb = ttk.Scrollbar(fav_lf, orient=tk.VERTICAL, command=self._fav_listbox.yview)
+        fav_sb.grid(row=1, column=1, sticky="ns", pady=(4, 0))
+        self._fav_listbox.configure(yscrollcommand=fav_sb.set)
+
+        # Files LabelFrame
+        files_lf = ttk.LabelFrame(left, text="Archivos .md", padding=4)
+        files_lf.grid(row=1, column=0, columnspan=2, sticky="nsew")
+        files_lf.columnconfigure(0, weight=1)
+        files_lf.rowconfigure(0, weight=1)
+
+        self._listbox = tk.Listbox(
+            files_lf, selectmode=tk.SINGLE, activestyle="dotbox", width=26
+        )
+        self._listbox.grid(row=0, column=0, sticky="nsew")
         self._listbox.bind("<Double-Button-1>", lambda _e: self._generate())
 
-        sb_left = ttk.Scrollbar(left, orient=tk.VERTICAL, command=self._listbox.yview)
-        sb_left.grid(row=1, column=1, sticky="ns")
+        sb_left = ttk.Scrollbar(files_lf, orient=tk.VERTICAL, command=self._listbox.yview)
+        sb_left.grid(row=0, column=1, sticky="ns")
         self._listbox.configure(yscrollcommand=sb_left.set)
 
         paned.add(left, weight=1)
@@ -151,13 +218,17 @@ class App(tk.Tk):
     def _build_bottom_bar(self) -> None:
         bar = ttk.Frame(self, padding=(6, 4))
         bar.grid(row=2, column=0, sticky="ew")
-        bar.columnconfigure(1, weight=1)
+        bar.columnconfigure(2, weight=1)
+
+        ttk.Button(bar, text="💾 Guardar predeterminados", command=self._save_settings).grid(
+            row=0, column=0, padx=(0, 8)
+        )
 
         self._gen_btn = ttk.Button(bar, text="⚡ Generate & Open", command=self._generate)
-        self._gen_btn.grid(row=0, column=0, padx=(0, 10))
+        self._gen_btn.grid(row=0, column=1, padx=(0, 10))
 
         self._status_var = tk.StringVar(value="No directory selected.")
-        ttk.Label(bar, textvariable=self._status_var, anchor="w").grid(row=0, column=1, sticky="ew")
+        ttk.Label(bar, textvariable=self._status_var, anchor="w").grid(row=0, column=2, sticky="ew")
 
     # ------------------------------------------------------------------
     # Config form — widgets are created with the correct LabelFrame parent
@@ -248,6 +319,55 @@ class App(tk.Tk):
         ttk.Combobox(lf, textvariable=var, values=values, state="readonly", width=22).grid(
             row=row, column=1, sticky="ew", padx=(0, 4), pady=1
         )
+
+    # ------------------------------------------------------------------
+    # Favorites management
+    # ------------------------------------------------------------------
+    def _add_favorite(self) -> None:
+        path = self._working_dir.get()
+        if path and path not in self._favorites:
+            self._favorites.append(path)
+            self._refresh_favorites()
+            self._save_settings()
+
+    def _remove_favorite(self) -> None:
+        sel = self._fav_listbox.curselection()
+        if sel:
+            self._favorites.pop(sel[0])
+            self._refresh_favorites()
+            self._save_settings()
+
+    def _select_favorite(self, _event=None) -> None:
+        sel = self._fav_listbox.curselection()
+        if sel:
+            self._set_working_dir(self._favorites[sel[0]])
+
+    def _refresh_favorites(self) -> None:
+        self._fav_listbox.delete(0, tk.END)
+        for path in self._favorites:
+            self._fav_listbox.insert(tk.END, Path(path).name)
+
+    # ------------------------------------------------------------------
+    # Settings persistence
+    # ------------------------------------------------------------------
+    def _save_settings(self) -> None:
+        raw_config = {}
+        for key, var in self._vars.items():
+            val = var.get()
+            if isinstance(val, bool):
+                raw_config[key] = "true" if val else "false"
+            else:
+                raw_config[key] = str(val).strip()
+        if raw_config.get("custom_theme") == "(none)":
+            raw_config["custom_theme"] = ""
+        self._settings_mgr.save({
+            "favorites": self._favorites,
+            "config": raw_config,
+        })
+
+    def _on_close(self) -> None:
+        self._save_settings()
+        self.destroy()
 
     # ------------------------------------------------------------------
     # Directory / file management

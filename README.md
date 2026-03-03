@@ -1,51 +1,118 @@
-# Marp to Reveal.js Wrapper
+# md-reveal-wrapper
 
-This project converts **Markdown presentations (Marp style)** into **Reveal.js** HTML presentations.
-It supports advanced features such as:
-
-* ✅ **Customizable configuration** via `config.properties`
-* ✅ **External HTML template** with Jinja2 rendering
-* ✅ **Image handling** (copies images and preserves folder structure)
-* ✅ **Breadcrumb navigation**
-* ✅ **Fragments** for progressive bullet display
-* ✅ **Tables** rendered from Markdown
-* ✅ **Math equations** using MathJax
-* ✅ **Syntax highlighting** with support for line highlighting (`[2|4-6]`)
-* ✅ **Step-by-step code focus** via Reveal.js `code-focus` plugin
-* ✅ **Highlight.js themes** loaded from CDN or local fallback
-* ✅ Project modular structure for easy customization
+Converts **Markdown files** into self-contained **Reveal.js HTML presentations**, opened automatically in your browser.
 
 ---
 
-## 📂 Project Structure
+## Features
+
+- **Slide splitting** — use `---` as a separator (configurable, table-safe)
+- **Multi-column grid layouts** — arrange content in 2, 3, or 4 columns per slide
+- **Breadcrumb navigation** — heading hierarchy shown as a fixed trail at the top-left
+- **Fragments** — list items appear one click at a time (optional)
+- **Callout boxes** — `[info]`, `[warning]`, `[tip]` blockquote variants
+- **Syntax highlighting** — Highlight.js with line-step support (`[2|4-6]`)
+- **Math equations** — MathJax for inline (`\(…\)`) and block (`$$…$$`) math
+- **Image handling** — local images are copied and `src` paths are rewritten
+- **Image lightbox** — click any image to expand it fullscreen
+- **Custom themes** — drop a `.css` file into `templates/themes/`, zero wiring
+- **Configurable** — all settings in `config.properties`, no code changes needed
+
+---
+
+## Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+Python 3.9+ is required.
+
+---
+
+## Usage
+
+### CLI
+
+```bash
+# Single file
+python main.py presentation.md
+
+# All .md files in a folder (opens each one)
+python main.py examples/
+```
+
+The generated HTML is written to a temporary directory and opened in your default browser. Set `output_in_md_dir=true` in `config.properties` to write the HTML next to the source file instead.
+
+### GUI
+
+```bash
+python app.py
+```
+
+A folder picker opens immediately. Select any folder containing `.md` files. The left panel lists them — double-click a file (or select it and click **Generate & Open**) to render and open the presentation. The right panel exposes all `config.properties` fields live.
+
+---
+
+## Project Structure
 
 ```
-marp-to-reveal/
-│
-├── marp_to_reveal.py             # Main script
-├── config.properties             # Configuration file
-├── templates/
-│   └── reveal_template.html      # HTML template for Reveal.js
-├── utils/
-│   ├── __init__.py
-│   └── config_loader.py          # Utility to load configurations
+md-reveal-wrapper/
+├── main.py                          CLI entry point — DI wiring only
+├── app.py                           Tkinter desktop GUI
+├── marp_to_reveal.py                Legacy script — do not modify
+├── config.properties                Runtime configuration
 ├── requirements.txt
-└── README.md
+│
+├── src/
+│   ├── domain/
+│   │   └── config.py                PresentationConfig dataclass
+│   ├── infrastructure/
+│   │   ├── config_loader.py         .properties → PresentationConfig
+│   │   ├── file_manager.py          Output dirs, asset copy, temp dirs
+│   │   ├── resource_resolver.py     PyInstaller-safe path resolution
+│   │   └── template_renderer.py     Jinja2 → HTML
+│   ├── processors/
+│   │   ├── base.py                  Abstract SlideProcessor
+│   │   ├── grid_processor.py        Multi-column grid layouts
+│   │   ├── image_processor.py       Copy images, rewrite src attrs
+│   │   ├── blockquote_processor.py  [info]/[warning]/[tip] callouts
+│   │   ├── fragment_processor.py    .fragment on <li> elements
+│   │   └── breadcrumb_processor.py  Heading context across slides
+│   └── application/
+│       ├── markdown_parser.py       MD → BeautifulSoup
+│       ├── slide_processor_pipeline.py  Processor chain factory
+│       └── presentation_generator.py    Orchestrates the full pipeline
+│
+├── templates/
+│   ├── reveal_template.html         Jinja2 template
+│   └── themes/                      CSS themes
+│       ├── modern-idea-light.css    Default theme
+│       └── ...
+│
+└── examples/
+    ├── demo_presentation.md
+    ├── grid-demo.md
+    └── minimal-wide-serif-demo.md
 ```
 
 ---
 
-## ⚙️ Configuration (`config.properties`)
-
-The `config.properties` file defines all presentation settings:
+## Configuration (`config.properties`)
 
 ```properties
-# Reveal.js configuration
+# Reveal.js
 reveal_version=4.6.0
-theme=white
+reveal_cdn=https://cdnjs.cloudflare.com/ajax/libs/reveal.js
 transition=fade
 slide_separator=---
-reveal_cdn=https://cdnjs.cloudflare.com/ajax/libs/reveal.js
+
+# Slide dimensions
+width=1200
+height=1080
+margin=0.1
+min_scale=0.6
+max_scale=1.2
 
 # Controls
 enable_progress=true
@@ -53,22 +120,15 @@ enable_controls=true
 enable_history=true
 align_center=true
 
-# Dimensions
-width=960
-height=700
-margin=0.1
-min_scale=0.2
-max_scale=2.0
-
 # Features
 enable_fragments=true
 show_header_trail=true
 
-# Highlight.js theme (examples: monokai, atom-one-light, dracula, github)
-highlight_theme=atom-one-light
-enable_code_focus=true
+# Output
+output_in_md_dir=true          # false = use temp dir (GUI always uses temp dir)
+custom_theme=modern-idea-light.css
 
-# Fonts
+# Font scale
 font_base=28px
 font_h1=2.5em
 font_h2=2em
@@ -80,153 +140,179 @@ font_p=1em
 font_li=1em
 ```
 
-You can change any value without modifying the Python code.
+---
+
+## Markdown Syntax Guide
+
+### Slides
+
+Separate slides with `---` on its own line:
+
+```markdown
+# Slide 1
+
+Content here.
 
 ---
 
-## 🖥 Requirements
+## Slide 2
 
-Install dependencies from `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
+More content.
 ```
 
-Contents of `requirements.txt`:
+> **Note:** `---` inside Markdown table rows (e.g. `| --- |`) is never treated as a separator — only a whole line of `---` triggers a split.
 
-```
-beautifulsoup4==4.13.4
-certifi==2024.2.2
-cffi==1.16.0
-charset-normalizer==3.3.2
-cryptography==42.0.5
-Deprecated==1.2.14
-idna==3.7
-Jinja2==3.1.6
-Markdown==3.8.2
-markdown-it-py==3.0.0
-MarkupSafe==3.0.2
-mdurl==0.1.2
-pillow==11.3.0
-pillow_heif==1.0.0
-prettytable==3.10.0
-pycparser==2.22
-PyGithub==2.3.0
-PyJWT==2.8.0
-PyNaCl==1.5.0
-rarfile==4.2
-requests==2.31.0
-soupsieve==2.7
-typing_extensions==4.11.0
-urllib3==2.2.1
-wcwidth==0.2.13
-wrapt==1.16.0
+---
 
+### Grid layouts
+
+Distribute content into **N equal columns** using HTML comments as delimiters and `-----` (5 dashes) as the column separator:
+
+```markdown
+<!-- $grid(N) -->
+
+Column 1 content
+
+-----
+
+Column 2 content
+
+<!-- $grid/ -->
 ```
 
----
+- `<!-- $grid(N) -->` — opens a grid with **N** columns (any positive integer, typical values: 2, 3, 4)
+- `-----` — separates grid items (5 dashes, distinct from the 3-dash slide separator)
+- `<!-- $grid/ -->` — closes the grid block
+- If `<!-- $grid/ -->` is missing the slide is left untouched (fail-safe)
+- Each cell can contain any valid Markdown: headings, lists, tables, code blocks, callouts
 
-## 🚀 Usage
+**Two-column comparison:**
 
-### 1. Prepare your Markdown presentation
+```markdown
+## Approach comparison
 
-Example `presentation.md`:
+<!-- $grid(2) -->
 
-````markdown
-# Welcome
+### Option A
+- Fast to implement
+- Simple API
 
-This is a simple presentation.
+-----
 
----
+### Option B
+- More flexible
+- Better for large projects
 
-## Math Example
+<!-- $grid/ -->
+```
 
-$$ f(x) = a + b $$
+**Three-column summary cards:**
 
----
+```markdown
+## Key metrics
 
-## Code Example
+<!-- $grid(3) -->
 
-```java [2|4-6]
-class Calculator {
-    int screen;
+### Speed
+Processing under **200 ms** for 100-slide decks.
 
-    void add(int a, int b) {
-        screen = a + b;
-    }
-}
+-----
+
+### Compatibility
+Works on Chrome, Firefox, Safari, and Edge.
+
+-----
+
+### Extensibility
+Add processors by subclassing `SlideProcessor`.
+
+<!-- $grid/ -->
+```
+
+**Mixed content inside cells:**
+
+```markdown
+<!-- $grid(2) -->
+
+### Reference table
+
+| Separator | Use          |
+|-----------|--------------|
+| `---`     | Slide break  |
+| `-----`   | Grid column  |
+
+> [info] Separators do not collide — 3 vs 5 dashes.
+
+-----
+
+### Numbered list
+
+1. First point
+2. Second point
+3. Third point
+
+<!-- $grid/ -->
 ```
 
 ---
 
-## Images
+### Callout boxes
 
-![Logo](images/logo.png)
+Add semantic callout boxes inside blockquotes:
 
-````
+```markdown
+> [info] This is an informational note.
 
----
+> [warning] Pay attention to this.
 
-### 2. Run the script
-Execute the converter:
-
-```bash
-python marp_to_reveal.py presentation.md
-````
-
-The script will:
-
-1. Parse your Markdown file.
-2. Generate an HTML Reveal.js presentation.
-3. Copy images into a temporary directory.
-4. Open the presentation automatically in your browser.
-
----
-
-## 🖌 Syntax Highlighting Themes
-
-You can configure `highlight_theme` in `config.properties`:
-
-| Category  | Themes                                                            |
-| --------- | ----------------------------------------------------------------- |
-| **Light** | `atom-one-light`, `github`, `vs`, `xcode`, `googlecode`           |
-| **Dark**  | `monokai`, `dracula`, `atom-one-dark`, `vs2015`, `solarized-dark` |
-
-Example:
-
-```properties
-highlight_theme=dracula
+> [tip] Here is a useful tip.
 ```
 
-If the theme is not `monokai`, it will be loaded from the official Highlight.js CDN.
+The tag token (`[info]`, `[warning]`, `[tip]`) is stripped from the rendered text and the CSS class is applied to the `<blockquote>` element.
 
 ---
-
-## ➕ Features
 
 ### Fragments
 
-Lists automatically support fragments:
+When `enable_fragments=true`, every list item (`<li>`) gets the `.fragment` class, so items appear one at a time on each keypress:
 
 ```markdown
-- Item 1
-- Item 2
-- Item 3
+- First point   ← appears on click 1
+- Second point  ← appears on click 2
+- Third point   ← appears on click 3
 ```
 
-Each bullet point appears on click.
+Disable globally with `enable_fragments=false` in `config.properties`.
 
 ---
 
-### Breadcrumb Navigation
+### Breadcrumb navigation
 
-Each slide displays a breadcrumb trail (hierarchical titles) at the top-left corner, based on the heading levels.
+A fixed trail at the top-left reflects the heading hierarchy across slides. Any heading (`#`, `##`, `###`) updates the breadcrumb for all subsequent slides until a new heading at the same level replaces it.
+
+```markdown
+# Chapter 1
+
+## Introduction
+
+### Overview
+
+Content — breadcrumb shows: Chapter 1 › Introduction › Overview
+```
+
+Disable with `show_header_trail=false`.
 
 ---
 
-### Math Support
+### Math equations
 
-MathJax is included:
+Inline math:
+
+```markdown
+The formula is \( f(x) = ax^2 + bx + c \).
+```
+
+Block math:
 
 ```markdown
 $$
@@ -236,23 +322,11 @@ $$
 
 ---
 
-### Line Highlighting
+### Syntax highlighting with line steps
 
-Highlight specific lines in code blocks:
+Use bracket notation after the language tag to step through highlighted lines:
 
 ````markdown
-    ```python [2|4-6]
-    print("Line 1")
-    print("Line 2")
-    print("Line 3")
-    print("Line 4")
-    ````
-````
-
-### Code Focus Plugin
-
-Enable the official `code-focus` plugin to step through highlighted lines. Set `enable_code_focus=true` in `config.properties` and use bracket notation to define each step:
-
 ```java [2|4-6]
 class Calculator {
     int screen;
@@ -262,33 +336,57 @@ class Calculator {
     }
 }
 ```
+````
 
-
----
-
-## 🛠 Development
-
-### Modify the template
-The `templates/reveal_template.html` file controls the HTML output.  
-You can edit it to:
-- Add new plugins
-- Change styles
-- Modify structure
-
-### Add more configuration
-Update `config.properties` and pass variables into the Jinja2 template in `marp_to_reveal.py`.
+- `[2]` — highlight line 2
+- `[4-6]` — highlight lines 4 through 6
+- `[2|4-6]` — step: first line 2, then lines 4–6
 
 ---
 
-## 📌 Notes
+### Images
 
-- Presentations are generated in a **temporary directory** and opened in the default browser.
-- All assets (images) are copied automatically.
-- You can export the final HTML from the temp folder if you want to host it.
+Local images are copied into the output directory automatically. Paths are rewritten to point to the copied file:
+
+```markdown
+![Diagram](images/diagram.png)
+```
+
+Click any image in the presentation to open it in a fullscreen lightbox.
 
 ---
 
-## 🏆 License
-This project is licensed under the MIT License.
+## Themes
+
+Themes are plain CSS files in `templates/themes/`. To add a theme, drop a `.css` file there — it appears automatically in the GUI dropdown and is available via `config.properties`:
+
+```properties
+custom_theme=my-theme.css
+```
+
+Set `custom_theme=` (empty) to use the Reveal.js built-in styles only.
+
+Included themes:
+
+| File | Description |
+|---|---|
+| `modern-idea-light.css` | Default — clean light with accent colors |
+| `minimal-light.css` | Minimal light |
+| `minimal-dark.css` | Minimal dark |
+| `minimal-wide-serif.css` | Wide layout with serif fonts |
 
 ---
+
+## Running Tests
+
+```bash
+python -m pytest tests/test_processors.py -v
+```
+
+All 50 tests must pass before committing.
+
+---
+
+## License
+
+MIT
