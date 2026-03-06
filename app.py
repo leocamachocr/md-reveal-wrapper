@@ -67,6 +67,9 @@ class App(tk.Tk):
         super().__init__()
         self.title("md-reveal-wrapper")
         self.minsize(860, 580)
+        _ico = resolve_resource("assets/app.ico")
+        if Path(_ico).exists():
+            self.iconbitmap(_ico)
 
         # Settings persistence
         self._settings_mgr = SettingsManager()

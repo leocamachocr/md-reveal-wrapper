@@ -118,6 +118,23 @@
     {% if custom_theme %}
     <link rel="stylesheet" href="assets/{{ custom_theme }}">
     {% endif %}
+
+    <!-- Universal layout constraints — loaded last so they always win the cascade -->
+    <style>
+      /* Minimum padding on every slide, regardless of theme */
+      .reveal .slides section {
+        padding: 20px 28px;
+        box-sizing: border-box;
+        overflow: auto;
+      }
+
+      /* Images are always capped to the visible slide area */
+      .reveal section img {
+        max-width: 100%;
+        max-height: 50vh;
+        object-fit: contain;
+      }
+    </style>
 </head>
 <body>
 <div class="reveal">
