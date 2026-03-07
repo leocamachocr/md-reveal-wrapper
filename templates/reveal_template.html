@@ -42,78 +42,9 @@
     <link rel="stylesheet" href="assets/base.css">
 
     <!-- Reveal.js Scripts -->
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js">
-  // ====== Stabilize vertical position across fragment reveals ======
-  function captureStableTop(slide){
-    if(!slide) return;
-    // Prefer inline top set by Reveal; if missing, read computed value
-    const inlineTop = slide.style.top && slide.style.top.trim();
-    const computedTop = window.getComputedStyle(slide).top;
-    slide.dataset.stableTop = inlineTop || computedTop;
-  }
-  function restoreStableTop(slide){
-    if(!slide) return;
-    const t = slide.dataset.stableTop;
-    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
-  }
-
-  // Capture on ready and on slide change
-  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
-
-  // On fragment shown/hidden, keep the same top to avoid vertical jump
-  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-
-</script>
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js">
-  // ====== Stabilize vertical position across fragment reveals ======
-  function captureStableTop(slide){
-    if(!slide) return;
-    // Prefer inline top set by Reveal; if missing, read computed value
-    const inlineTop = slide.style.top && slide.style.top.trim();
-    const computedTop = window.getComputedStyle(slide).top;
-    slide.dataset.stableTop = inlineTop || computedTop;
-  }
-  function restoreStableTop(slide){
-    if(!slide) return;
-    const t = slide.dataset.stableTop;
-    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
-  }
-
-  // Capture on ready and on slide change
-  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
-
-  // On fragment shown/hidden, keep the same top to avoid vertical jump
-  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-
-</script>
-    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js">
-  // ====== Stabilize vertical position across fragment reveals ======
-  function captureStableTop(slide){
-    if(!slide) return;
-    // Prefer inline top set by Reveal; if missing, read computed value
-    const inlineTop = slide.style.top && slide.style.top.trim();
-    const computedTop = window.getComputedStyle(slide).top;
-    slide.dataset.stableTop = inlineTop || computedTop;
-  }
-  function restoreStableTop(slide){
-    if(!slide) return;
-    const t = slide.dataset.stableTop;
-    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
-  }
-
-  // Capture on ready and on slide change
-  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
-
-  // On fragment shown/hidden, keep the same top to avoid vertical jump
-  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-
-</script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/reveal.min.js"></script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/highlight/highlight.js"></script>
+    <script src="{{ reveal_cdn }}/{{ reveal_version }}/plugin/math/math.min.js"></script>
 
     {% if custom_theme %}
     <link rel="stylesheet" href="assets/{{ custom_theme }}">
@@ -133,6 +64,22 @@
         max-width: 100%;
         max-height: 50vh;
         object-fit: contain;
+      }
+
+      /* Fragment animation: opacity-only, prevent repaint-on-show glitch.
+         Reveal.js uses visibility:hidden which forces a full repaint of the
+         compositing layer when a fragment becomes visible — perceived as the
+         whole slide "re-rendering". Using opacity:0 instead means only a
+         GPU composite operation is needed; no repaint, no jump. */
+      .reveal .slides section .fragment {
+        opacity: 0;
+        visibility: visible;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .reveal .slides section .fragment.visible {
+        opacity: 1;
+        pointer-events: auto;
       }
     </style>
 </head>
@@ -444,27 +391,6 @@
         adjustFontToFit(event.currentSlide);
     });
 
-  // ====== Stabilize vertical position across fragment reveals ======
-  function captureStableTop(slide){
-    if(!slide) return;
-    // Prefer inline top set by Reveal; if missing, read computed value
-    const inlineTop = slide.style.top && slide.style.top.trim();
-    const computedTop = window.getComputedStyle(slide).top;
-    slide.dataset.stableTop = inlineTop || computedTop;
-  }
-  function restoreStableTop(slide){
-    if(!slide) return;
-    const t = slide.dataset.stableTop;
-    if(t){ requestAnimationFrame(()=>{ slide.style.top = t; }); }
-  }
-
-  // Capture on ready and on slide change
-  Reveal.on('ready', e => { captureStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('slidechanged', e => { captureStableTop(e.currentSlide); });
-
-  // On fragment shown/hidden, keep the same top to avoid vertical jump
-  Reveal.on('fragmentshown', () => { restoreStableTop(Reveal.getCurrentSlide()); });
-  Reveal.on('fragmenthidden', () => { restoreStableTop(Reveal.getCurrentSlide()); });
 
 </script>
 </body>

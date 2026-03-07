@@ -270,6 +270,23 @@
   max-height: 45vh;
 }
 
+/* ------ Fragment animation ------ */
+/* Override Reveal.js fragment defaults:
+   visibility:hidden → repaint on the whole compositing layer when shown.
+   opacity:0         → GPU composite-only; no repaint, no jump.
+   transition:all    → animates every inherited property on show (layout reflow).
+   transition:opacity→ single GPU property, zero reflow. */
+.reveal .slides section .fragment {
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.reveal .slides section .fragment.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ------ Responsive ------ */
 @media (max-width: 768px) {
   .reveal section               { font-size: 16px; }
