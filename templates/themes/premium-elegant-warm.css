@@ -58,10 +58,10 @@ body,
   line-height: 1.15;
 }
 
-.reveal h1 { font-size: 3.6rem; }
-.reveal h2 { font-size: 2.4rem; }
-.reveal h3 { font-size: 1.8rem; font-weight: 400; }
-.reveal h4 { font-size: 1.3rem; font-weight: 400; }
+.reveal h1 { font-size: 4.5rem; }
+.reveal h2 { font-size: 3.2rem; }
+.reveal h3 { font-size: 2.5rem; font-weight: 400; }
+.reveal h4 { font-size: 2.0rem; font-weight: 400; }
 
 .reveal section p,
 .reveal section li {
