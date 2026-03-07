@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --bg:           #FFFFFF;
+  --bg-alt:       #F8F8F8;
+  --accent:       #000000;
+  --accent-soft:  #E5E5E5;
+  --text:         #111111;
+  --text-muted:   #777777;
+  --border:       #E0E0E0;
+}
+
+/* ── ESCALA BASE ── */
+html {
+  font-size: 22px;
+}
+
+/* ── BASE ── */
+body,
+.reveal-viewport {
+  background: var(--bg);
+}
+
+.reveal {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.reveal .slides section {
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+}
+
+/* ── TIPOGRAFÍA ── */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.5em;
+  color: var(--text);
+}
+
+.reveal h1 {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.reveal h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.reveal h2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.reveal h3 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.reveal h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.reveal section p,
+.reveal section li {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.reveal strong {
+  font-weight: 500;
+}
+
+.reveal em {
+  font-style: italic;
+}
+
+/* ── LISTAS ── */
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 1.6em;
+}
+
+.reveal ul li::before {
+  content: '—';
+  color: var(--text-muted);
+  position: absolute;
+  left: 0;
+  margin-right: 10px;
+}
+
+.reveal ol {
+  padding-left: 1.6em;
+}
+
+/* ── LINKS ── */
+.reveal a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.reveal a:hover {
+  opacity: 0.7;
+}
+
+/* ── HR ── */
+.reveal hr {
+  border: none;
+  border-top: 1px solid var(--accent);
+  margin: 2em 0;
+}
+
+/* ── BLOCKQUOTES ── */
+.reveal blockquote {
+  margin: 2em 0 2em 2em;
+  font-size: 1.2em;
+  font-style: italic;
+  color: var(--text-muted);
+  border: none;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  width: auto;
+  position: relative;
+}
+
+.reveal blockquote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 3em;
+  color: var(--accent-soft);
+  float: left;
+  margin-right: 12px;
+  line-height: 0.7;
+}
+
+.reveal blockquote.info {
+  background: transparent;
+  border-top: 1px solid var(--accent-soft);
+  border-bottom: 1px solid var(--accent-soft);
+  padding: 12px 0;
+  margin-left: 0;
+}
+
+.reveal blockquote.info::before {
+  display: none;
+}
+
+.reveal blockquote.warning {
+  background: transparent;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 12px 0;
+  margin-left: 0;
+}
+
+.reveal blockquote.warning::before {
+  display: none;
+}
+
+.reveal blockquote.tip {
+  background: transparent;
+  border-top: 1px solid #BDBDBD;
+  border-bottom: 1px solid #BDBDBD;
+  padding: 12px 0;
+  margin-left: 0;
+}
+
+.reveal blockquote.tip::before {
+  display: none;
+}
+
+/* ── CÓDIGO ── */
+.reveal code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 300;
+  font-size: 0.82em;
+  background: var(--bg-alt);
+  padding: 1px 5px;
+  border-radius: 0;
+  color: var(--text);
+}
+
+.reveal pre {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+  margin: 1em 0;
+}
+
+.reveal pre code {
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+/* ── TABLAS ── */
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Lora', serif;
+}
+
+.reveal th {
+  border-bottom: 2px solid var(--accent);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  text-align: left;
+  padding: 8px 12px;
+  color: var(--text);
+}
+
+.reveal td {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 1.1rem;
+}
+
+/* ── PROGRESS BAR ── */
+.reveal .progress {
+  background: var(--accent-soft);
+}
+
+.reveal .progress span {
+  background: var(--accent);
+}
+
+/* ── BREADCRUMB ── */
+.header-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--accent);
+  padding: 6px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.crumb-text {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crumb-separator {
+  color: var(--text-muted);
+  margin: 0 8px;
+}
+
+/* ── LIGHTBOX ── */
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.image-overlay img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── SCROLL EN SLIDE ── */
+.slide-content {
+  overflow: auto;
+  max-height: 100%;
+}
+
+/* ── FRAGMENTS ── */
+.reveal .slides section .fragment {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.reveal .slides section .fragment.visible {
+  opacity: 1;
+}

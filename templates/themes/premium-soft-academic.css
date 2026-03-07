@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --bg:           #FAFAFA;
+  --bg-alt:       #F0F4FF;
+  --bg-section:   #4361EE;
+  --accent:       #4361EE;
+  --accent-2:     #F72585;
+  --accent-3:     #4CC9F0;
+  --text:         #212529;
+  --text-muted:   #6C757D;
+  --card-bg:      #FFFFFF;
+  --border:       #DEE2E6;
+}
+
+/* ── ESCALA BASE ── */
+html {
+  font-size: 22px;
+}
+
+/* ── BASE ── */
+body,
+.reveal-viewport {
+  background: var(--bg);
+}
+
+.reveal {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.reveal .slides section {
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+}
+
+/* ── TIPOGRAFÍA ── */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.reveal h1 {
+  font-size: 3rem;
+  color: var(--accent);
+}
+
+.reveal h2 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.reveal h3 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+
+.reveal h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.reveal section p,
+.reveal section li {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.reveal strong {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.reveal em {
+  font-style: italic;
+  color: var(--accent-2);
+}
+
+/* ── LISTAS ── */
+.reveal ul {
+  list-style: none;
+  padding-left: 1.4em;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 0.4em;
+}
+
+.reveal ul li::before {
+  content: '●';
+  color: var(--accent);
+  font-size: 0.55em;
+  vertical-align: middle;
+  position: absolute;
+  left: -1.2em;
+  top: 0.55em;
+  margin-right: 8px;
+}
+
+.reveal ol {
+  padding-left: 1.6em;
+}
+
+/* ── LINKS ── */
+.reveal a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(67, 97, 238, 0.3);
+}
+
+.reveal a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* ── BLOCKQUOTES ── */
+.reveal blockquote {
+  background: var(--bg-alt);
+  border-top: 4px solid var(--accent);
+  border-left: none;
+  padding: 16px 20px;
+  border-radius: 0 0 6px 6px;
+  color: var(--text-muted);
+  font-style: normal;
+  margin: 1em 0;
+  width: auto;
+  box-shadow: none;
+}
+
+.reveal blockquote.info {
+  border-top-color: var(--accent-3);
+  background: #EFF9FD;
+}
+
+.reveal blockquote.warning {
+  border-top-color: var(--accent-2);
+  background: #FFF5F7;
+}
+
+.reveal blockquote.tip {
+  border-top-color: #40C057;
+  background: #F4FCF6;
+}
+
+/* ── CÓDIGO ── */
+.reveal code {
+  font-family: monospace;
+  font-size: 0.85em;
+  background: var(--bg-alt);
+  color: var(--accent);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.reveal pre {
+  background: #1C1C2E;
+  border-radius: 8px;
+  box-shadow: none;
+  margin: 1em 0;
+}
+
+.reveal pre code {
+  background: transparent;
+  color: #E2E8F0;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.82rem;
+}
+
+/* ── TABLAS ── */
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reveal th {
+  background: var(--bg-alt);
+  color: var(--accent);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.reveal td {
+  border-bottom: 1px solid var(--border);
+  padding: 9px 12px;
+  font-size: 1.05rem;
+}
+
+/* ── NÚMERO DE SLIDE ── */
+.reveal .slide-number {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.65rem;
+}
+
+/* ── PROGRESS BAR ── */
+.reveal .progress {
+  background: rgba(67, 97, 238, 0.15);
+}
+
+.reveal .progress span {
+  background: var(--accent);
+}
+
+/* ── CONTROLES ── */
+.reveal .controls {
+  color: var(--accent);
+}
+
+/* ── BREADCRUMB ── */
+.header-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  background: #fff;
+  border-bottom: 2px solid var(--accent);
+  padding: 6px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.crumb-text {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crumb-separator {
+  color: var(--accent-2);
+  margin: 0 6px;
+}
+
+/* ── LIGHTBOX ── */
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.image-overlay img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── SCROLL EN SLIDE ── */
+.slide-content {
+  overflow: auto;
+  max-height: 100%;
+}
+
+/* ── FRAGMENTS ── */
+.reveal .slides section .fragment {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.reveal .slides section .fragment.visible {
+  opacity: 1;
+}

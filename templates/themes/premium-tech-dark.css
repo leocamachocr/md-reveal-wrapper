@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  --bg:           #0F1117;
+  --bg-panel:     #1A1D27;
+  --bg-hover:     #1E2130;
+  --accent:       #64FFDA;
+  --accent-2:     #BB86FC;
+  --accent-3:     #FFB74D;
+  --text:         #E2E8F0;
+  --text-muted:   #718096;
+  --border:       rgba(255, 255, 255, 0.07);
+}
+
+/* ── ESCALA BASE ── */
+html {
+  font-size: 22px;
+}
+
+/* ── BASE ── */
+body,
+.reveal-viewport,
+.reveal {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.reveal {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+}
+
+.reveal .slides section {
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+}
+
+/* ── PORTADA: patrón de puntos ── */
+.reveal .slides section:first-child,
+.reveal .slides section.slide-cover {
+  background-image: radial-gradient(circle, rgba(100, 255, 218, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── TIPOGRAFÍA ── */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5em;
+  line-height: 1.15;
+}
+
+.reveal h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.reveal h1::before {
+  content: '> ';
+  color: var(--accent);
+  font-size: 0.7em;
+}
+
+.reveal h2 {
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.reveal h2::before {
+  content: '// ';
+  color: var(--text-muted);
+  font-size: 0.75em;
+}
+
+.reveal h3 {
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--accent-2);
+}
+
+.reveal h4 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.reveal section p,
+.reveal section li {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.reveal strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.reveal em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ── LISTAS ── */
+.reveal ul {
+  list-style: none;
+  padding-left: 1.4em;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 0.2em;
+}
+
+.reveal ul li::before {
+  content: '❯';
+  color: var(--accent);
+  font-size: 0.7em;
+  position: absolute;
+  left: -1.2em;
+  top: 0.2em;
+}
+
+.reveal ol {
+  padding-left: 1.6em;
+}
+
+/* ── LINKS ── */
+.reveal a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(100, 255, 218, 0.3);
+}
+
+.reveal a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* ── BLOCKQUOTES ── */
+.reveal blockquote {
+  border-left: 2px solid var(--accent);
+  background: rgba(100, 255, 218, 0.04);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 0.85em;
+  padding: 12px 20px;
+  margin: 1em 0;
+  width: auto;
+  box-shadow: none;
+  font-style: normal;
+}
+
+.reveal blockquote.info {
+  border-left-color: var(--accent-2);
+  background: rgba(187, 134, 252, 0.06);
+}
+
+.reveal blockquote.warning {
+  border-left-color: #FF5370;
+  background: rgba(255, 83, 112, 0.06);
+}
+
+.reveal blockquote.tip {
+  border-left-color: var(--accent-3);
+  background: rgba(255, 183, 77, 0.06);
+}
+
+/* ── CÓDIGO ── */
+.reveal code {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 0.85em;
+  background: rgba(100, 255, 218, 0.08);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.reveal pre {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: none;
+  margin: 1em 0;
+}
+
+.reveal pre code {
+  background: transparent;
+  color: var(--text);
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.8rem;
+}
+
+/* ── TABLAS ── */
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reveal th {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 12px;
+}
+
+.reveal td {
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 9px 12px;
+  font-size: 1rem;
+}
+
+/* ── CURSOR EN PRIMERA SLIDE ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.reveal .slides section:first-child h1::after {
+  content: '█';
+  color: var(--accent);
+  font-size: 0.7em;
+  margin-left: 4px;
+  animation: blink 1.2s step-end infinite;
+}
+
+/* ── PROGRESS BAR ── */
+.reveal .progress {
+  background: rgba(100, 255, 218, 0.15);
+}
+
+.reveal .progress span {
+  background: var(--accent);
+}
+
+/* ── CONTROLES ── */
+.reveal .controls {
+  color: var(--accent);
+}
+
+/* ── BREADCRUMB ── */
+.header-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  background: rgba(15, 17, 23, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 6px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.crumb-text {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crumb-separator {
+  color: var(--accent);
+  margin: 0 6px;
+}
+
+/* ── LIGHTBOX ── */
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.image-overlay img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── SCROLL EN SLIDE ── */
+.slide-content {
+  overflow: auto;
+  max-height: 100%;
+}
+
+/* ── FRAGMENTS ── */
+.reveal .slides section .fragment {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.reveal .slides section .fragment.visible {
+  opacity: 1;
+}
