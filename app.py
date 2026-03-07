@@ -96,6 +96,11 @@ def _make_handler(live_server: "LiveServer") -> type:
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
+            # Prevent the browser from sending a Referer header when loading
+            # external resources (images, fonts, etc.). Without this, CDNs with
+            # hotlink protection return 403 because they see an unknown referer
+            # (http://127.0.0.1:<port>) instead of the expected file:// origin.
+            self.send_header("Referrer-Policy", "no-referrer")
             self.end_headers()
             self.wfile.write(data)
 
